@@ -10,22 +10,22 @@ class Base(ABC):
         pass
 
     @abstractmethod
-    def buy(self):
+    def buy(self, code, shares, price=None, msg=None):
         """ 买入做多 """
         pass
 
     @abstractmethod
-    def sell(self):
+    def sell(self, code, shares, price=None, msg=None):
         """ 卖出平多 """
         pass
 
     @abstractmethod
-    def sellshort(self):
+    def sellshort(self, code, shares, price=None, msg=None):
         """ 卖出做空 """
         pass
 
     @abstractmethod
-    def buytocover(self):
+    def buytocover(self, code, shares, price=None, msg=None):
         """ 买入平空 """
         pass
 
@@ -68,6 +68,42 @@ class BackTestBroker(Base):
     backtest    2012-01-30  8
     """
 
+    """
+    # 订单结构
+    Parameters
+    ---------
+    code : str
+        股票代码
+    price : float or None
+        最高可买入的价格, 如果为None则按市价买入
+    shares : int
+        买入股票数量
+    msg : str
+        额外的信息, 用于跟踪买入的原因
+
+    Returns
+    ---------
+    dict
+         {
+            "id": 订单ID,
+            "type": 订单类型, "buy",
+            "code": 股票代码,
+            "date": 提交日期,
+            "shares": 目标股份数量,
+            "price": 目标价格,
+            "done": 是否完成, 默认为False,
+            "msg": 买入信号一,
+            "deal_lst": 交易成功的历史数据，如
+                [{
+                  "open_id": 订单ID,
+                  "open_price": 成交价格,
+                  "open_date": 成交时间,
+                  "commission": 交易手续费,
+                  "shares": 成交份额
+                }]
+            ""
+        }
+    """
     def __init__(self, cash, cm_rate=0.0014, deal_price="close"):
         """
         postion: {
@@ -169,38 +205,12 @@ class BackTestBroker(Base):
             if not self.ctx.bt.before_trade(order):
                 return
 
-            # total_pos_shares = sum([pos["shares"] for pos in self.position[order_code]])
-            # if order_shares >= total_pos_shares:
-            #     order_shares -= total_pos_shares
-
-            #     if order_shares == 0:
-            #         order["ttl"] == 0
-
-            #     for pos in self.position[order_code]:
-            #         pass
-
-            #     # order["deal_lst"].extend(deal_lst)
-            #     self.position.pop(order_code)
-            #     self.ctx.bt.on_order_ok(order)
-
             tmp = order_shares
             deal_lst = []
             commission = 0
             new_pos_lst = []
             for pos in self.position[order_code]:
-                time_diff = order["date"] - pos["open_date"]
-                # 15:00 - 09:30 = 19800 secs
-                # A股T+1交易
-                if time_diff.total_seconds() <= 19800:
-                    return
-
                 if tmp == 0:
-                    new_pos_lst.append(pos)
-                    continue
-
-                time_diff = self.ctx.now - pos["open_date"]
-                # 防止对当天完成的交易进行交易
-                if time_diff.total_seconds() <= 19800:
                     new_pos_lst.append(pos)
                     continue
 
@@ -264,6 +274,45 @@ class BackTestBroker(Base):
             order["deal_lst"].extend(deal_lst)
             self.ctx.bt.on_order_ok(order)
 
+        elif order["type"] == "sellshort" and order_price <= stock_price:
+            trade_price = stock_price
+            cost = trade_price * order["shares"]
+            commission = cost * self.cm_rate
+            if commission < 5:
+                commission = 5
+
+            # if cost + commission > self.cash:
+            #     # TODO:
+            #     # 完成部分成交逻辑
+            #     self.logger.info("{}: 资金余额不足".format(trade_time))
+            #     return
+
+            # 符合条件开始交易
+            if not self.ctx.bt.before_trade(order):
+                return
+
+            deal = {"open_id": order["id"],
+                    "open_price": stock_price,
+                    "open_date": self.ctx.now,
+                    "commission": commission,
+                    "shares": order["shares"]}
+
+            pos = {"open_id": order["id"],
+                   "open_price": stock_price,
+                   "open_date": self.ctx.now,
+                   "shares": order["shares"]}
+
+            self.cash = self.cash + cost - commission
+            order["deal_lst"].append(deal)
+            self.position[order_code].append(pos)
+
+            order["ttl"] = 0
+            order["done"] = True
+            self.ctx.bt.on_order_ok(order)
+
+        elif order["type"] == "buytocover" and order_price >= stock_price and order_code in self.position:
+            pass
+
     @property
     def stock_value(self):
         value = 0
@@ -295,49 +344,10 @@ class BackTestBroker(Base):
         self.order_hist_lst.append(order)
 
     def buy(self, code, shares, price=None, msg=None):
-        # TODO:
-        # 设置可用资金或者是订单提交过程同步, 不然会有提交过多的购买订单，而没有现金购买
-        """
-        提交买入订单
-
-        Parameters
-        ---------
-        code : str
-            股票代码
-        price : float or None
-            最高可买入的价格, 如果为None则按市价买入
-        shares : int
-            买入股票数量
-        msg : str
-            额外的信息, 用于跟踪买入的原因
-
-        Returns
-        ---------
-        dict
-             {
-                "id": 订单ID,
-                "type": 订单类型, "buy",
-                "code": 股票代码,
-                "date": 提交日期,
-                "shares": 目标股份数量,
-                "price": 目标价格,
-                "done": 是否完成, 默认为False,
-                "msg": 买入信号一,
-                "deal_lst": 交易成功的历史数据，如
-                    [{
-                      "open_id": 订单ID,
-                      "open_price": 成交价格,
-                      "open_date": 成交时间,
-                      "commission": 交易手续费,
-                      "shares": 成交份额
-                    }]
-                ""
-            }
-        """
         if shares % 100 != 0:
-            raise ValueError("买入股票数量只能是100的整数倍")
+            raise ValueError("买入开仓数量只能是100的整数倍")
         if shares <= 0:
-            raise ValueError("买入股票数量必须大于0")
+            raise ValueError("买入开仓股票数量必须大于0")
 
         self._id += 1
         if price is None:
@@ -354,66 +364,24 @@ class BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{} 柜台接受[{}]买入委托".format(self.ctx["now"], code))
+        self.logger.info("{trade_time} 柜台接受[{stock_code}]买入委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
         return order
 
     def sell(self, code, shares, price=None, msg=None):
-        """
-        提交卖出订单
-
-        Parameters
-        ---------
-        code : str
-            股票代码
-        price : float or None
-            最低可卖出的价格, 如果为None则按市价卖出
-        shares : int
-            卖出股票数量
-        msg : str
-            额外的信息, 用于跟踪卖出的原因
-
-        Returns
-        ---------
-        dict
-             {
-                "id": 订单ID,
-                "type": 订单类型, "sell",
-                "code": 股票代码,
-                "date": 提交日期,
-                "shares": 目标股份数量,
-                "init_shares": 最初请求交易份额,
-                "price": 目标价格,
-                "done": 是否完成, 默认为False,
-                "msg": 卖出信号一,
-                "deal_lst": 交易成功的历史数据，如
-                    [{
-                      "open_id": 开仓订单ID,
-                      "open_price": 开仓价格,
-                      "open_date": 持仓时间,
-                      "close_price": 成交价格,
-                      "close_date": 成交时间,
-                      "close_id": 平仓订单ID,
-                      "commission": 交易手续费,
-                      "shares": 成交份额,
-                      "profit": 交易收益}]
-                ""
-            }
-        """
         if shares % 100 != 0:
-            raise ValueError("买入股票数量只能是100的整数倍")
+            raise ValueError("卖出平仓股票数量只能是100的整数倍")
+
+        if shares <= 0:
+            raise ValueError("卖出平仓股票数量必须大于0")
 
         if code not in self.position:
-            return
-
-        pos_date_lst = [pos["open_date"] for pos in self.position[code]]
-        time_diff = self.ctx.now - min(pos_date_lst)
-        # if time_diff.total_seconds() <= 21600:
-        #     return
+            raise ValueError("{stock_code}并未持多仓，平多失败".format(stock_code=code))
 
         self._id += 1
         if price is None:
             price = self.ctx.latest_price[code]
+
         order = {
             "id": self._id,
             "type": "sell",
@@ -426,33 +394,65 @@ class BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{} 柜台接受[{}]卖出委托".format(self.ctx["now"], code))
+        self.logger.info("{trade_time} 柜台接受[{stock_code}]卖出委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
         return order
 
-    def sell_all(self, code, **kwargs):
-        """
-        清空所有持仓
+    def sellshort(self, code, shares, price=None, msg=None):
+        if shares % 100 != 0:
+            raise ValueError("卖空开仓股票数量只能是100的整数倍")
 
-        Parameters
-        ---------
-        Parameters:
-        code:str
-            股票代码
-        price:float or None
-            最低可卖出的价格, 如果为None则按市价卖出
-        kwargs:
-            传递给sell的函数
+        if shares <= 0:
+            raise ValueError("卖空开仓股票数量必须大于0")
 
-        Returns
-        ---------
-        dict
-            返回提交的订单
+        self._id += 1
+        if price is None:
+            price = self.ctx.latest_price[code]
 
-        """
-        if code in self.position:
-            shares = self.get_shares(code)
-            return self.sell(code, shares, **kwargs)
+        order = {
+            "id": self._id,
+            "type": "sellshort",
+            "code": code,
+            "date": self.ctx.now,
+            "msg": msg,
+            "shares": shares,
+            "price": price,
+            "done": False,
+            "deal_lst": []
+        }
+        self.logger.info("{trade_time} 柜台接受[{stock_code}]卖空委托".format(trade_time=self.ctx["now"], stock_code=code))
+        self.execute(order)
+        return order
+
+    def buytocover(self, code, shares, price=None, msg=None):
+        if shares % 100 != 0:
+            raise ValueError("买入平仓股票数量只能是100的整数倍")
+
+        if shares <= 0:
+            raise ValueError("买入平仓股票数量必须大于0")
+
+        if code not in self.position:
+            raise ValueError("{stock_code}并未持空仓，平空失败".format(stock_code=code))
+
+        self._id += 1
+        if price is None:
+            price = self.ctx.latest_price[code]
+        order = {
+            "id": self._id,
+            "type": "buytocover",
+            "code": code,
+            "date": self.ctx.now,
+            "msg": msg,
+            "shares": shares,
+            "init_shares": shares,
+            "price": price,
+            "done": False,
+            "deal_lst": []
+        }
+        self.logger.info("{trade_time} 柜台接受[{stock_code}]平空委托".format(trade_time=self.ctx["now"], stock_code=code))
+        self.execute(order)
+
+        return order
 
     # def stop_loss(self, code, price):
     #     """止损
