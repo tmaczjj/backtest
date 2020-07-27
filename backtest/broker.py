@@ -547,7 +547,7 @@ class T0BackTestBroker(Base):
             ""
         }
     """
-    def __init__(self, cash, cm_rate=0.0014, deal_price="close"):
+    def __init__(self, cash, cm_rate=0.0007, deal_price="close"):
         """
         postion: {
                 "code": [{
@@ -719,7 +719,7 @@ class T0BackTestBroker(Base):
 
         elif order["type"] == "sellshort" and order_price <= stock_price:
             trade_price = stock_price
-            cost = trade_price * order["shares"]
+            cost = -1 * trade_price * order["shares"]
             commission = cost * self.cm_rate
             if commission < 5:
                 commission = 5
@@ -754,7 +754,79 @@ class T0BackTestBroker(Base):
             self.ctx.bt.on_order_ok(order)
 
         elif order["type"] == "buytocover" and order_price >= stock_price and order_code in self.position:
-            pass
+            trade_price = stock_price
+            # 符合条件开始交易
+            if not self.ctx.bt.before_trade(order):
+                return
+
+            tmp = -1 * order_shares
+            deal_lst = []
+            commission = 0
+            new_pos_lst = []
+            for pos in self.position[order_code]:
+                if tmp == 0:
+                    new_pos_lst.append(pos)
+                    continue
+
+                if pos["shares"] >= tmp:
+                    # 计算手续费等
+                    new_cash = pos["shares"] * trade_price
+                    commission += abs(new_cash * self.cm_rate)
+                    deal_lst.append({
+                        "open_id": pos["open_id"],
+                        "open_price": pos["open_price"],
+                        "open_date": pos["open_date"],
+                        "close_id": order["id"],
+                        "close_price": trade_price,
+                        "close_date": self.ctx.now,
+                        "commission": None,
+                        "shares": abs(pos["shares"]),
+                        "profit": None})
+
+                    tmp -= pos["shares"]
+                else:
+                    # 计算手续费等
+                    new_cash = tmp * trade_price
+                    commission += new_cash * self.cm_rate
+                    deal_lst.append({
+                        "open_id": pos["open_id"],
+                        "open_price": pos["open_price"],
+                        "open_date": pos["open_date"],
+                        "close_id": order["id"],
+                        "close_price": trade_price,
+                        "close_date": self.ctx.now,
+                        "commission": None,
+                        "shares": tmp,
+                        "profit": None})
+
+                    pos["shares"] -= tmp
+                    tmp = 0
+                    new_pos_lst.append(pos)
+
+            # 防止刚好仓位为0并且tmp == 0
+            if tmp == 0:
+                order["ttl"] = 0
+                order["done"] = True
+
+            if new_pos_lst:
+                self.position[order_code] = new_pos_lst
+            else:
+                self.position.pop(order_code)
+
+            order["shares"] = tmp
+            if commission < 5:
+                commission = 5
+
+            deal_shares = sum([deal["shares"] for deal in deal_lst])
+            for deal in deal_lst:
+                deal["commission"] = commission * (deal["shares"] / deal_shares)
+                deal["profit"] = (deal["open_price"] - deal["close_price"]) * deal["shares"] - deal["commission"]
+                new_cash = deal["shares"] * deal["close_price"]
+                self.cash = self.cash - new_cash
+
+            self.cash -= commission
+            order["deal_lst"].extend(deal_lst)
+            self.ctx.bt.on_order_ok(order)
 
     @property
     def stock_value(self):
@@ -763,7 +835,6 @@ class T0BackTestBroker(Base):
             latest_price = self.ctx.latest_price[code]
             for pos in self.position[code]:
                 value += pos["shares"] * latest_price
-
         return value
 
     @property
@@ -858,7 +929,7 @@ class T0BackTestBroker(Base):
             "code": code,
             "date": self.ctx.now,
             "msg": msg,
-            "shares": shares,
+            "shares": -1 * shares,
             "price": price,
             "done": False,
             "deal_lst": []

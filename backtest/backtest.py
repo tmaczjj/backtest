@@ -160,7 +160,7 @@ class BackTest(ABC):
                 开启统计功能, 默认开启
     """
 
-    def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker_name=None, enable_stat=True):
+    def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker=None, enable_stat=True):
         print("- * - * - * - * - * 回测系统启动 - * - * - * - * - *")
         self.startdate = startdate
         self.enddate = enddate
@@ -169,7 +169,7 @@ class BackTest(ABC):
         self.stocklist = stocklist
 
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
-        broker = broker_name
+        broker = broker
 
         # 设置backtest, broker对象, 以及将自身实例放在调度器的runner_list中
         self._sch.add_runner(self)

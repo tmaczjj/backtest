@@ -5,7 +5,7 @@ import sys
 
 class MyBackTest(BackTest):
     def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker=None, enable_stat=True):
-        super().__init__(stocklist, startdate, enddate, cash=100000, broker=None, enable_stat=True)
+        super().__init__(stocklist, startdate, enddate, cash=cash, broker=broker, enable_stat=enable_stat)
         self.Symbols = []
         self.last_tick = None
 
@@ -31,10 +31,11 @@ class MyBackTest(BackTest):
                     stockHoldInfo = holdposition[code][0]
                     if time_end <= tick_time:
                         holdNum = int(stockHoldInfo["shares"])
-                        self.ctx.broker.sell(code, holdNum, hist.BidPrice1)
+                        self.ctx.broker.buytocover(code, abs(holdNum), hist.BidPrice1)
                 if time_start >= tick_time:
                     if code not in holdposition:
-                        self.ctx.broker.buy(code, 500, hist.AskPrice1)
+                        # self.ctx.broker.buy(code, 500, hist.AskPrice1)
+                        self.ctx.broker.sellshort(code, 500, hist.AskPrice1)
 
             # if hist["ma10"] > 1.05 * hist["ma20"]:
 
