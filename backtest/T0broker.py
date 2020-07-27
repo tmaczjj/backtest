@@ -11,10 +11,22 @@ class Base(ABC):
 
     @abstractmethod
     def buy(self):
+        """ 买入做多 """
         pass
 
     @abstractmethod
     def sell(self):
+        """ 卖出平多 """
+        pass
+
+    @abstractmethod
+    def sellshort(self):
+        """ 卖出做空 """
+        pass
+
+    @abstractmethod
+    def buytocover(self):
+        """ 买入平空 """
         pass
 
     @abstractmethod
