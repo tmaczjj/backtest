@@ -5,7 +5,7 @@ import datetime
 import json
 from reporter import Plotter
 from strategy.MyBackTest import MyBackTest
-
+from backtest import T0broker
 
 if __name__ == '__main__':
     from utils import load_hist_mongo
@@ -15,8 +15,8 @@ if __name__ == '__main__':
     lista = []
     lista.append("000002")
     lista.append("600859")
-
-    mytest = MyBackTest(lista, start_date, end_date)
+    T0_broker = T0broker.T0BackTestBroker(cash=100000, deal_price="AskPrice1")
+    mytest = MyBackTest(lista, start_date, end_date, broker=T0_broker)
     mytest.start()
     order_lst = mytest.ctx.broker.order_hist_lst
     with open("reporter/order_hist.json", "w") as wf:
