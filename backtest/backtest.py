@@ -45,11 +45,7 @@ class Context(UserDict):
                     # print(bar.iloc[:, 1][self.broker.deal_price])
                     self.latest_price[code] = bar.iloc[:, 1][self.broker.deal_price]
                 if self.latest_price[code] == 0:
-                    if bar["AskPrice1"] == 0:
-                        self.latest_price[code] = bar["BidPrice1"] + 0.01
-                    elif bar["BidPrice1"] == 0:
-                        self.latest_price[code] = bar["AskPrice1"] - 0.01
-
+                    self.latest_price[code] = max(bar["BidPrice1"], bar["AskPrice1"], bar["LastPrice"])
         self["tick_data"] = tick_data
 
 
