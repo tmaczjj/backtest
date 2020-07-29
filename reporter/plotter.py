@@ -49,7 +49,7 @@ class Plotter(object):
 
             for deal in order["deal_lst"]:
                 commission += deal["commission"]
-                if order["type"] == "buy":
+                if order["type"] == "buy" or order["type"] == "sellshort":
                     break
                 profit_lst.append(deal["profit"])
                 close_date = deal["close_date"]
