@@ -21,7 +21,7 @@ class MyBackTest(BackTest):
         time_start = "09:25:00"
         time_end = "14:57:30"
         for code, hist in tick_data.items():
-            # if code in self.Symbols:
+            self.am[code].update(hist)
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
                 if tick_time >= time_end:
@@ -30,7 +30,6 @@ class MyBackTest(BackTest):
             if code not in hold_position:
                 if time_start <= tick_time <= time_end:
                     self.ctx.broker.sellshort(code, 1000, hist.AskPrice1, msg="卖出开仓")
-
 
     def finish(self):
         pass

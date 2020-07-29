@@ -274,69 +274,97 @@ class ArrayManager(object):
         self.size: int = size
         self.inited: bool = False
 
-        self.open_array: np.ndarray = np.zeros(size)
-        self.high_array: np.ndarray = np.zeros(size)
-        self.low_array: np.ndarray = np.zeros(size)
-        self.close_array: np.ndarray = np.zeros(size)
-        self.volume_array: np.ndarray = np.zeros(size)
+        self.last_price_array: np.ndarray = np.zeros(size)
+        self.last_volume_array: np.ndarray = np.zeros(size)
         self.open_interest_array: np.ndarray = np.zeros(size)
+        # 盘口数据初始化
+        self.ask_price1_array: np.ndarray = np.zeros(size)
+        self.ask_price2_array: np.ndarray = np.zeros(size)
+        self.ask_price3_array: np.ndarray = np.zeros(size)
+        self.ask_price4_array: np.ndarray = np.zeros(size)
+        self.ask_price5_array: np.ndarray = np.zeros(size)
+        self.ask_volume1_array: np.ndarray = np.zeros(size)
+        self.ask_volume2_array: np.ndarray = np.zeros(size)
+        self.ask_volume3_array: np.ndarray = np.zeros(size)
+        self.ask_volume4_array: np.ndarray = np.zeros(size)
+        self.ask_volume5_array: np.ndarray = np.zeros(size)
+        self.bid_price1_array: np.ndarray = np.zeros(size)
+        self.bid_price2_array: np.ndarray = np.zeros(size)
+        self.bid_price3_array: np.ndarray = np.zeros(size)
+        self.bid_price4_array: np.ndarray = np.zeros(size)
+        self.bid_price5_array: np.ndarray = np.zeros(size)
+        self.bid_volume1_array: np.ndarray = np.zeros(size)
+        self.bid_volume2_array: np.ndarray = np.zeros(size)
+        self.bid_volume3_array: np.ndarray = np.zeros(size)
+        self.bid_volume4_array: np.ndarray = np.zeros(size)
+        self.bid_volume5_array: np.ndarray = np.zeros(size)
 
-    def update_bar(self, bar) -> None:
-        """
-        Update new bar data into array manager.
-        """
+    def update(self, tick) -> None:
         self.count += 1
         if not self.inited and self.count >= self.size:
             self.inited = True
+        self.ask_price1_array[:-1] = self.ask_price1_array[1:]
+        self.ask_price2_array[:-1] = self.ask_price2_array[1:]
+        self.ask_price3_array[:-1] = self.ask_price3_array[1:]
+        self.ask_price4_array[:-1] = self.ask_price4_array[1:]
+        self.ask_price5_array[:-1] = self.ask_price5_array[1:]
+        self.ask_volume1_array[:-1] = self.ask_volume1_array[1:]
+        self.ask_volume2_array[:-1] = self.ask_volume2_array[1:]
+        self.ask_volume3_array[:-1] = self.ask_volume3_array[1:]
+        self.ask_volume4_array[:-1] = self.ask_volume4_array[1:]
+        self.ask_volume5_array[:-1] = self.ask_volume5_array[1:]
+        self.bid_price1_array[:-1] = self.bid_price1_array[1:]
+        self.bid_price2_array[:-1] = self.bid_price2_array[1:]
+        self.bid_price3_array[:-1] = self.bid_price3_array[1:]
+        self.bid_price4_array[:-1] = self.bid_price4_array[1:]
+        self.bid_price5_array[:-1] = self.bid_price5_array[1:]
+        self.bid_volume1_array[:-1] = self.bid_volume1_array[1:]
+        self.bid_volume2_array[:-1] = self.bid_volume2_array[1:]
+        self.bid_volume3_array[:-1] = self.bid_volume3_array[1:]
+        self.bid_volume4_array[:-1] = self.bid_volume4_array[1:]
+        self.bid_volume5_array[:-1] = self.bid_volume5_array[1:]
+        self.last_price_array[:-1] = self.last_price_array[1:]
+        self.last_volume_array[:-1] = self.last_volume_array[1:]
+        # self.open_interest_array[:-1] = self.open_interest_array[1:]
 
-        self.open_array[:-1] = self.open_array[1:]
-        self.high_array[:-1] = self.high_array[1:]
-        self.low_array[:-1] = self.low_array[1:]
-        self.close_array[:-1] = self.close_array[1:]
-        self.volume_array[:-1] = self.volume_array[1:]
-        self.open_interest_array[:-1] = self.open_interest_array[1:]
+        self.last_price_array[-1] = tick.LastPrice
+        self.last_volume_array[-1] = tick.TradeVolume
+        self.ask_price1_array[-1] = tick.AskPrice1
+        self.ask_price2_array[-1] = tick.AskPrice2
+        self.ask_price3_array[-1] = tick.AskPrice3
+        self.ask_price4_array[-1] = tick.AskPrice4
+        self.ask_price5_array[-1] = tick.AskPrice5
+        self.ask_volume1_array[-1] = tick.AskVolume1
+        self.ask_volume2_array[-1] = tick.AskVolume2
+        self.ask_volume3_array[-1] = tick.AskVolume3
+        self.ask_volume4_array[-1] = tick.AskVolume4
+        self.ask_volume5_array[-1] = tick.AskVolume5
+        self.bid_price1_array[-1] = tick.BidPrice1
+        self.bid_price2_array[-1] = tick.BidPrice2
+        self.bid_price3_array[-1] = tick.BidPrice3
+        self.bid_price4_array[-1] = tick.BidPrice4
+        self.bid_price5_array[-1] = tick.BidPrice5
+        self.bid_volume1_array[-1] = tick.BidVolume1
+        self.bid_volume2_array[-1] = tick.BidVolume2
+        self.bid_volume3_array[-1] = tick.BidVolume3
+        self.bid_volume4_array[-1] = tick.BidVolume4
+        self.bid_volume5_array[-1] = tick.BidVolume5
+        # self.open_interest_array[-1] = tick.open_interest
 
-        self.open_array[-1] = bar.open_price
-        self.high_array[-1] = bar.high_price
-        self.low_array[-1] = bar.low_price
-        self.close_array[-1] = bar.close_price
-        self.volume_array[-1] = bar.volume
-        self.open_interest_array[-1] = bar.open_interest
 
     @property
-    def open(self) -> np.ndarray:
-        """
-        Get open price time series.
-        """
-        return self.open_array
-
-    @property
-    def high(self) -> np.ndarray:
-        """
-        Get high price time series.
-        """
-        return self.high_array
-
-    @property
-    def low(self) -> np.ndarray:
-        """
-        Get low price time series.
-        """
-        return self.low_array
-
-    @property
-    def close(self) -> np.ndarray:
+    def last_price(self) -> np.ndarray:
         """
         Get close price time series.
         """
-        return self.close_array
+        return self.last_price_array
 
     @property
     def volume(self) -> np.ndarray:
         """
         Get trading volume time series.
         """
-        return self.volume_array
+        return self.last_volume_array
 
     @property
     def open_interest(self) -> np.ndarray:
