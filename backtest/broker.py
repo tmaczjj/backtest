@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Author: youerning
-# @Email: 673125641@qq.com
 # from collections import defaultdict
 from abc import ABC, abstractmethod
 from collections import defaultdict

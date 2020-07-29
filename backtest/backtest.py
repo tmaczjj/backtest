@@ -227,13 +227,27 @@ class BackTest(ABC):
         self.on_tick(tick)
         self.after_on_tick(tick)
 
+    def stockFliter(self):
+        """
+        实现每日股票筛选
+        :return:     需要交易的股票
+        """
+        stock_trade_list = []
+        stock_list = self.stocklist
+        for stock in stock_list:
+            if stock:
+                stock_trade_list.append(stock)
+
+        return stock_trade_list
+
     def start(self):
         start_date = self.startdate
         end_date = self.enddate - datetime.timedelta(days=1)
-        tradeDateList = load_tradedate_mongo(start_date=start_date, end_date=end_date)
-        for dt in tradeDateList:
+        trade_date_list = load_tradedate_mongo(start_date=start_date, end_date=end_date)
+        for dt in trade_date_list:
             feed = {}
-            for code, hist in load_hist_mongo(self.stocklist, trade_date=dt):
+            stock_trade_list = self.stockFliter() 
+            for code, hist in load_hist_mongo(stock_trade_list, trade_date=dt):
                 feed[code] = hist.T
             self.info("{}交易日股票数据导入完成".format(dt.strftime("%Y-%m-%d")))
             # 添加交易数据
