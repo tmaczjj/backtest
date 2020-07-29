@@ -29,7 +29,6 @@ class Context(UserDict):
     def set_currnet_time(self, tick):
         """设置回测循环中的当前时间"""
         self["now"] = tick
-
         tick_data = {}
         # 获取当前所有有报价的股票报价
         # 好像没法更快了
