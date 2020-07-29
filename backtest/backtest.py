@@ -211,7 +211,7 @@ class BackTest(ABC):
         """
         return True
 
-    def on_order_ok(self, order):
+    def on_deal(self, order):
         """当订单执行成功后调用"""
         pass
 

@@ -161,27 +161,13 @@ class BackTestBroker(Base):
 
             order["ttl"] = 0
             order["done"] = True
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
         elif order["type"] == "sell" and order_price <= stock_price and order_code in self.position:
             trade_price = stock_price
             # 符合条件开始交易
             if not self.ctx.bt.before_trade(order):
                 return
-
-            # total_pos_shares = sum([pos["shares"] for pos in self.position[order_code]])
-            # if order_shares >= total_pos_shares:
-            #     order_shares -= total_pos_shares
-
-            #     if order_shares == 0:
-            #         order["ttl"] == 0
-
-            #     for pos in self.position[order_code]:
-            #         pass
-
-            #     # order["deal_lst"].extend(deal_lst)
-            #     self.position.pop(order_code)
-            #     self.ctx.bt.on_order_ok(order)
 
             tmp = order_shares
             deal_lst = []
@@ -263,7 +249,7 @@ class BackTestBroker(Base):
 
             self.cash -= commission
             order["deal_lst"].extend(deal_lst)
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
 
     @property
@@ -638,7 +624,7 @@ class T0BackTestBroker(Base):
 
             order["ttl"] = 0
             order["done"] = True
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
         elif order["type"] == "sell" and order_price <= stock_price and order_code in self.position:
             trade_price = stock_price
@@ -713,7 +699,7 @@ class T0BackTestBroker(Base):
 
             self.cash -= commission
             order["deal_lst"].extend(deal_lst)
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
         elif order["type"] == "sellshort" and order_price <= stock_price:
             trade_price = stock_price
@@ -749,7 +735,7 @@ class T0BackTestBroker(Base):
 
             order["ttl"] = 0
             order["done"] = True
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
         elif order["type"] == "buytocover" and order_price >= stock_price and order_code in self.position:
             trade_price = stock_price
@@ -824,7 +810,7 @@ class T0BackTestBroker(Base):
 
             self.cash -= commission
             order["deal_lst"].extend(deal_lst)
-            self.ctx.bt.on_order_ok(order)
+            self.ctx.bt.on_deal(order)
 
     @property
     def stock_value(self):
