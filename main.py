@@ -10,11 +10,11 @@ from backtest import broker
 if __name__ == '__main__':
     from utils import load_hist_mongo
     feed = {}
-    start_date = datetime.datetime(2020, 6, 1)
-    end_date = datetime.datetime(2020, 6, 5)
+    start_date = datetime.datetime(2020, 6, 3)
+    end_date = datetime.datetime(2020, 6, 10)
     lista = []
     lista.append("000002")
-    lista.append("600859")
+    lista.append("002916")
     T0_broker = broker.T0BackTestBroker(cash=100000, deal_price="AskPrice1")
     mytest = MyBackTest(lista, start_date, end_date, broker=T0_broker)
     mytest.start()
