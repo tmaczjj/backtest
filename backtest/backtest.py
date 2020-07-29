@@ -351,7 +351,6 @@ class ArrayManager(object):
         self.bid_volume5_array[-1] = tick.BidVolume5
         # self.open_interest_array[-1] = tick.open_interest
 
-
     @property
     def last_price(self) -> np.ndarray:
         """
@@ -372,3 +371,143 @@ class ArrayManager(object):
         Get trading volume time series.
         """
         return self.open_interest_array
+
+    @property
+    def ask_price1(self) -> np.ndarray:
+        """
+        Get trading ask_price1 time series.
+        """
+        return self.ask_price1_array
+
+    @property
+    def ask_price2(self) -> np.ndarray:
+        """
+        Get trading ask_price2 time series.
+        """
+        return self.ask_price2_array
+
+    @property
+    def ask_price3(self) -> np.ndarray:
+        """
+        Get trading ask_price3 time series.
+        """
+        return self.ask_price3_array
+
+    @property
+    def ask_price4(self) -> np.ndarray:
+        """
+        Get trading ask_price4 time series.
+        """
+        return self.ask_price4_array
+
+    @property
+    def ask_price5(self) -> np.ndarray:
+        """
+        Get trading ask_price5 time series.
+        """
+        return self.ask_price5_array
+
+    @property
+    def bid_price1(self) -> np.ndarray:
+        """
+        Get trading bid_price1 time series.
+        """
+        return self.bid_price1_array
+
+    @property
+    def bid_price2(self) -> np.ndarray:
+        """
+        Get trading bid_price2 time series.
+        """
+        return self.bid_price2_array
+
+    @property
+    def bid_price3(self) -> np.ndarray:
+        """
+        Get trading bid_price3 time series.
+        """
+        return self.bid_price3_array
+
+    @property
+    def bid_price4(self) -> np.ndarray:
+        """
+        Get trading bid_price4 time series.
+        """
+        return self.bid_price4_array
+
+    @property
+    def bid_price5(self) -> np.ndarray:
+        """
+        Get trading bid_price5 time series.
+        """
+        return self.bid_price5_array
+
+    @property
+    def ask_volume1(self) -> np.ndarray:
+        """
+        Get trading ask_volume1 time series.
+        """
+        return self.ask_volume1_array
+
+    @property
+    def ask_volume2(self) -> np.ndarray:
+        """
+        Get trading ask_volume2 time series.
+        """
+        return self.ask_volume2_array
+
+    @property
+    def ask_volume3(self) -> np.ndarray:
+        """
+        Get trading ask_volume3 time series.
+        """
+        return self.ask_volume3_array
+
+    @property
+    def ask_volume4(self) -> np.ndarray:
+        """
+        Get trading ask_volume4 time series.
+        """
+        return self.ask_volume4_array
+
+    @property
+    def ask_volume5(self) -> np.ndarray:
+        """
+        Get trading ask_volume5 time series.
+        """
+        return self.ask_volume5_array
+
+    @property
+    def bid_volume1(self) -> np.ndarray:
+        """
+        Get trading bid_volume1 time series.
+        """
+        return self.bid_volume1_array
+
+    @property
+    def bid_volume2(self) -> np.ndarray:
+        """
+        Get trading bid_volume2 time series.
+        """
+        return self.bid_volume2_array
+
+    @property
+    def bid_volume3(self) -> np.ndarray:
+        """
+        Get trading bid_volume3 time series.
+        """
+        return self.bid_volume3_array
+
+    @property
+    def bid_volume4(self) -> np.ndarray:
+        """
+        Get trading bid_volume4 time series.
+        """
+        return self.bid_volume4_array
+
+    @property
+    def bid_volume5(self) -> np.ndarray:
+        """
+        Get trading bid_volume5 time series.
+        """
+        return self.bid_volume5_array

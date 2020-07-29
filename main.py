@@ -22,7 +22,7 @@ if __name__ == '__main__':
     lista = []
     lista.append("000002")
     lista.append("002916")
-    lista.append("600519")
+    lista.append("002463")
 
     T0_broker = broker.T0BackTestBroker(cash=100000, deal_price="AskPrice1")
     mytest = MyBackTest(lista, start_date, end_date, broker=T0_broker)

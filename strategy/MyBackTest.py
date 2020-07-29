@@ -18,18 +18,20 @@ class MyBackTest(BackTest):
         tick_data = self.ctx["tick_data"]
         hold_position = self.ctx["broker"].position
         tick_time = str(tick.strftime("%H:%M:%S"))
-        time_start = "09:25:00"
+        time_start = "09:35:00"
         time_end = "14:57:30"
-        for code, hist in tick_data.items():
-            self.am[code].update(hist)
+        for code, market_data in tick_data.items():
+            self.am[code].update(market_data)
+            trade_volume = self.am[code].volume[-1]
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
                 if tick_time >= time_end:
                     hold_num = int(stock_hold_info["shares"])
-                    self.ctx.broker.buytocover(code, abs(hold_num), hist.BidPrice1, msg="平空")
+                    self.ctx.broker.buytocover(code, abs(hold_num), market_data.BidPrice1, msg="平空")
             if code not in hold_position:
                 if time_start <= tick_time <= time_end:
-                    self.ctx.broker.sellshort(code, 1000, hist.AskPrice1, msg="卖出开仓")
+                    if trade_volume > 2000:
+                        self.ctx.broker.sellshort(code, 1000, market_data.AskPrice1, msg="卖出开仓")
 
     def finish(self):
         pass
