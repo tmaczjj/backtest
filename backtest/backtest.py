@@ -160,12 +160,13 @@ class BackTest(ABC):
     """
 
     def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker=None, enable_stat=True):
-        print("- * - * - * - * - * 回测系统启动 - * - * - * - * - *")
+        print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
         self.startdate = startdate
         self.enddate = enddate
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
+        print("股票持仓列表{stock_list}".format(stock_list=self.stocklist))
 
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
         broker = broker
@@ -181,7 +182,7 @@ class BackTest(ABC):
     def info(self, msg):
         self._logger.info(msg)
 
-    def add_hook(self, *agrs, **kwargs):
+    def __add_hook(self, *agrs, **kwargs):
         self._sch.add_hook(*agrs, **kwargs)
 
     def initialize(self):
@@ -227,15 +228,16 @@ class BackTest(ABC):
         self.on_tick(tick)
         self.after_on_tick(tick)
 
-    def stockFliter(self):
+    def __stockFliter(self):
         """
         实现每日股票筛选
-        :return:     需要交易的股票
+
+        :return:     list:需要交易的股票
         """
         stock_trade_list = []
         stock_list = self.stocklist
         for stock in stock_list:
-            if stock:
+            if stock.startswith("0"):
                 stock_trade_list.append(stock)
 
         return stock_trade_list
@@ -246,7 +248,8 @@ class BackTest(ABC):
         trade_date_list = load_tradedate_mongo(start_date=start_date, end_date=end_date)
         for dt in trade_date_list:
             feed = {}
-            stock_trade_list = self.stockFliter() 
+            stock_trade_list = self.stocklist = self.__stockFliter()
+            self.info("今日需要交易的股票列表{}".format(stock_trade_list))
             for code, hist in load_hist_mongo(stock_trade_list, trade_date=dt):
                 feed[code] = hist.T
             self.info("{}交易日股票数据导入完成".format(dt.strftime("%Y-%m-%d")))
@@ -262,3 +265,82 @@ class BackTest(ABC):
         回测实例必须实现的方法，并编写自己的交易逻辑
         """
         pass
+
+
+class ArrayManager(object):
+    def __init__(self, size: int = 100):
+        """Constructor"""
+        self.count: int = 0
+        self.size: int = size
+        self.inited: bool = False
+
+        self.open_array: np.ndarray = np.zeros(size)
+        self.high_array: np.ndarray = np.zeros(size)
+        self.low_array: np.ndarray = np.zeros(size)
+        self.close_array: np.ndarray = np.zeros(size)
+        self.volume_array: np.ndarray = np.zeros(size)
+        self.open_interest_array: np.ndarray = np.zeros(size)
+
+    def update_bar(self, bar) -> None:
+        """
+        Update new bar data into array manager.
+        """
+        self.count += 1
+        if not self.inited and self.count >= self.size:
+            self.inited = True
+
+        self.open_array[:-1] = self.open_array[1:]
+        self.high_array[:-1] = self.high_array[1:]
+        self.low_array[:-1] = self.low_array[1:]
+        self.close_array[:-1] = self.close_array[1:]
+        self.volume_array[:-1] = self.volume_array[1:]
+        self.open_interest_array[:-1] = self.open_interest_array[1:]
+
+        self.open_array[-1] = bar.open_price
+        self.high_array[-1] = bar.high_price
+        self.low_array[-1] = bar.low_price
+        self.close_array[-1] = bar.close_price
+        self.volume_array[-1] = bar.volume
+        self.open_interest_array[-1] = bar.open_interest
+
+    @property
+    def open(self) -> np.ndarray:
+        """
+        Get open price time series.
+        """
+        return self.open_array
+
+    @property
+    def high(self) -> np.ndarray:
+        """
+        Get high price time series.
+        """
+        return self.high_array
+
+    @property
+    def low(self) -> np.ndarray:
+        """
+        Get low price time series.
+        """
+        return self.low_array
+
+    @property
+    def close(self) -> np.ndarray:
+        """
+        Get close price time series.
+        """
+        return self.close_array
+
+    @property
+    def volume(self) -> np.ndarray:
+        """
+        Get trading volume time series.
+        """
+        return self.volume_array
+
+    @property
+    def open_interest(self) -> np.ndarray:
+        """
+        Get trading volume time series.
+        """
+        return self.open_interest_array

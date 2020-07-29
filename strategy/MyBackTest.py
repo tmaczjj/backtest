@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-from backtest import BackTest
+from backtest.backtest import BackTest
 from datetime import datetime
+from backtest.backtest import ArrayManager
 
 
 class MyBackTest(BackTest):
     def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker=None, enable_stat=True):
         super().__init__(stocklist, startdate, enddate, cash=cash, broker=broker, enable_stat=enable_stat)
-        self.Symbols = []
+        self.am = {}
 
     def initialize(self):
+        for stock in self.stocklist:
+            self.am[stock] = ArrayManager()
         self.info("Strategy--{}--策略初始化完成".format(self.__class__.__name__))
 
     def on_tick(self, tick):
