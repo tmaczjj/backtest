@@ -166,6 +166,7 @@ class BackTest(ABC):
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
+        self.trade_date = None
         print("股票持仓列表{stock_list}".format(stock_list=self.stocklist))
 
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
@@ -228,19 +229,13 @@ class BackTest(ABC):
         self.on_tick(tick)
         self.after_on_tick(tick)
 
-    def __stockFliter(self):
+    def stockFliter(self):
         """
         实现每日股票筛选
 
         :return:     list:需要交易的股票
         """
-        stock_trade_list = []
-        stock_list = self.stocklist
-        for stock in stock_list:
-            if stock.startswith("0"):
-                stock_trade_list.append(stock)
-
-        return stock_trade_list
+        return self.stocklist
 
     def start(self):
         start_date = self.startdate
@@ -248,9 +243,10 @@ class BackTest(ABC):
         trade_date_list = load_tradedate_mongo(start_date=start_date, end_date=end_date)
         for dt in trade_date_list:
             feed = {}
-            stock_trade_list = self.stocklist = self.__stockFliter()
+            self.trade_date = dt
+            stock_trade_list = self.stocklist = self.stockFliter()
             self.info("今日需要交易的股票列表{}".format(stock_trade_list))
-            for code, hist in load_hist_mongo(stock_trade_list, trade_date=dt):
+            for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
                 feed[code] = hist.T
             self.info("{}交易日股票数据导入完成".format(dt.strftime("%Y-%m-%d")))
             # 添加交易数据
