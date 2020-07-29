@@ -1,29 +1,18 @@
 # -*- coding: utf-8 -*-
-
-#  Copyright (c) 2020. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-#  Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
-#  Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
-#  Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
-#  Vestibulum commodo. Ut rhoncus gravida arcu.
-
-# @Time    : 2020/7/16 10:34
-# @Author  : WangYang
 import datetime
 import json
 from reporter import Plotter
 from strategy.MyBackTest import MyBackTest
 from backtest import broker
+import time
+import warnings
+warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':
-    from utils import load_hist_mongo
-    feed = {}
-    start_date = datetime.datetime(2020, 6, 3)
-    end_date = datetime.datetime(2020, 6, 10)
-    lista = []
-    lista.append("000002")
-    lista.append("600519")
-    lista.append("002463")
-
+    time_start = time.time()
+    start_date = datetime.datetime(2020, 6, 1)
+    end_date = datetime.datetime(2020, 6, 30)
+    lista = ["000002", "600519", "002463", "600519", "601231", "601872", "300033", "300168", "300750", "300760"]
     T0_broker = broker.T0BackTestBroker(cash=100000, deal_price="AskPrice1")
     mytest = MyBackTest(lista, start_date, end_date, broker=T0_broker)
     mytest.start()
@@ -38,5 +27,8 @@ if __name__ == '__main__':
     print("年化收益: {:.3f}% ".format(stats.annual_return * 100))
     print("夏普比率: {:.3f} ".format(stats.sharpe))
 
-    plotter = Plotter(feed, stats, order_lst)
+    plotter = Plotter(stats, order_lst)
     plotter.report("reporter/report.png")
+    time_end = time.time()
+    time_spent = time_end - time_start
+    print("\n回测耗时--: {time}".format(time=time_spent))

@@ -25,8 +25,7 @@ plt.rcParams['axes.unicode_minus'] = False   # 解决保存图像是负号'-'显
 
 
 class Plotter(object):
-    def __init__(self, feed, stat, order_lst):
-        self.feed = feed
+    def __init__(self, stat, order_lst):
         self.stat = stat
         self.order_lst = order_lst
 

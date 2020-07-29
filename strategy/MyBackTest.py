@@ -30,12 +30,18 @@ class MyBackTest(BackTest):
                 stock_hold_info = hold_position[code][0]
                 if tick_time >= time_end:
                     hold_num = int(stock_hold_info["shares"])
-                    self.ctx.broker.buytocover(code, abs(hold_num), market_data.BidPrice1, msg="做空平仓")
+                    if hold_num < 0:
+                        self.ctx.broker.buytocover(code, abs(hold_num), market_data.AskPrice1, msg="做空平仓")
+                    elif hold_num > 0:
+                        self.ctx.broker.sell(code, hold_num, market_data.BidPrice1, msg="做多平仓")
             if code not in hold_position:
                 if time_start <= tick_time <= time_end:
                     if trade_volume > self.stg_data[code]:
-                        trade_amount = int(round(int(20000 / market_data.AskPrice1)/100)*100)
-                        self.ctx.broker.sellshort(code, trade_amount, market_data.AskPrice1, msg="卖出开仓")
+                        trade_amount = int(round(int(20000 / market_data.AskPrice1) / 100) * 100)
+                        if self.am[code].last_price[-1] > self.am[code].last_price[-2]:
+                            self.ctx.broker.buy(code, trade_amount, market_data.AskPrice1, msg="买入开仓")
+                        else:
+                            self.ctx.broker.sellshort(code, trade_amount, market_data.BidPrice1, msg="卖出开仓")
 
     def on_deal(self, order):
         self.info("{stock_code}{trade_type}成交，成交价格{deal_price}".format(
@@ -55,7 +61,7 @@ class MyBackTest(BackTest):
         stock_trade_list = []
         stock_list = self.stocklist
         for stock in stock_list:
-            if stock.startswith("0"):
+            if stock.startswith("0") or stock.startswith("3"):
                 stock_trade_list.append(stock)
 
         return stock_trade_list

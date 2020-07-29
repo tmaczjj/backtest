@@ -2,15 +2,595 @@
     {
         "id": 1,
         "type": "sellshort",
-        "code": "000002",
-        "date": "2020-06-03 09:35:51",
+        "code": "002463",
+        "date": "2020-06-01 09:37:15",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
-        "shares": -700,
-        "price": 27.72,
+        "shares": -800,
+        "price": 23.87,
         "done": true,
         "deal_lst": [
             {
                 "open_id": 1,
+                "open_price": 23.91,
+                "open_date": "2020-06-01 09:37:15",
+                "commission": 13.3896,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 2,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-01 09:37:39",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 148.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 2,
+                "open_price": 148.0,
+                "open_date": "2020-06-01 09:37:39",
+                "commission": 10.36,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 3,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-01 09:50:45",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 112.18,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 3,
+                "open_price": 112.18,
+                "open_date": "2020-06-01 09:50:45",
+                "commission": 15.7052,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 4,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-01 09:53:24",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 275.97,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 4,
+                "open_price": 275.97,
+                "open_date": "2020-06-01 09:53:24",
+                "commission": 19.3179,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 5,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-01 10:01:39",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 20.31,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 5,
+                "open_price": 20.32,
+                "open_date": "2020-06-01 10:01:39",
+                "commission": 14.224,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 6,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-01 10:14:00",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 26.1,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 6,
+                "open_price": 26.11,
+                "open_date": "2020-06-01 10:14:00",
+                "commission": 14.621599999999999,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 7,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-01 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 116.77,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 3,
+                "open_price": 112.18,
+                "open_date": "2020-06-01 09:50:45",
+                "close_id": 7,
+                "close_price": 116.77,
+                "close_date": "2020-06-01 14:57:30",
+                "commission": 16.3478,
+                "shares": 200,
+                "profit": 901.6521999999978
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 8,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-01 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 150.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 2,
+                "open_price": 148.0,
+                "open_date": "2020-06-01 09:37:39",
+                "close_id": 8,
+                "close_price": 150.9,
+                "close_date": "2020-06-01 14:57:30",
+                "commission": 10.563,
+                "shares": 100,
+                "profit": 279.4370000000006
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 9,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-01 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 281.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 4,
+                "open_price": 275.97,
+                "open_date": "2020-06-01 09:53:24",
+                "close_id": 9,
+                "close_price": 281.3,
+                "close_date": "2020-06-01 14:57:30",
+                "commission": 19.691,
+                "shares": 100,
+                "profit": 513.3089999999984
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 10,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-01 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 26.4,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 6,
+                "open_price": 26.11,
+                "open_date": "2020-06-01 10:14:00",
+                "close_id": 10,
+                "close_price": 26.4,
+                "close_date": "2020-06-01 14:57:36",
+                "commission": 14.784,
+                "shares": 800,
+                "profit": -246.7839999999993
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 11,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-01 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.38,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 1,
+                "open_price": 23.91,
+                "open_date": "2020-06-01 09:37:15",
+                "close_id": 11,
+                "close_price": 24.38,
+                "close_date": "2020-06-01 14:57:36",
+                "commission": 13.6528,
+                "shares": 800,
+                "profit": -389.6527999999991
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 12,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-01 14:57:39",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 20.23,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 5,
+                "open_price": 20.32,
+                "open_date": "2020-06-01 10:01:39",
+                "close_id": 12,
+                "close_price": 20.23,
+                "close_date": "2020-06-01 14:57:39",
+                "commission": 14.161,
+                "shares": 1000,
+                "profit": 75.83899999999986
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 13,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-02 09:35:09",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 24.19,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 13,
+                "open_price": 24.2,
+                "open_date": "2020-06-02 09:35:09",
+                "commission": 13.552,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 14,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-02 09:35:27",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 114.95,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 14,
+                "open_price": 114.99,
+                "open_date": "2020-06-02 09:35:27",
+                "commission": 16.0986,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 15,
+        "type": "buy",
+        "code": "000002",
+        "date": "2020-06-02 09:36:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 26.6,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 15,
+                "open_price": 26.6,
+                "open_date": "2020-06-02 09:36:06",
+                "commission": 14.895999999999999,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 16,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-02 09:37:21",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 150.88,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 16,
+                "open_price": 150.9,
+                "open_date": "2020-06-02 09:37:21",
+                "commission": 10.563,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 17,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-02 09:37:36",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 276.8,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 17,
+                "open_price": 277.0,
+                "open_date": "2020-06-02 09:37:36",
+                "commission": 19.39,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 18,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-02 09:38:21",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 20.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 18,
+                "open_price": 20.03,
+                "open_date": "2020-06-02 09:38:21",
+                "commission": 14.020999999999999,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 19,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-02 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 113.85,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 14,
+                "open_price": 114.99,
+                "open_date": "2020-06-02 09:35:27",
+                "close_id": 19,
+                "close_price": 113.85,
+                "close_date": "2020-06-02 14:57:30",
+                "commission": 15.939,
+                "shares": 200,
+                "profit": 212.06100000000012
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 20,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-02 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.91,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 18,
+                "open_price": 20.03,
+                "open_date": "2020-06-02 09:38:21",
+                "close_id": 20,
+                "close_price": 19.91,
+                "close_date": "2020-06-02 14:57:30",
+                "commission": 13.937,
+                "shares": 1000,
+                "profit": 106.063000000001
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 21,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-02 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 149.4,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 16,
+                "open_price": 150.9,
+                "open_date": "2020-06-02 09:37:21",
+                "close_id": 21,
+                "close_price": 149.4,
+                "close_date": "2020-06-02 14:57:30",
+                "commission": 10.458,
+                "shares": 100,
+                "profit": 139.542
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 22,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-02 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 276.03,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 17,
+                "open_price": 277.0,
+                "open_date": "2020-06-02 09:37:36",
+                "close_id": 22,
+                "close_price": 276.03,
+                "close_date": "2020-06-02 14:57:30",
+                "commission": 19.3221,
+                "shares": 100,
+                "profit": 77.67790000000272
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 23,
+        "type": "sell",
+        "code": "000002",
+        "date": "2020-06-02 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 27.25,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 15,
+                "open_price": 26.6,
+                "open_date": "2020-06-02 09:36:06",
+                "close_id": 23,
+                "close_price": 27.25,
+                "close_date": "2020-06-02 14:57:36",
+                "commission": 15.26,
+                "shares": 800,
+                "profit": 504.7399999999989
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 24,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-02 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.32,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 13,
+                "open_price": 24.2,
+                "open_date": "2020-06-02 09:35:09",
+                "close_id": 24,
+                "close_price": 24.32,
+                "close_date": "2020-06-02 14:57:36",
+                "commission": 13.6192,
+                "shares": 800,
+                "profit": -109.6192000000008
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 25,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-03 09:35:30",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 113.71,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 25,
+                "open_price": 113.8,
+                "open_date": "2020-06-03 09:35:30",
+                "commission": 15.932,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 26,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-03 09:35:36",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 149.01,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 26,
+                "open_price": 149.24,
+                "open_date": "2020-06-03 09:35:36",
+                "commission": 10.4468,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 27,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-03 09:35:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -700,
+        "price": 27.71,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 27,
                 "open_price": 27.72,
                 "open_date": "2020-06-03 09:35:51",
                 "commission": 13.5828,
@@ -20,17 +600,37 @@
         "ttl": 0
     },
     {
-        "id": 2,
+        "id": 28,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-03 09:37:24",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 273.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 28,
+                "open_price": 273.99,
+                "open_date": "2020-06-03 09:37:24",
+                "commission": 19.1793,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 29,
         "type": "sellshort",
         "code": "002463",
         "date": "2020-06-03 09:37:27",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 24.31,
+        "price": 24.3,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 2,
+                "open_id": 29,
                 "open_price": 24.31,
                 "open_date": "2020-06-03 09:37:27",
                 "commission": 13.6136,
@@ -40,7 +640,127 @@
         "ttl": 0
     },
     {
-        "id": 3,
+        "id": 30,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-03 09:50:33",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 20.2,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 30,
+                "open_price": 20.21,
+                "open_date": "2020-06-03 09:50:33",
+                "commission": 14.147,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 31,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-03 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 112.35,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 25,
+                "open_price": 113.8,
+                "open_date": "2020-06-03 09:35:30",
+                "close_id": 31,
+                "close_price": 112.35,
+                "close_date": "2020-06-03 14:57:30",
+                "commission": 15.729,
+                "shares": 200,
+                "profit": 274.2710000000006
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 32,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-03 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.95,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 30,
+                "open_price": 20.21,
+                "open_date": "2020-06-03 09:50:33",
+                "close_id": 32,
+                "close_price": 19.95,
+                "close_date": "2020-06-03 14:57:30",
+                "commission": 13.965,
+                "shares": 1000,
+                "profit": 246.0350000000016
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 33,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-03 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 148.18,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 26,
+                "open_price": 149.24,
+                "open_date": "2020-06-03 09:35:36",
+                "close_id": 33,
+                "close_price": 148.18,
+                "close_date": "2020-06-03 14:57:30",
+                "commission": 10.3726,
+                "shares": 100,
+                "profit": 95.62740000000022
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 34,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-03 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 276.56,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 28,
+                "open_price": 273.99,
+                "open_date": "2020-06-03 09:37:24",
+                "close_id": 34,
+                "close_price": 276.56,
+                "close_date": "2020-06-03 14:57:30",
+                "commission": 19.3592,
+                "shares": 100,
+                "profit": -276.3591999999993
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 35,
         "type": "buytocover",
         "code": "000002",
         "date": "2020-06-03 14:57:36",
@@ -51,10 +771,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 1,
+                "open_id": 27,
                 "open_price": 27.72,
                 "open_date": "2020-06-03 09:35:51",
-                "close_id": 3,
+                "close_id": 35,
                 "close_price": 26.85,
                 "close_date": "2020-06-03 14:57:36",
                 "commission": 13.1565,
@@ -65,7 +785,7 @@
         "ttl": 0
     },
     {
-        "id": 4,
+        "id": 36,
         "type": "buytocover",
         "code": "002463",
         "date": "2020-06-03 14:57:36",
@@ -76,10 +796,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 2,
+                "open_id": 29,
                 "open_price": 24.31,
                 "open_date": "2020-06-03 09:37:27",
-                "close_id": 4,
+                "close_id": 36,
                 "close_price": 24.35,
                 "close_date": "2020-06-03 14:57:36",
                 "commission": 13.636,
@@ -90,17 +810,77 @@
         "ttl": 0
     },
     {
-        "id": 5,
+        "id": 37,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-04 09:35:18",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 152.88,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 37,
+                "open_price": 152.95,
+                "open_date": "2020-06-04 09:35:18",
+                "commission": 10.706499999999998,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 38,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-04 09:36:36",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 273.42,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 38,
+                "open_price": 273.7,
+                "open_date": "2020-06-04 09:36:36",
+                "commission": 19.159,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 39,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-04 09:36:57",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 112.02,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 39,
+                "open_price": 112.05,
+                "open_date": "2020-06-04 09:36:57",
+                "commission": 15.687,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 40,
         "type": "sellshort",
         "code": "002463",
         "date": "2020-06-04 09:39:33",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 24.4,
+        "price": 24.39,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 5,
+                "open_id": 40,
                 "open_price": 24.4,
                 "open_date": "2020-06-04 09:39:33",
                 "commission": 13.664,
@@ -110,17 +890,17 @@
         "ttl": 0
     },
     {
-        "id": 6,
+        "id": 41,
         "type": "sellshort",
         "code": "000002",
         "date": "2020-06-04 09:42:42",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 26.6,
+        "price": 26.59,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 6,
+                "open_id": 41,
                 "open_price": 26.6,
                 "open_date": "2020-06-04 09:42:42",
                 "commission": 14.895999999999999,
@@ -130,7 +910,127 @@
         "ttl": 0
     },
     {
-        "id": 7,
+        "id": 42,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-04 09:43:12",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 19.71,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 42,
+                "open_price": 19.72,
+                "open_date": "2020-06-04 09:43:12",
+                "commission": 13.804,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 43,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-04 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 111.1,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 39,
+                "open_price": 112.05,
+                "open_date": "2020-06-04 09:36:57",
+                "close_id": 43,
+                "close_price": 111.1,
+                "close_date": "2020-06-04 14:57:30",
+                "commission": 15.554,
+                "shares": 200,
+                "profit": 174.44600000000057
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 44,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-04 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.87,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 42,
+                "open_price": 19.72,
+                "open_date": "2020-06-04 09:43:12",
+                "close_id": 44,
+                "close_price": 19.87,
+                "close_date": "2020-06-04 14:57:30",
+                "commission": 13.909,
+                "shares": 1000,
+                "profit": -163.90900000000212
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 45,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-04 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 150.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 37,
+                "open_price": 152.95,
+                "open_date": "2020-06-04 09:35:18",
+                "close_id": 45,
+                "close_price": 150.0,
+                "close_date": "2020-06-04 14:57:30",
+                "commission": 10.5,
+                "shares": 100,
+                "profit": 284.49999999999886
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 46,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-04 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 274.84,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 38,
+                "open_price": 273.7,
+                "open_date": "2020-06-04 09:36:36",
+                "close_id": 46,
+                "close_price": 274.84,
+                "close_date": "2020-06-04 14:57:30",
+                "commission": 19.238799999999998,
+                "shares": 100,
+                "profit": -133.23879999999863
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 47,
         "type": "buytocover",
         "code": "000002",
         "date": "2020-06-04 14:57:36",
@@ -141,10 +1041,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 6,
+                "open_id": 41,
                 "open_price": 26.6,
                 "open_date": "2020-06-04 09:42:42",
-                "close_id": 7,
+                "close_id": 47,
                 "close_price": 26.74,
                 "close_date": "2020-06-04 14:57:36",
                 "commission": 14.9744,
@@ -155,7 +1055,7 @@
         "ttl": 0
     },
     {
-        "id": 8,
+        "id": 48,
         "type": "buytocover",
         "code": "002463",
         "date": "2020-06-04 14:57:36",
@@ -166,10 +1066,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 5,
+                "open_id": 40,
                 "open_price": 24.4,
                 "open_date": "2020-06-04 09:39:33",
-                "close_id": 8,
+                "close_id": 48,
                 "close_price": 24.11,
                 "close_date": "2020-06-04 14:57:36",
                 "commission": 13.5016,
@@ -180,17 +1080,17 @@
         "ttl": 0
     },
     {
-        "id": 9,
+        "id": 49,
         "type": "sellshort",
         "code": "002463",
         "date": "2020-06-05 09:37:00",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 24.29,
+        "price": 24.28,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 9,
+                "open_id": 49,
                 "open_price": 24.29,
                 "open_date": "2020-06-05 09:37:00",
                 "commission": 13.6024,
@@ -200,17 +1100,57 @@
         "ttl": 0
     },
     {
-        "id": 10,
+        "id": 50,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-05 09:41:06",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 148.08,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 50,
+                "open_price": 148.1,
+                "open_date": "2020-06-05 09:41:06",
+                "commission": 10.366999999999999,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 51,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-05 09:44:54",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 19.67,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 51,
+                "open_price": 19.67,
+                "open_date": "2020-06-05 09:44:54",
+                "commission": 13.769,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 52,
         "type": "sellshort",
         "code": "000002",
         "date": "2020-06-05 09:45:21",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 26.37,
+        "price": 26.35,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 10,
+                "open_id": 52,
                 "open_price": 26.37,
                 "open_date": "2020-06-05 09:45:21",
                 "commission": 14.767199999999999,
@@ -220,7 +1160,147 @@
         "ttl": 0
     },
     {
-        "id": 11,
+        "id": 53,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-05 10:14:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 272.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 53,
+                "open_price": 272.5,
+                "open_date": "2020-06-05 10:14:06",
+                "commission": 19.075,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 54,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-05 13:52:45",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 111.51,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 54,
+                "open_price": 111.51,
+                "open_date": "2020-06-05 13:52:45",
+                "commission": 15.6114,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 55,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-05 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 112.97,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 54,
+                "open_price": 111.51,
+                "open_date": "2020-06-05 13:52:45",
+                "close_id": 55,
+                "close_price": 112.97,
+                "close_date": "2020-06-05 14:57:30",
+                "commission": 15.8158,
+                "shares": 200,
+                "profit": 276.1841999999987
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 56,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-05 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.75,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 51,
+                "open_price": 19.67,
+                "open_date": "2020-06-05 09:44:54",
+                "close_id": 56,
+                "close_price": 19.75,
+                "close_date": "2020-06-05 14:57:30",
+                "commission": 13.825,
+                "shares": 1000,
+                "profit": 66.17499999999829
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 57,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-05 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 151.08,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 50,
+                "open_price": 148.1,
+                "open_date": "2020-06-05 09:41:06",
+                "close_id": 57,
+                "close_price": 151.08,
+                "close_date": "2020-06-05 14:57:30",
+                "commission": 10.575600000000001,
+                "shares": 100,
+                "profit": -308.5756000000018
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 58,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-05 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 273.8,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 53,
+                "open_price": 272.5,
+                "open_date": "2020-06-05 10:14:06",
+                "close_id": 58,
+                "close_price": 273.8,
+                "close_date": "2020-06-05 14:57:30",
+                "commission": 19.166,
+                "shares": 100,
+                "profit": 110.83400000000114
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 59,
         "type": "buytocover",
         "code": "000002",
         "date": "2020-06-05 14:57:36",
@@ -231,10 +1311,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 10,
+                "open_id": 52,
                 "open_price": 26.37,
                 "open_date": "2020-06-05 09:45:21",
-                "close_id": 11,
+                "close_id": 59,
                 "close_price": 26.41,
                 "close_date": "2020-06-05 14:57:36",
                 "commission": 14.7896,
@@ -245,7 +1325,7 @@
         "ttl": 0
     },
     {
-        "id": 12,
+        "id": 60,
         "type": "buytocover",
         "code": "002463",
         "date": "2020-06-05 14:57:36",
@@ -256,10 +1336,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 9,
+                "open_id": 49,
                 "open_price": 24.29,
                 "open_date": "2020-06-05 09:37:00",
-                "close_id": 12,
+                "close_id": 60,
                 "close_price": 24.14,
                 "close_date": "2020-06-05 14:57:36",
                 "commission": 13.5184,
@@ -270,17 +1350,17 @@
         "ttl": 0
     },
     {
-        "id": 13,
+        "id": 61,
         "type": "sellshort",
         "code": "000002",
         "date": "2020-06-08 09:35:15",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -700,
-        "price": 26.75,
+        "price": 26.73,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 13,
+                "open_id": 61,
                 "open_price": 26.75,
                 "open_date": "2020-06-08 09:35:15",
                 "commission": 13.1075,
@@ -290,17 +1370,17 @@
         "ttl": 0
     },
     {
-        "id": 14,
+        "id": 62,
         "type": "sellshort",
         "code": "002463",
         "date": "2020-06-08 09:35:24",
         "msg": "\u5356\u51fa\u5f00\u4ed3",
         "shares": -800,
-        "price": 24.75,
+        "price": 24.74,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 14,
+                "open_id": 62,
                 "open_price": 24.75,
                 "open_date": "2020-06-08 09:35:24",
                 "commission": 13.86,
@@ -310,7 +1390,187 @@
         "ttl": 0
     },
     {
-        "id": 15,
+        "id": 63,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-08 09:35:48",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 153.69,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 63,
+                "open_price": 153.69,
+                "open_date": "2020-06-08 09:35:48",
+                "commission": 10.7583,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 64,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-08 09:37:12",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 114.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 64,
+                "open_price": 114.5,
+                "open_date": "2020-06-08 09:37:12",
+                "commission": 16.03,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 65,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-08 09:39:24",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 19.87,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 65,
+                "open_price": 19.88,
+                "open_date": "2020-06-08 09:39:24",
+                "commission": 13.916,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 66,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-08 09:42:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 272.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 66,
+                "open_price": 272.3,
+                "open_date": "2020-06-08 09:42:06",
+                "commission": 19.061,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 67,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-08 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 112.85,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 64,
+                "open_price": 114.5,
+                "open_date": "2020-06-08 09:37:12",
+                "close_id": 67,
+                "close_price": 112.85,
+                "close_date": "2020-06-08 14:57:30",
+                "commission": 15.799,
+                "shares": 200,
+                "profit": -345.7990000000011
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 68,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-08 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.6,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 65,
+                "open_price": 19.88,
+                "open_date": "2020-06-08 09:39:24",
+                "close_id": 68,
+                "close_price": 19.6,
+                "close_date": "2020-06-08 14:57:30",
+                "commission": 13.72,
+                "shares": 1000,
+                "profit": 266.2799999999976
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 69,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-08 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 151.37,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 63,
+                "open_price": 153.69,
+                "open_date": "2020-06-08 09:35:48",
+                "close_id": 69,
+                "close_price": 151.37,
+                "close_date": "2020-06-08 14:57:30",
+                "commission": 10.5959,
+                "shares": 100,
+                "profit": -242.59589999999932
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 70,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-08 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 270.61,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 66,
+                "open_price": 272.3,
+                "open_date": "2020-06-08 09:42:06",
+                "close_id": 70,
+                "close_price": 270.61,
+                "close_date": "2020-06-08 14:57:30",
+                "commission": 18.9427,
+                "shares": 100,
+                "profit": -187.94269999999977
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 71,
         "type": "buytocover",
         "code": "000002",
         "date": "2020-06-08 14:57:36",
@@ -321,10 +1581,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 13,
+                "open_id": 61,
                 "open_price": 26.75,
                 "open_date": "2020-06-08 09:35:15",
-                "close_id": 15,
+                "close_id": 71,
                 "close_price": 26.61,
                 "close_date": "2020-06-08 14:57:36",
                 "commission": 13.0389,
@@ -335,7 +1595,7 @@
         "ttl": 0
     },
     {
-        "id": 16,
+        "id": 72,
         "type": "buytocover",
         "code": "002463",
         "date": "2020-06-08 14:57:36",
@@ -346,10 +1606,10 @@
         "done": true,
         "deal_lst": [
             {
-                "open_id": 14,
+                "open_id": 62,
                 "open_price": 24.75,
                 "open_date": "2020-06-08 09:35:24",
-                "close_id": 16,
+                "close_id": 72,
                 "close_price": 24.43,
                 "close_date": "2020-06-08 14:57:36",
                 "commission": 13.6808,
@@ -360,91 +1620,3511 @@
         "ttl": 0
     },
     {
-        "id": 17,
+        "id": 73,
         "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-09 09:35:12",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 19.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 73,
+                "open_price": 19.36,
+                "open_date": "2020-06-09 09:35:12",
+                "commission": 13.552,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 74,
+        "type": "buy",
         "code": "002463",
         "date": "2020-06-09 09:35:42",
-        "msg": "\u5356\u51fa\u5f00\u4ed3",
-        "shares": -800,
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
         "price": 24.31,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 17,
+                "open_id": 74,
                 "open_price": 24.31,
                 "open_date": "2020-06-09 09:35:42",
                 "commission": 13.6136,
-                "shares": -800
+                "shares": 800
             }
         ],
         "ttl": 0
     },
     {
-        "id": 18,
+        "id": 75,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-09 09:36:03",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 154.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 75,
+                "open_price": 154.0,
+                "open_date": "2020-06-09 09:36:03",
+                "commission": 10.78,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 76,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-09 09:36:15",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 114.47,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 76,
+                "open_price": 114.47,
+                "open_date": "2020-06-09 09:36:15",
+                "commission": 16.0258,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 77,
         "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-09 09:36:42",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 268.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 77,
+                "open_price": 268.01,
+                "open_date": "2020-06-09 09:36:42",
+                "commission": 18.7607,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 78,
+        "type": "buy",
         "code": "000002",
         "date": "2020-06-09 09:46:48",
-        "msg": "\u5356\u51fa\u5f00\u4ed3",
-        "shares": -700,
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 700,
         "price": 26.74,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 18,
+                "open_id": 78,
                 "open_price": 26.74,
                 "open_date": "2020-06-09 09:46:48",
                 "commission": 13.1026,
-                "shares": -700
+                "shares": 700
             }
         ],
         "ttl": 0
     },
     {
-        "id": 19,
+        "id": 79,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-09 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 116.33,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 76,
+                "open_price": 114.47,
+                "open_date": "2020-06-09 09:36:15",
+                "close_id": 79,
+                "close_price": 116.33,
+                "close_date": "2020-06-09 14:57:30",
+                "commission": 16.2862,
+                "shares": 200,
+                "profit": 355.7137999999999
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 80,
         "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-09 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.97,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 73,
+                "open_price": 19.36,
+                "open_date": "2020-06-09 09:35:12",
+                "close_id": 80,
+                "close_price": 19.97,
+                "close_date": "2020-06-09 14:57:30",
+                "commission": 13.979,
+                "shares": 1000,
+                "profit": -623.9789999999995
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 81,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-09 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 153.97,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 75,
+                "open_price": 154.0,
+                "open_date": "2020-06-09 09:36:03",
+                "close_id": 81,
+                "close_price": 153.97,
+                "close_date": "2020-06-09 14:57:30",
+                "commission": 10.7779,
+                "shares": 100,
+                "profit": -13.777900000000114
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 82,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-09 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 272.55,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 77,
+                "open_price": 268.01,
+                "open_date": "2020-06-09 09:36:42",
+                "close_id": 82,
+                "close_price": 272.55,
+                "close_date": "2020-06-09 14:57:30",
+                "commission": 19.0785,
+                "shares": 100,
+                "profit": -473.07850000000207
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 83,
+        "type": "sell",
         "code": "000002",
         "date": "2020-06-09 14:57:36",
-        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
         "shares": 0,
         "init_shares": 700,
         "price": 26.4,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 18,
+                "open_id": 78,
                 "open_price": 26.74,
                 "open_date": "2020-06-09 09:46:48",
-                "close_id": 19,
+                "close_id": 83,
                 "close_price": 26.4,
                 "close_date": "2020-06-09 14:57:36",
                 "commission": 12.936,
                 "shares": 700,
-                "profit": 225.06399999999988
+                "profit": -250.9359999999999
             }
         ],
         "ttl": 0
     },
     {
-        "id": 20,
-        "type": "buytocover",
+        "id": 84,
+        "type": "sell",
         "code": "002463",
         "date": "2020-06-09 14:57:36",
-        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
         "shares": 0,
         "init_shares": 800,
         "price": 24.26,
         "done": true,
         "deal_lst": [
             {
-                "open_id": 17,
+                "open_id": 74,
                 "open_price": 24.31,
                 "open_date": "2020-06-09 09:35:42",
-                "close_id": 20,
+                "close_id": 84,
                 "close_price": 24.26,
                 "close_date": "2020-06-09 14:57:36",
                 "commission": 13.5856,
                 "shares": 800,
-                "profit": 26.414399999997727
+                "profit": -53.585599999997726
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 85,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-10 09:35:06",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 24.11,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 85,
+                "open_price": 24.13,
+                "open_date": "2020-06-10 09:35:06",
+                "commission": 13.5128,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 86,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-10 09:36:03",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 156.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 86,
+                "open_price": 156.5,
+                "open_date": "2020-06-10 09:36:03",
+                "commission": 10.955,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 87,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-10 09:38:48",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 26.2,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 87,
+                "open_price": 26.21,
+                "open_date": "2020-06-10 09:38:48",
+                "commission": 14.6776,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 88,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-10 09:49:48",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 20.03,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 88,
+                "open_price": 20.03,
+                "open_date": "2020-06-10 09:49:48",
+                "commission": 14.020999999999999,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 89,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-10 09:55:30",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 272.66,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 89,
+                "open_price": 272.97,
+                "open_date": "2020-06-10 09:55:30",
+                "commission": 19.1079,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 90,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-10 10:11:03",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 115.03,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 90,
+                "open_price": 115.3,
+                "open_date": "2020-06-10 10:11:03",
+                "commission": 16.142,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 91,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-10 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 117.87,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 90,
+                "open_price": 115.3,
+                "open_date": "2020-06-10 10:11:03",
+                "close_id": 91,
+                "close_price": 117.87,
+                "close_date": "2020-06-10 14:57:30",
+                "commission": 16.5018,
+                "shares": 200,
+                "profit": -530.5018000000015
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 92,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-10 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.76,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 88,
+                "open_price": 20.03,
+                "open_date": "2020-06-10 09:49:48",
+                "close_id": 92,
+                "close_price": 19.76,
+                "close_date": "2020-06-10 14:57:30",
+                "commission": 13.832,
+                "shares": 1000,
+                "profit": -283.83199999999954
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 93,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-10 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 156.78,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 86,
+                "open_price": 156.5,
+                "open_date": "2020-06-10 09:36:03",
+                "close_id": 93,
+                "close_price": 156.78,
+                "close_date": "2020-06-10 14:57:30",
+                "commission": 10.9746,
+                "shares": 100,
+                "profit": 17.02540000000011
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 94,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-10 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 273.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 89,
+                "open_price": 272.97,
+                "open_date": "2020-06-10 09:55:30",
+                "close_id": 94,
+                "close_price": 273.99,
+                "close_date": "2020-06-10 14:57:30",
+                "commission": 19.1793,
+                "shares": 100,
+                "profit": -121.17929999999818
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 95,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-10 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 26.2,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 87,
+                "open_price": 26.21,
+                "open_date": "2020-06-10 09:38:48",
+                "close_id": 95,
+                "close_price": 26.2,
+                "close_date": "2020-06-10 14:57:36",
+                "commission": 14.672,
+                "shares": 800,
+                "profit": -6.67199999999875
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 96,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-10 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 23.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 85,
+                "open_price": 24.13,
+                "open_date": "2020-06-10 09:35:06",
+                "close_id": 96,
+                "close_price": 23.9,
+                "close_date": "2020-06-10 14:57:36",
+                "commission": 13.384,
+                "shares": 800,
+                "profit": 170.61600000000033
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 97,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-11 09:35:09",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 118.17,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 97,
+                "open_price": 118.17,
+                "open_date": "2020-06-11 09:35:09",
+                "commission": 16.5438,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 98,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-11 09:36:57",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 273.68,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 98,
+                "open_price": 273.68,
+                "open_date": "2020-06-11 09:36:57",
+                "commission": 19.1576,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 99,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-11 09:38:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 23.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 99,
+                "open_price": 23.92,
+                "open_date": "2020-06-11 09:38:51",
+                "commission": 13.395199999999999,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 100,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-11 09:45:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 161.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 100,
+                "open_price": 161.3,
+                "open_date": "2020-06-11 09:45:06",
+                "commission": 11.291,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 101,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-11 09:55:54",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 19.58,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 101,
+                "open_price": 19.59,
+                "open_date": "2020-06-11 09:55:54",
+                "commission": 13.713,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 102,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-11 13:00:03",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 26.07,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 102,
+                "open_price": 26.08,
+                "open_date": "2020-06-11 13:00:03",
+                "commission": 14.6048,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 103,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-11 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 118.4,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 97,
+                "open_price": 118.17,
+                "open_date": "2020-06-11 09:35:09",
+                "close_id": 103,
+                "close_price": 118.4,
+                "close_date": "2020-06-11 14:57:30",
+                "commission": 16.576,
+                "shares": 200,
+                "profit": 29.424000000000795
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 104,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-11 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 19.42,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 101,
+                "open_price": 19.59,
+                "open_date": "2020-06-11 09:55:54",
+                "close_id": 104,
+                "close_price": 19.42,
+                "close_date": "2020-06-11 14:57:30",
+                "commission": 13.594,
+                "shares": 1000,
+                "profit": 156.40599999999816
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 105,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-11 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 163.05,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 100,
+                "open_price": 161.3,
+                "open_date": "2020-06-11 09:45:06",
+                "close_id": 105,
+                "close_price": 163.05,
+                "close_date": "2020-06-11 14:57:30",
+                "commission": 11.4135,
+                "shares": 100,
+                "profit": 163.5865
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 106,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-11 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 272.4,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 98,
+                "open_price": 273.68,
+                "open_date": "2020-06-11 09:36:57",
+                "close_id": 106,
+                "close_price": 272.4,
+                "close_date": "2020-06-11 14:57:30",
+                "commission": 19.067999999999998,
+                "shares": 100,
+                "profit": -147.06800000000294
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 107,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-11 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 102,
+                "open_price": 26.08,
+                "open_date": "2020-06-11 13:00:03",
+                "close_id": 107,
+                "close_price": 25.9,
+                "close_date": "2020-06-11 14:57:36",
+                "commission": 14.504,
+                "shares": 800,
+                "profit": 129.49599999999978
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 108,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-11 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 23.89,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 99,
+                "open_price": 23.92,
+                "open_date": "2020-06-11 09:38:51",
+                "close_id": 108,
+                "close_price": 23.89,
+                "close_date": "2020-06-11 14:57:36",
+                "commission": 13.3784,
+                "shares": 800,
+                "profit": 10.62160000000091
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 109,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-12 09:36:15",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 116.91,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 109,
+                "open_price": 117.0,
+                "open_date": "2020-06-12 09:36:15",
+                "commission": 16.38,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 110,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-12 09:36:36",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 160.15,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 110,
+                "open_price": 160.15,
+                "open_date": "2020-06-12 09:36:36",
+                "commission": 11.2105,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 111,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-12 09:36:36",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 270.48,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 111,
+                "open_price": 270.48,
+                "open_date": "2020-06-12 09:36:36",
+                "commission": 18.9336,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 112,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-12 09:40:54",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.71,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 112,
+                "open_price": 25.73,
+                "open_date": "2020-06-12 09:40:54",
+                "commission": 14.4088,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 113,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-12 09:44:24",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 20.04,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 113,
+                "open_price": 20.04,
+                "open_date": "2020-06-12 09:44:24",
+                "commission": 14.028,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 114,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-12 09:45:21",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 900,
+        "price": 23.37,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 114,
+                "open_price": 23.37,
+                "open_date": "2020-06-12 09:45:21",
+                "commission": 14.7231,
+                "shares": 900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 115,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-12 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 119.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 109,
+                "open_price": 117.0,
+                "open_date": "2020-06-12 09:36:15",
+                "close_id": 115,
+                "close_price": 119.9,
+                "close_date": "2020-06-12 14:57:30",
+                "commission": 16.786,
+                "shares": 200,
+                "profit": -596.7860000000012
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 116,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-12 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 21.06,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 113,
+                "open_price": 20.04,
+                "open_date": "2020-06-12 09:44:24",
+                "close_id": 116,
+                "close_price": 21.06,
+                "close_date": "2020-06-12 14:57:30",
+                "commission": 14.741999999999999,
+                "shares": 1000,
+                "profit": 1005.2579999999996
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 117,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-12 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 159.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 110,
+                "open_price": 160.15,
+                "open_date": "2020-06-12 09:36:36",
+                "close_id": 117,
+                "close_price": 159.3,
+                "close_date": "2020-06-12 14:57:30",
+                "commission": 11.151000000000002,
+                "shares": 100,
+                "profit": -96.15099999999943
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 118,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-12 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 277.82,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 111,
+                "open_price": 270.48,
+                "open_date": "2020-06-12 09:36:36",
+                "close_id": 118,
+                "close_price": 277.82,
+                "close_date": "2020-06-12 14:57:30",
+                "commission": 19.4474,
+                "shares": 100,
+                "profit": 714.5525999999975
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 119,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-12 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.7,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 112,
+                "open_price": 25.73,
+                "open_date": "2020-06-12 09:40:54",
+                "close_id": 119,
+                "close_price": 25.7,
+                "close_date": "2020-06-12 14:57:36",
+                "commission": 14.392,
+                "shares": 800,
+                "profit": 9.60800000000091
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 120,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-12 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 23.41,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 114,
+                "open_price": 23.37,
+                "open_date": "2020-06-12 09:45:21",
+                "close_id": 120,
+                "close_price": 23.41,
+                "close_date": "2020-06-12 14:57:36",
+                "commission": 14.7483,
+                "shares": 900,
+                "profit": 21.251699999999232
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 121,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-15 09:35:18",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 156.36,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 121,
+                "open_price": 156.36,
+                "open_date": "2020-06-15 09:35:18",
+                "commission": 10.945200000000002,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 122,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-15 09:37:39",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 20.95,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 122,
+                "open_price": 21.0,
+                "open_date": "2020-06-15 09:37:39",
+                "commission": 14.7,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 123,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-15 09:38:12",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 287.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 123,
+                "open_price": 288.1,
+                "open_date": "2020-06-15 09:38:12",
+                "commission": 20.167,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 124,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-15 09:38:21",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -900,
+        "price": 23.15,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 124,
+                "open_price": 23.18,
+                "open_date": "2020-06-15 09:38:21",
+                "commission": 14.6034,
+                "shares": -900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 125,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-15 09:41:57",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.78,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 125,
+                "open_price": 25.79,
+                "open_date": "2020-06-15 09:41:57",
+                "commission": 14.4424,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 126,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-15 09:45:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 120.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 126,
+                "open_price": 121.0,
+                "open_date": "2020-06-15 09:45:51",
+                "commission": 16.94,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 127,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-15 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 119.33,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 126,
+                "open_price": 121.0,
+                "open_date": "2020-06-15 09:45:51",
+                "close_id": 127,
+                "close_price": 119.33,
+                "close_date": "2020-06-15 14:57:30",
+                "commission": 16.7062,
+                "shares": 200,
+                "profit": 317.2938000000003
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 128,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-15 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 157.7,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 121,
+                "open_price": 156.36,
+                "open_date": "2020-06-15 09:35:18",
+                "close_id": 128,
+                "close_price": 157.7,
+                "close_date": "2020-06-15 14:57:30",
+                "commission": 11.038999999999998,
+                "shares": 100,
+                "profit": 122.9609999999975
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 129,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-15 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 282.79,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 123,
+                "open_price": 288.1,
+                "open_date": "2020-06-15 09:38:12",
+                "close_id": 129,
+                "close_price": 282.79,
+                "close_date": "2020-06-15 14:57:30",
+                "commission": 19.7953,
+                "shares": 100,
+                "profit": 511.20470000000023
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 130,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-15 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.6,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 125,
+                "open_price": 25.79,
+                "open_date": "2020-06-15 09:41:57",
+                "close_id": 130,
+                "close_price": 25.6,
+                "close_date": "2020-06-15 14:57:36",
+                "commission": 14.336,
+                "shares": 800,
+                "profit": 137.66399999999817
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 131,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-15 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 23.45,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 124,
+                "open_price": 23.18,
+                "open_date": "2020-06-15 09:38:21",
+                "close_id": 131,
+                "close_price": 23.45,
+                "close_date": "2020-06-15 14:57:36",
+                "commission": 14.7735,
+                "shares": 900,
+                "profit": -257.7734999999996
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 132,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-15 14:57:48",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 20.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 122,
+                "open_price": 21.0,
+                "open_date": "2020-06-15 09:37:39",
+                "close_id": 132,
+                "close_price": 20.99,
+                "close_date": "2020-06-15 14:57:48",
+                "commission": 14.693,
+                "shares": 1000,
+                "profit": -4.692999999998436
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 133,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-16 09:35:03",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 288.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 133,
+                "open_price": 288.78,
+                "open_date": "2020-06-16 09:35:03",
+                "commission": 20.214599999999997,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 134,
+        "type": "buy",
+        "code": "000002",
+        "date": "2020-06-16 09:35:12",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 25.89,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 134,
+                "open_price": 25.89,
+                "open_date": "2020-06-16 09:35:12",
+                "commission": 14.4984,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 135,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-16 09:35:27",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 162.01,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 135,
+                "open_price": 162.3,
+                "open_date": "2020-06-16 09:35:27",
+                "commission": 11.361,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 136,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-16 09:35:36",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 23.86,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 136,
+                "open_price": 23.86,
+                "open_date": "2020-06-16 09:35:36",
+                "commission": 13.3616,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 137,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-16 09:38:00",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 122.05,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 137,
+                "open_price": 122.05,
+                "open_date": "2020-06-16 09:38:00",
+                "commission": 17.087,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 138,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-16 10:25:27",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 20.66,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 138,
+                "open_price": 20.66,
+                "open_date": "2020-06-16 10:25:27",
+                "commission": 14.462,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 139,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-16 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 120.58,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 137,
+                "open_price": 122.05,
+                "open_date": "2020-06-16 09:38:00",
+                "close_id": 139,
+                "close_price": 120.58,
+                "close_date": "2020-06-16 14:57:30",
+                "commission": 16.8812,
+                "shares": 200,
+                "profit": -310.88119999999975
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 140,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-16 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 20.57,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 138,
+                "open_price": 20.66,
+                "open_date": "2020-06-16 10:25:27",
+                "close_id": 140,
+                "close_price": 20.57,
+                "close_date": "2020-06-16 14:57:30",
+                "commission": 14.399,
+                "shares": 1000,
+                "profit": -104.39899999999986
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 141,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-16 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 159.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 135,
+                "open_price": 162.3,
+                "open_date": "2020-06-16 09:35:27",
+                "close_id": 141,
+                "close_price": 159.9,
+                "close_date": "2020-06-16 14:57:30",
+                "commission": 11.193,
+                "shares": 100,
+                "profit": 228.80700000000056
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 142,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-16 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 286.13,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 133,
+                "open_price": 288.78,
+                "open_date": "2020-06-16 09:35:03",
+                "close_id": 142,
+                "close_price": 286.13,
+                "close_date": "2020-06-16 14:57:30",
+                "commission": 20.0291,
+                "shares": 100,
+                "profit": 244.97089999999773
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 143,
+        "type": "sell",
+        "code": "000002",
+        "date": "2020-06-16 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.81,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 134,
+                "open_price": 25.89,
+                "open_date": "2020-06-16 09:35:12",
+                "close_id": 143,
+                "close_price": 25.81,
+                "close_date": "2020-06-16 14:57:36",
+                "commission": 14.4536,
+                "shares": 800,
+                "profit": -78.45360000000147
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 144,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-16 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.05,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 136,
+                "open_price": 23.86,
+                "open_date": "2020-06-16 09:35:36",
+                "close_id": 144,
+                "close_price": 24.05,
+                "close_date": "2020-06-16 14:57:36",
+                "commission": 13.468,
+                "shares": 800,
+                "profit": 138.53200000000103
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 145,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-17 09:35:36",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 285.74,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 145,
+                "open_price": 285.75,
+                "open_date": "2020-06-17 09:35:36",
+                "commission": 20.0025,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 146,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-17 09:36:51",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 20.32,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 146,
+                "open_price": 20.32,
+                "open_date": "2020-06-17 09:36:51",
+                "commission": 14.224,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 147,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-17 09:38:15",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 119.28,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 147,
+                "open_price": 119.29,
+                "open_date": "2020-06-17 09:38:15",
+                "commission": 16.7006,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 148,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-17 09:42:30",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 24.17,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 148,
+                "open_price": 24.17,
+                "open_date": "2020-06-17 09:42:30",
+                "commission": 13.5352,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 149,
+        "type": "buy",
+        "code": "000002",
+        "date": "2020-06-17 09:44:33",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 25.78,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 149,
+                "open_price": 25.78,
+                "open_date": "2020-06-17 09:44:33",
+                "commission": 14.4368,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 150,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-17 10:03:18",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 158.48,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 150,
+                "open_price": 158.5,
+                "open_date": "2020-06-17 10:03:18",
+                "commission": 11.095,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 151,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-17 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 118.86,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 147,
+                "open_price": 119.29,
+                "open_date": "2020-06-17 09:38:15",
+                "close_id": 151,
+                "close_price": 118.86,
+                "close_date": "2020-06-17 14:57:30",
+                "commission": 16.6404,
+                "shares": 200,
+                "profit": 69.35960000000136
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 152,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-17 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 20.56,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 146,
+                "open_price": 20.32,
+                "open_date": "2020-06-17 09:36:51",
+                "close_id": 152,
+                "close_price": 20.56,
+                "close_date": "2020-06-17 14:57:30",
+                "commission": 14.392,
+                "shares": 1000,
+                "profit": 225.60799999999844
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 153,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-17 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 157.8,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 150,
+                "open_price": 158.5,
+                "open_date": "2020-06-17 10:03:18",
+                "close_id": 153,
+                "close_price": 157.8,
+                "close_date": "2020-06-17 14:57:30",
+                "commission": 11.046000000000001,
+                "shares": 100,
+                "profit": 58.953999999998864
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 154,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-17 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 284.15,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 145,
+                "open_price": 285.75,
+                "open_date": "2020-06-17 09:35:36",
+                "close_id": 154,
+                "close_price": 284.15,
+                "close_date": "2020-06-17 14:57:30",
+                "commission": 19.890499999999996,
+                "shares": 100,
+                "profit": 140.10950000000227
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 155,
+        "type": "sell",
+        "code": "000002",
+        "date": "2020-06-17 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.68,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 149,
+                "open_price": 25.78,
+                "open_date": "2020-06-17 09:44:33",
+                "close_id": 155,
+                "close_price": 25.68,
+                "close_date": "2020-06-17 14:57:36",
+                "commission": 14.3808,
+                "shares": 800,
+                "profit": -94.38080000000113
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 156,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-17 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.19,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 148,
+                "open_price": 24.17,
+                "open_date": "2020-06-17 09:42:30",
+                "close_id": 156,
+                "close_price": 24.19,
+                "close_date": "2020-06-17 14:57:36",
+                "commission": 13.5464,
+                "shares": 800,
+                "profit": 2.4535999999996587
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 157,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-18 09:35:15",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 282.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 157,
+                "open_price": 282.0,
+                "open_date": "2020-06-18 09:35:15",
+                "commission": 19.74,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 158,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-18 09:40:15",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 156.12,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 158,
+                "open_price": 156.16,
+                "open_date": "2020-06-18 09:40:15",
+                "commission": 10.9312,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 159,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-18 09:43:54",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.86,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 159,
+                "open_price": 25.9,
+                "open_date": "2020-06-18 09:43:54",
+                "commission": 14.504,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 160,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-18 09:45:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 1000,
+        "price": 20.9,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 160,
+                "open_price": 20.9,
+                "open_date": "2020-06-18 09:45:06",
+                "commission": 14.629999999999999,
+                "shares": 1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 161,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-18 09:58:09",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 24.31,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 161,
+                "open_price": 24.31,
+                "open_date": "2020-06-18 09:58:09",
+                "commission": 13.6136,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 162,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-18 10:42:18",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 117.98,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 162,
+                "open_price": 118.0,
+                "open_date": "2020-06-18 10:42:18",
+                "commission": 16.52,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 163,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-18 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 119.98,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 162,
+                "open_price": 118.0,
+                "open_date": "2020-06-18 10:42:18",
+                "close_id": 163,
+                "close_price": 119.98,
+                "close_date": "2020-06-18 14:57:30",
+                "commission": 16.7972,
+                "shares": 200,
+                "profit": -412.79720000000077
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 164,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-18 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 20.51,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 160,
+                "open_price": 20.9,
+                "open_date": "2020-06-18 09:45:06",
+                "close_id": 164,
+                "close_price": 20.51,
+                "close_date": "2020-06-18 14:57:30",
+                "commission": 14.357,
+                "shares": 1000,
+                "profit": -404.356999999997
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 165,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-18 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 158.94,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 158,
+                "open_price": 156.16,
+                "open_date": "2020-06-18 09:40:15",
+                "close_id": 165,
+                "close_price": 158.94,
+                "close_date": "2020-06-18 14:57:30",
+                "commission": 11.1258,
+                "shares": 100,
+                "profit": -289.12580000000014
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 166,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-18 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 279.74,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 157,
+                "open_price": 282.0,
+                "open_date": "2020-06-18 09:35:15",
+                "close_id": 166,
+                "close_price": 279.74,
+                "close_date": "2020-06-18 14:57:30",
+                "commission": 19.5818,
+                "shares": 100,
+                "profit": -245.58179999999908
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 167,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-18 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.88,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 159,
+                "open_price": 25.9,
+                "open_date": "2020-06-18 09:43:54",
+                "close_id": 167,
+                "close_price": 25.88,
+                "close_date": "2020-06-18 14:57:36",
+                "commission": 14.492799999999999,
+                "shares": 800,
+                "profit": 1.50719999999966
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 168,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-18 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.61,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 161,
+                "open_price": 24.31,
+                "open_date": "2020-06-18 09:58:09",
+                "close_id": 168,
+                "close_price": 24.61,
+                "close_date": "2020-06-18 14:57:36",
+                "commission": 13.7816,
+                "shares": 800,
+                "profit": 226.21840000000057
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 169,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-19 09:36:12",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 284.08,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 169,
+                "open_price": 284.08,
+                "open_date": "2020-06-19 09:36:12",
+                "commission": 19.8856,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 170,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-19 09:38:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 24.51,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 170,
+                "open_price": 24.52,
+                "open_date": "2020-06-19 09:38:51",
+                "commission": 13.7312,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 171,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-19 09:39:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -1000,
+        "price": 20.86,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 171,
+                "open_price": 20.92,
+                "open_date": "2020-06-19 09:39:51",
+                "commission": 14.644,
+                "shares": -1000
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 172,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-19 09:41:21",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 163.63,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 172,
+                "open_price": 163.63,
+                "open_date": "2020-06-19 09:41:21",
+                "commission": 11.4541,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 173,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-19 09:49:24",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 121.93,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 173,
+                "open_price": 121.93,
+                "open_date": "2020-06-19 09:49:24",
+                "commission": 17.0702,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 174,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-19 09:56:48",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.82,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 174,
+                "open_price": 25.84,
+                "open_date": "2020-06-19 09:56:48",
+                "commission": 14.4704,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 175,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-19 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 125.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 173,
+                "open_price": 121.93,
+                "open_date": "2020-06-19 09:49:24",
+                "close_id": 175,
+                "close_price": 125.5,
+                "close_date": "2020-06-19 14:57:30",
+                "commission": 17.57,
+                "shares": 200,
+                "profit": 696.4299999999986
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 176,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-19 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 1000,
+        "price": 21.45,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 171,
+                "open_price": 20.92,
+                "open_date": "2020-06-19 09:39:51",
+                "close_id": 176,
+                "close_price": 21.45,
+                "close_date": "2020-06-19 14:57:30",
+                "commission": 15.015,
+                "shares": 1000,
+                "profit": -545.0149999999976
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 177,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-19 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 165.25,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 172,
+                "open_price": 163.63,
+                "open_date": "2020-06-19 09:41:21",
+                "close_id": 177,
+                "close_price": 165.25,
+                "close_date": "2020-06-19 14:57:30",
+                "commission": 11.567499999999999,
+                "shares": 100,
+                "profit": 150.43250000000046
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 178,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-19 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 294.52,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 169,
+                "open_price": 284.08,
+                "open_date": "2020-06-19 09:36:12",
+                "close_id": 178,
+                "close_price": 294.52,
+                "close_date": "2020-06-19 14:57:30",
+                "commission": 20.6164,
+                "shares": 100,
+                "profit": 1023.3835999999998
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 179,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-19 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.95,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 174,
+                "open_price": 25.84,
+                "open_date": "2020-06-19 09:56:48",
+                "close_id": 179,
+                "close_price": 25.95,
+                "close_date": "2020-06-19 14:57:36",
+                "commission": 14.532,
+                "shares": 800,
+                "profit": -102.53199999999954
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 180,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-19 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.45,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 170,
+                "open_price": 24.52,
+                "open_date": "2020-06-19 09:38:51",
+                "close_id": 180,
+                "close_price": 24.45,
+                "close_date": "2020-06-19 14:57:36",
+                "commission": 13.692,
+                "shares": 800,
+                "profit": 42.30800000000023
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 181,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-22 09:35:30",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 295.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 181,
+                "open_price": 295.99,
+                "open_date": "2020-06-22 09:35:30",
+                "commission": 20.7193,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 182,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-22 09:38:27",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 127.44,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 182,
+                "open_price": 127.45,
+                "open_date": "2020-06-22 09:38:27",
+                "commission": 17.843,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 183,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-22 09:38:33",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 169.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 183,
+                "open_price": 169.4,
+                "open_date": "2020-06-22 09:38:33",
+                "commission": 11.858,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 184,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-22 09:39:15",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 24.7,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 184,
+                "open_price": 24.7,
+                "open_date": "2020-06-22 09:39:15",
+                "commission": 13.832,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 185,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-22 09:40:18",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.82,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 185,
+                "open_price": 25.83,
+                "open_date": "2020-06-22 09:40:18",
+                "commission": 14.4648,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 186,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-22 09:47:12",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -900,
+        "price": 21.29,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 186,
+                "open_price": 21.33,
+                "open_date": "2020-06-22 09:47:12",
+                "commission": 13.437899999999999,
+                "shares": -900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 187,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-22 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 128.72,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 182,
+                "open_price": 127.45,
+                "open_date": "2020-06-22 09:38:27",
+                "close_id": 187,
+                "close_price": 128.72,
+                "close_date": "2020-06-22 14:57:30",
+                "commission": 18.0208,
+                "shares": 200,
+                "profit": -272.0207999999992
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 188,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-22 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 21.55,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 186,
+                "open_price": 21.33,
+                "open_date": "2020-06-22 09:47:12",
+                "close_id": 188,
+                "close_price": 21.55,
+                "close_date": "2020-06-22 14:57:30",
+                "commission": 13.5765,
+                "shares": 900,
+                "profit": -211.57650000000217
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 189,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-22 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 165.32,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 183,
+                "open_price": 169.4,
+                "open_date": "2020-06-22 09:38:33",
+                "close_id": 189,
+                "close_price": 165.32,
+                "close_date": "2020-06-22 14:57:30",
+                "commission": 11.5724,
+                "shares": 100,
+                "profit": 396.42760000000123
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 190,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-22 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 297.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 181,
+                "open_price": 295.99,
+                "open_date": "2020-06-22 09:35:30",
+                "close_id": 190,
+                "close_price": 297.5,
+                "close_date": "2020-06-22 14:57:30",
+                "commission": 20.825,
+                "shares": 100,
+                "profit": 130.1749999999991
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 191,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-22 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.69,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 185,
+                "open_price": 25.83,
+                "open_date": "2020-06-22 09:40:18",
+                "close_id": 191,
+                "close_price": 25.69,
+                "close_date": "2020-06-22 14:57:36",
+                "commission": 14.3864,
+                "shares": 800,
+                "profit": 97.61359999999762
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 192,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-22 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.59,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 184,
+                "open_price": 24.7,
+                "open_date": "2020-06-22 09:39:15",
+                "close_id": 192,
+                "close_price": 24.59,
+                "close_date": "2020-06-22 14:57:36",
+                "commission": 13.7704,
+                "shares": 800,
+                "profit": -101.77039999999954
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 193,
+        "type": "buy",
+        "code": "000002",
+        "date": "2020-06-23 09:35:36",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 25.56,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 193,
+                "open_price": 25.56,
+                "open_date": "2020-06-23 09:35:36",
+                "commission": 14.3136,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 194,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-23 09:36:15",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 127.49,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 194,
+                "open_price": 127.49,
+                "open_date": "2020-06-23 09:36:15",
+                "commission": 17.8486,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 195,
+        "type": "sellshort",
+        "code": "300760",
+        "date": "2020-06-23 09:36:21",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 299.99,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 195,
+                "open_price": 300.0,
+                "open_date": "2020-06-23 09:36:21",
+                "commission": 21.0,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 196,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-23 09:36:39",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 24.26,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 196,
+                "open_price": 24.28,
+                "open_date": "2020-06-23 09:36:39",
+                "commission": 13.5968,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 197,
+        "type": "buy",
+        "code": "300750",
+        "date": "2020-06-23 09:36:57",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 166.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 197,
+                "open_price": 166.5,
+                "open_date": "2020-06-23 09:36:57",
+                "commission": 11.655,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 198,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-23 09:48:12",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -900,
+        "price": 21.48,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 198,
+                "open_price": 21.49,
+                "open_date": "2020-06-23 09:48:12",
+                "commission": 13.5387,
+                "shares": -900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 199,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-23 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 128.7,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 194,
+                "open_price": 127.49,
+                "open_date": "2020-06-23 09:36:15",
+                "close_id": 199,
+                "close_price": 128.7,
+                "close_date": "2020-06-23 14:57:30",
+                "commission": 18.017999999999997,
+                "shares": 200,
+                "profit": 223.98199999999875
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 200,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-23 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 22.5,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 198,
+                "open_price": 21.49,
+                "open_date": "2020-06-23 09:48:12",
+                "close_id": 200,
+                "close_price": 22.5,
+                "close_date": "2020-06-23 14:57:30",
+                "commission": 14.175,
+                "shares": 900,
+                "profit": -923.1750000000013
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 201,
+        "type": "sell",
+        "code": "300750",
+        "date": "2020-06-23 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 168.82,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 197,
+                "open_price": 166.5,
+                "open_date": "2020-06-23 09:36:57",
+                "close_id": 201,
+                "close_price": 168.82,
+                "close_date": "2020-06-23 14:57:30",
+                "commission": 11.8174,
+                "shares": 100,
+                "profit": 220.18259999999933
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 202,
+        "type": "buytocover",
+        "code": "300760",
+        "date": "2020-06-23 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 302.36,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 195,
+                "open_price": 300.0,
+                "open_date": "2020-06-23 09:36:21",
+                "close_id": 202,
+                "close_price": 302.36,
+                "close_date": "2020-06-23 14:57:30",
+                "commission": 21.1652,
+                "shares": 100,
+                "profit": -257.1652000000014
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 203,
+        "type": "sell",
+        "code": "000002",
+        "date": "2020-06-23 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.57,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 193,
+                "open_price": 25.56,
+                "open_date": "2020-06-23 09:35:36",
+                "close_id": 203,
+                "close_price": 25.57,
+                "close_date": "2020-06-23 14:57:36",
+                "commission": 14.3192,
+                "shares": 800,
+                "profit": -6.31919999999875
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 204,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-23 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.11,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 196,
+                "open_price": 24.28,
+                "open_date": "2020-06-23 09:36:39",
+                "close_id": 204,
+                "close_price": 24.11,
+                "close_date": "2020-06-23 14:57:36",
+                "commission": 13.5016,
+                "shares": 800,
+                "profit": 122.49840000000137
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 205,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-24 09:35:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 303.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 205,
+                "open_price": 303.0,
+                "open_date": "2020-06-24 09:35:06",
+                "commission": 21.21,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 206,
+        "type": "buy",
+        "code": "300168",
+        "date": "2020-06-24 09:35:42",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 900,
+        "price": 23.3,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 206,
+                "open_price": 23.3,
+                "open_date": "2020-06-24 09:35:42",
+                "commission": 14.679,
+                "shares": 900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 207,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-24 09:37:00",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 169.88,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 207,
+                "open_price": 169.96,
+                "open_date": "2020-06-24 09:37:00",
+                "commission": 11.8972,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 208,
+        "type": "buy",
+        "code": "300033",
+        "date": "2020-06-24 09:39:18",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 200,
+        "price": 129.59,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 208,
+                "open_price": 129.59,
+                "open_date": "2020-06-24 09:39:18",
+                "commission": 18.142599999999998,
+                "shares": 200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 209,
+        "type": "sellshort",
+        "code": "000002",
+        "date": "2020-06-24 09:41:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 25.92,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 209,
+                "open_price": 25.95,
+                "open_date": "2020-06-24 09:41:51",
+                "commission": 14.532,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 210,
+        "type": "buy",
+        "code": "002463",
+        "date": "2020-06-24 10:11:00",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 24.44,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 210,
+                "open_price": 24.44,
+                "open_date": "2020-06-24 10:11:00",
+                "commission": 13.686399999999999,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 211,
+        "type": "sell",
+        "code": "300033",
+        "date": "2020-06-24 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 127.6,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 208,
+                "open_price": 129.59,
+                "open_date": "2020-06-24 09:39:18",
+                "close_id": 211,
+                "close_price": 127.6,
+                "close_date": "2020-06-24 14:57:30",
+                "commission": 17.864,
+                "shares": 200,
+                "profit": -415.8640000000018
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 212,
+        "type": "sell",
+        "code": "300168",
+        "date": "2020-06-24 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 22.41,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 206,
+                "open_price": 23.3,
+                "open_date": "2020-06-24 09:35:42",
+                "close_id": 212,
+                "close_price": 22.41,
+                "close_date": "2020-06-24 14:57:30",
+                "commission": 14.1183,
+                "shares": 900,
+                "profit": -815.1183000000004
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 213,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-24 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 171.7,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 207,
+                "open_price": 169.96,
+                "open_date": "2020-06-24 09:37:00",
+                "close_id": 213,
+                "close_price": 171.7,
+                "close_date": "2020-06-24 14:57:30",
+                "commission": 12.019,
+                "shares": 100,
+                "profit": -186.01899999999807
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 214,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-24 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 298.88,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 205,
+                "open_price": 303.0,
+                "open_date": "2020-06-24 09:35:06",
+                "close_id": 214,
+                "close_price": 298.88,
+                "close_date": "2020-06-24 14:57:30",
+                "commission": 20.9216,
+                "shares": 100,
+                "profit": -432.92160000000047
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 215,
+        "type": "buytocover",
+        "code": "000002",
+        "date": "2020-06-24 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 26.4,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 209,
+                "open_price": 25.95,
+                "open_date": "2020-06-24 09:41:51",
+                "close_id": 215,
+                "close_price": 26.4,
+                "close_date": "2020-06-24 14:57:36",
+                "commission": 14.784,
+                "shares": 800,
+                "profit": -374.7839999999994
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 216,
+        "type": "sell",
+        "code": "002463",
+        "date": "2020-06-24 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.96,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 210,
+                "open_price": 24.44,
+                "open_date": "2020-06-24 10:11:00",
+                "close_id": 216,
+                "close_price": 24.96,
+                "close_date": "2020-06-24 14:57:36",
+                "commission": 13.9776,
+                "shares": 800,
+                "profit": 402.02239999999966
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 217,
+        "type": "buy",
+        "code": "300760",
+        "date": "2020-06-29 09:35:06",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 100,
+        "price": 303.68,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 217,
+                "open_price": 303.68,
+                "open_date": "2020-06-29 09:35:06",
+                "commission": 21.2576,
+                "shares": 100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 218,
+        "type": "sellshort",
+        "code": "300033",
+        "date": "2020-06-29 09:35:09",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -200,
+        "price": 128.51,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 218,
+                "open_price": 128.61,
+                "open_date": "2020-06-29 09:35:09",
+                "commission": 18.0054,
+                "shares": -200
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 219,
+        "type": "buy",
+        "code": "000002",
+        "date": "2020-06-29 09:36:18",
+        "msg": "\u4e70\u5165\u5f00\u4ed3",
+        "shares": 800,
+        "price": 25.87,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 219,
+                "open_price": 25.87,
+                "open_date": "2020-06-29 09:36:18",
+                "commission": 14.4872,
+                "shares": 800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 220,
+        "type": "sellshort",
+        "code": "300168",
+        "date": "2020-06-29 09:49:48",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -900,
+        "price": 22.52,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 220,
+                "open_price": 22.53,
+                "open_date": "2020-06-29 09:49:48",
+                "commission": 14.1939,
+                "shares": -900
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 221,
+        "type": "sellshort",
+        "code": "300750",
+        "date": "2020-06-29 09:51:48",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -100,
+        "price": 171.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 221,
+                "open_price": 171.02,
+                "open_date": "2020-06-29 09:51:48",
+                "commission": 11.9714,
+                "shares": -100
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 222,
+        "type": "sellshort",
+        "code": "002463",
+        "date": "2020-06-29 10:00:51",
+        "msg": "\u5356\u51fa\u5f00\u4ed3",
+        "shares": -800,
+        "price": 24.68,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 222,
+                "open_price": 24.7,
+                "open_date": "2020-06-29 10:00:51",
+                "commission": 13.832,
+                "shares": -800
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 223,
+        "type": "buytocover",
+        "code": "300033",
+        "date": "2020-06-29 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 200,
+        "price": 126.76,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 218,
+                "open_price": 128.61,
+                "open_date": "2020-06-29 09:35:09",
+                "close_id": 223,
+                "close_price": 126.76,
+                "close_date": "2020-06-29 14:57:30",
+                "commission": 17.7464,
+                "shares": 200,
+                "profit": 352.2536000000017
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 224,
+        "type": "buytocover",
+        "code": "300168",
+        "date": "2020-06-29 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 900,
+        "price": 21.49,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 220,
+                "open_price": 22.53,
+                "open_date": "2020-06-29 09:49:48",
+                "close_id": 224,
+                "close_price": 21.49,
+                "close_date": "2020-06-29 14:57:30",
+                "commission": 13.5387,
+                "shares": 900,
+                "profit": 922.4613000000024
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 225,
+        "type": "buytocover",
+        "code": "300750",
+        "date": "2020-06-29 14:57:30",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 170.94,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 221,
+                "open_price": 171.02,
+                "open_date": "2020-06-29 09:51:48",
+                "close_id": 225,
+                "close_price": 170.94,
+                "close_date": "2020-06-29 14:57:30",
+                "commission": 11.9658,
+                "shares": 100,
+                "profit": -3.965799999998749
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 226,
+        "type": "sell",
+        "code": "300760",
+        "date": "2020-06-29 14:57:30",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 100,
+        "price": 302.0,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 217,
+                "open_price": 303.68,
+                "open_date": "2020-06-29 09:35:06",
+                "close_id": 226,
+                "close_price": 302.0,
+                "close_date": "2020-06-29 14:57:30",
+                "commission": 21.14,
+                "shares": 100,
+                "profit": -189.14000000000067
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 227,
+        "type": "sell",
+        "code": "000002",
+        "date": "2020-06-29 14:57:36",
+        "msg": "\u505a\u591a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 25.94,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 219,
+                "open_price": 25.87,
+                "open_date": "2020-06-29 09:36:18",
+                "close_id": 227,
+                "close_price": 25.94,
+                "close_date": "2020-06-29 14:57:36",
+                "commission": 14.5264,
+                "shares": 800,
+                "profit": 41.473600000000225
+            }
+        ],
+        "ttl": 0
+    },
+    {
+        "id": 228,
+        "type": "buytocover",
+        "code": "002463",
+        "date": "2020-06-29 14:57:36",
+        "msg": "\u505a\u7a7a\u5e73\u4ed3",
+        "shares": 0,
+        "init_shares": 800,
+        "price": 24.52,
+        "done": true,
+        "deal_lst": [
+            {
+                "open_id": 222,
+                "open_price": 24.7,
+                "open_date": "2020-06-29 10:00:51",
+                "close_id": 228,
+                "close_price": 24.52,
+                "close_date": "2020-06-29 14:57:36",
+                "commission": 13.7312,
+                "shares": 800,
+                "profit": 130.26879999999977
             }
         ],
         "ttl": 0

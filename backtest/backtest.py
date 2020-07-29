@@ -197,7 +197,7 @@ class BackTest(ABC):
     def on_market_close(self):
         trade_date = self.ctx["now"].strftime("%Y-%m-%d")
         self.info("{}交易日结束".format(trade_date))
-        self.info("- * - * - * - * - * - * - * - * - * - * - * - * - * - * - *")
+        self.info("- * - * - * - * - * - * - * - * - * - * - * - * - * - * - *\n")
 
     def before_on_tick(self, tick):
         pass
