@@ -585,7 +585,10 @@ class T0BackTestBroker(Base):
         order_price = order["price"]
         order_shares = order["shares"]
         stock_info = tick_data[order_code]
-        stock_price = stock_info[self.deal_price]
+        if stock_info["LastPrice"] != 0:
+            stock_price = stock_info["LastPrice"]
+        else:
+            stock_price = max(stock_info["AskPrice1"], stock_info["BidPrice1"])
 
         if order_price is None:
             order_price = stock_price

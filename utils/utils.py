@@ -96,13 +96,16 @@ def load_from_path(fp_lst, code=None, start_date=None, end_date=None, func=None,
 
 def load_hist_mongo(ts_code=None, trade_date=None, func=None, random=True, typ="tdx"):
     md = myclient['Stock_Tick_Db']['Stock_Tick_Db']
-    for code in ts_code:#{ '$in' : ts_code }
-        json = {'$and': [{"Symbol": code}, {"TradeDate": trade_date}]}
+    start_time = trade_date.replace(hour=9, minute=30)
+    end_time = trade_date.replace(hour=14, minute=57)
+    for code in ts_code:
+        json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
         hists = pd.DataFrame(list(a))
         hists = hists.set_index(hists["TradeTime"])
         # hists = hists[hists["AskPrice1"] != 0]
         yield code, hists
+    myclient.close()
 
 
 def load_tradedate_mongo(start_date=None, end_date=None):
