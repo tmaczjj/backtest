@@ -159,15 +159,11 @@ class BackTest(ABC):
                 开启统计功能, 默认开启
     """
 
-    def __init__(self, stocklist=None, startdate=None, enddate=None, cash=100000, broker=None, enable_stat=True):
-        print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
-        self.startdate = startdate
-        self.enddate = enddate
+    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
+        self.trade_date = trade_date
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
-        self.trade_date = None
-        print("股票持仓列表{stock_list}".format(stock_list=self.stocklist))
 
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
         broker = broker
@@ -238,41 +234,17 @@ class BackTest(ABC):
         return self.stocklist
 
     def start(self):
-        from joblib import Parallel, delayed
-        start_date = self.startdate
-        end_date = self.enddate - datetime.timedelta(days=1)
-        trade_date_list = load_tradedate_mongo(start_date=start_date, end_date=end_date)
-        Parallel(n_jobs=2)(delayed(self.run_test)(dt) for dt in trade_date_list)
-        # for dt in trade_date_list:
-        #     feed = {}
-        #     self.trade_date = dt
-        #     stock_trade_list = self.stocklist = self.stockFliter()
-        #     self.info("今日需要交易的股票列表{}".format(stock_trade_list))
-        #     for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
-        #         feed[code] = hist.T
-        #     self.info("{}交易日股票数据导入完成".format(dt.strftime("%Y-%m-%d")))
-        #     # 添加交易数据
-        #     self._sch.add_feed(feed)
-        #     # 设置交易日历
-        #     self._sch.add_trade_cal()
-        #     self._sch.run()
-
-    def run_test(self, dt):
         feed = {}
-        self.trade_date = dt
         stock_trade_list = self.stocklist = self.stockFliter()
-        self.info("今日需要交易的股票列表{}".format(stock_trade_list))
-        for code, hist in load_hist_mongo(stock_trade_list, trade_date=dt):
+        self.info("{}需要交易的股票列表{}".format(self.trade_date, stock_trade_list))
+        for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
-        self.info("{}交易日股票数据导入完成".format(dt.strftime("%Y-%m-%d")))
+        self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
         # 添加交易数据
         self._sch.add_feed(feed)
         # 设置交易日历
         self._sch.add_trade_cal()
         self._sch.run()
-
-
-
 
     @abstractmethod
     def on_tick(self, tick):
