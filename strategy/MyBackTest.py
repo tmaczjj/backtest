@@ -32,18 +32,18 @@ class MyBackTest(BackTest):
                     hold_num = int(stock_hold_info["shares"])
                     trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                     if hold_num < 0:
-                        self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+0.5, 2), msg="做空平仓")
+                        self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
                     elif hold_num > 0:
-                        self.ctx.broker.sell(code, hold_num, round(trade_price-0.5, 2), msg="做多平仓")
+                        self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
             if code not in hold_position:
                 if time_start <= tick_time < time_end:
                     if trade_volume > self.stg_data[code]:
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                         trade_amount = int(round(int(20000 / market_data.AskPrice1) / 100) * 100)
                         if self.am[code].last_price[-1] > self.am[code].last_price[-2]:
-                            self.ctx.broker.buy(code, trade_amount, round(trade_price+0.5, 2), msg="买入开仓")
+                            self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
                         else:
-                            self.ctx.broker.sellshort(code, trade_amount, round(trade_price-0.5, 2), msg="卖出开仓")
+                            self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
 
     def on_deal(self, order):
         self.info("{stock_code}{trade_type}成交，成交价格{deal_price}".format(

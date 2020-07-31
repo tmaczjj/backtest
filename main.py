@@ -86,7 +86,7 @@ if __name__ == '__main__':
     print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
     print("股票持仓列表{stock_list}".format(stock_list=codelist))
     ############################################################################################
-    backtest_intra_day(codelist, trade_date)
-    # backtest_period_days(codelist, start_date, end_date)
+    # backtest_intra_day(codelist, trade_date)
+    backtest_period_days(codelist, start_date, end_date)
 
 
