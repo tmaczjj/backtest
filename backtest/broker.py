@@ -596,7 +596,7 @@ class T0BackTestBroker(Base):
         if order["type"] == "buy" and order_price >= stock_price:
             trade_price = stock_price
             cost = trade_price * order["shares"]
-            commission = cost * self.cm_rate
+            commission = round(cost * self.cm_rate, 2)
             if commission < 5:
                 commission = 5
 
@@ -647,7 +647,7 @@ class T0BackTestBroker(Base):
                 if pos["shares"] <= tmp:
                     # 计算手续费等
                     new_cash = pos["shares"] * trade_price
-                    commission += new_cash * self.cm_rate
+                    commission += round(new_cash * self.cm_rate, 2)
                     deal_lst.append({
                         "open_id": pos["open_id"],
                         "open_price": pos["open_price"],
@@ -663,7 +663,7 @@ class T0BackTestBroker(Base):
                 else:
                     # 计算手续费等
                     new_cash = tmp * trade_price
-                    commission += new_cash * self.cm_rate
+                    commission += round(new_cash * self.cm_rate, 2)
                     deal_lst.append({
                         "open_id": pos["open_id"],
                         "open_price": pos["open_price"],
@@ -695,7 +695,7 @@ class T0BackTestBroker(Base):
 
             deal_shares = sum([deal["shares"] for deal in deal_lst])
             for deal in deal_lst:
-                deal["commission"] = commission * (deal["shares"] / deal_shares)
+                deal["commission"] = round(commission * (deal["shares"] / deal_shares), 2)
                 deal["profit"] = (deal["close_price"] - deal["open_price"]) * deal["shares"] - deal["commission"]
                 new_cash = deal["shares"] * deal["close_price"]
                 self.cash = self.cash + new_cash
@@ -707,7 +707,7 @@ class T0BackTestBroker(Base):
         elif order["type"] == "sellshort" and order_price <= stock_price:
             trade_price = stock_price
             cost = -1 * trade_price * order["shares"]
-            commission = cost * self.cm_rate
+            commission = round(cost * self.cm_rate)
             if commission < 5:
                 commission = 5
 
@@ -758,7 +758,7 @@ class T0BackTestBroker(Base):
                 if pos["shares"] >= tmp:
                     # 计算手续费等
                     new_cash = pos["shares"] * trade_price
-                    commission += abs(new_cash * self.cm_rate)
+                    commission += round(abs(new_cash * self.cm_rate),2)
                     deal_lst.append({
                         "open_id": pos["open_id"],
                         "open_price": pos["open_price"],
@@ -774,7 +774,7 @@ class T0BackTestBroker(Base):
                 else:
                     # 计算手续费等
                     new_cash = tmp * trade_price
-                    commission += new_cash * self.cm_rate
+                    commission += round(new_cash * self.cm_rate, 2)
                     deal_lst.append({
                         "open_id": pos["open_id"],
                         "open_price": pos["open_price"],
@@ -806,7 +806,7 @@ class T0BackTestBroker(Base):
 
             deal_shares = sum([deal["shares"] for deal in deal_lst])
             for deal in deal_lst:
-                deal["commission"] = commission * (deal["shares"] / deal_shares)
+                deal["commission"] = round(commission * (deal["shares"] / deal_shares), 2)
                 deal["profit"] = (deal["open_price"] - deal["close_price"]) * deal["shares"] - deal["commission"]
                 new_cash = deal["shares"] * deal["close_price"]
                 self.cash = self.cash - new_cash

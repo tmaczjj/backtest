@@ -7,9 +7,9 @@ import sys
 import numpy as np
 import pandas as pd
 import pymongo
-import tushare as ts
 from glob import glob
 from os import path
+import datetime
 # from ..settings import config
 # data_path = config["STOCK_DATA_PATH"]
 
@@ -188,6 +188,25 @@ def load_n_hist(n):
             break
     return data
 
+
+def get_order_json_list():
+    ORDER_FILE_ROUTE = os.getcwd() + "\\order\\period_days\\"
+    file_list = os.listdir(ORDER_FILE_ROUTE)
+    order_json_list = [ORDER_FILE_ROUTE+file for file in file_list]
+    return order_json_list
+
+
+def get_order_single_json(trade_date):
+    """
+    To output the single order_history json
+    :param trade_date:
+    :return:
+    """
+
+    ORDER_FILE_ROUTE = os.getcwd() + "\\order\\intra_day\\"
+    FILE_NAME = "order_hist_" + trade_date.strftime("%Y%m%d") + ".json"
+    order_json = ORDER_FILE_ROUTE + FILE_NAME
+    return order_json
 
 # def get_ts_client():
 #     ts.set_token(config["TS_TOKEN"])
