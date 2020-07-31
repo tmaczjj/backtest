@@ -17,8 +17,14 @@ def output_periods_order_his():
     df_deliver_orders = df_orders_all[(df_orders_all["type"] == "sell") | (df_orders_all["type"] == "buytocover")]\
         .reset_index()
     df_deliver_orders.drop(columns=["index"], inplace=True)
-    deal_lst_list = list(df_deliver_orders["deal_lst"])
-    return deal_lst_list
+    profit_list = []
+    for i in range(0, len(df_deliver_orders)):
+        order_deal = df_deliver_orders["deal_lst"][i][0]
+        profit = order_deal["profit"]
+        profit_list.append(round(profit, 2))
+    df_deliver_orders["profit"] = profit_list
+
+    return df_deliver_orders
 
 
 def output_intraday_order_his():
@@ -33,7 +39,7 @@ def plot_net_profit_line():
     profit_lst = []
     cash = 100000
     deal_lst_list = output_periods_order_his()
-    for deal in deal_lst_list:
+    for deal in list(deal_lst_list["deal_lst"]):
         profit = deal[0]["profit"]
         cash = cash + profit
         profit_lst.append(cash)
@@ -41,6 +47,17 @@ def plot_net_profit_line():
     plt.show()
 
 
-plot_net_profit_line()
+def stock_profit_static():
+    deal_lst_df = output_periods_order_his()
+    temp = deal_lst_df.sort_values(by=['code',"date"]).drop(["msg", "id", "done", "shares", "ttl"],axis=1)
+    result = deal_lst_df.groupby(['code']).apply(lambda x: x.profit.sum())
+    x_data = [str(x) for x in list(result.keys())]
+    y_data = list(result)
+    plt.bar(x=x_data, height=y_data, label='个股盈亏统计', color='steelblue', alpha=1)
+    plt.xticks(rotation=45)
+    plt.show()
 
+
+stock_profit_static()
+plot_net_profit_line()
 

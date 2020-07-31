@@ -236,7 +236,7 @@ class BackTest(ABC):
     def start(self):
         feed = {}
         stock_trade_list = self.stocklist = self.stockFliter()
-        self.info("{}需要交易的股票列表{}".format(self.trade_date, stock_trade_list))
+        self.info("{}需要交易的股票数量为 {}".format(self.trade_date, len(stock_trade_list)))
         for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
         self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
@@ -285,6 +285,9 @@ class ArrayManager(object):
         self.bid_volume3_array: np.ndarray = np.zeros(size)
         self.bid_volume4_array: np.ndarray = np.zeros(size)
         self.bid_volume5_array: np.ndarray = np.zeros(size)
+        self.vwap_array: np.ndarray = np.zeros(size)
+        self.trade_amount_all_array: np.ndarray = np.zeros(size)
+        self.trade_volume_all_array: np.ndarray = np.zeros(size)
 
     def update(self, tick) -> None:
         self.count += 1
@@ -312,8 +315,14 @@ class ArrayManager(object):
         self.bid_volume5_array[:-1] = self.bid_volume5_array[1:]
         self.last_price_array[:-1] = self.last_price_array[1:]
         self.last_volume_array[:-1] = self.last_volume_array[1:]
-        # self.open_interest_array[:-1] = self.open_interest_array[1:]
+        self.trade_amount_all_array[:-1] = self.trade_amount_all_array[1:]
+        self.trade_volume_all_array[:-1] = self.trade_volume_all_array[1:]
+        self.vwap_array[:-1] = self.vwap_array[1:]
 
+        # self.open_interest_array[:-1] = self.open_interest_array[1:]
+        self.trade_amount_all_array[-1] = self.trade_amount_all_array[-2] + tick.TradeAmount
+        self.trade_volume_all_array[-1] = self.trade_volume_all_array[-2] + tick.TradeVolume
+        self.vwap_array[-1] = round(self.trade_amount_all_array[-1] / (self.trade_volume_all_array[-1]*100), 2)
         self.last_price_array[-1] = tick.LastPrice
         self.last_volume_array[-1] = tick.TradeVolume
         self.ask_price1_array[-1] = tick.AskPrice1
@@ -337,6 +346,27 @@ class ArrayManager(object):
         self.bid_volume4_array[-1] = tick.BidVolume4
         self.bid_volume5_array[-1] = tick.BidVolume5
         # self.open_interest_array[-1] = tick.open_interest
+
+    @property
+    def vwap(self) -> np.ndarray:
+        """
+        Get  twap_array time series.
+        """
+        return self.vwap_array
+
+    @property
+    def trade_amount_all(self) -> np.ndarray:
+        """
+        Get close trade_amount_all time series.
+        """
+        return self.trade_amount_all_array
+
+    @property
+    def trade_volume_all(self) -> np.ndarray:
+        """
+        Get close trade_volume_all_array time series.
+        """
+        return self.trade_volume_all_array
 
     @property
     def last_price(self) -> np.ndarray:

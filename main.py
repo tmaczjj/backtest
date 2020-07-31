@@ -29,7 +29,7 @@ def run(trade_date: datetime = None):
         ACCOUNT_STAT_NAME = "stat_" + trade_date.strftime("%Y%m%d") + ".csv"
         ACCOUNT_STAT_ROUTE = "reporter/account/period_days/" + ACCOUNT_STAT_NAME
 
-    T0_broker = broker.T0BackTestBroker(cash=100000, deal_price="AskPrice1")
+    T0_broker = broker.T0BackTestBroker(cash=10000000, deal_price="AskPrice1")
     mytest = MyBackTest(codelist, trade_date, broker=T0_broker)
     mytest.start()
     order_lst = mytest.ctx.broker.order_hist_lst
@@ -70,7 +70,7 @@ def backtest_period_days(code_list=None, trade_start_date: datetime=None, trade_
     _trade_start_date = trade_start_date
     _trade_end_date = trade_end_date - datetime.timedelta(days=1)
     trade_date_list = load_tradedate_mongo(start_date=_trade_start_date, end_date=_trade_end_date)
-    Parallel(n_jobs=8)(delayed(run)(dt) for dt in trade_date_list)
+    Parallel(n_jobs=12)(delayed(run)(dt) for dt in trade_date_list)
     time_end = time.time()
     time_spent = time_end - time_start
     print("\n回测耗时--: {time}".format(time=time_spent))
