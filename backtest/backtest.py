@@ -225,7 +225,7 @@ class BackTest(ABC):
         self.on_tick(tick)
         self.after_on_tick(tick)
 
-    def stockFliter(self):
+    def stockFliter(self, stocklist):
         """
         实现每日股票筛选
 
@@ -235,7 +235,7 @@ class BackTest(ABC):
 
     def start(self):
         feed = {}
-        stock_trade_list = self.stocklist = self.stockFliter()
+        stock_trade_list = self.stocklist
         self.info("{}需要交易的股票数量为 {}".format(self.trade_date, len(stock_trade_list)))
         for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T

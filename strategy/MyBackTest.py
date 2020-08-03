@@ -11,6 +11,7 @@ class MyBackTest(BackTest):
         super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat)
         self.am = {}
         self.stg_data = {}
+        self.stocklist = self.stockFliter(stocklist)
 
     def initialize(self):
         for stock in self.stocklist:
@@ -22,7 +23,7 @@ class MyBackTest(BackTest):
         tick_data = self.ctx["tick_data"]
         hold_position = self.ctx["broker"].position
         tick_time = str(tick.strftime("%H:%M:%S"))
-        time_start = "09:35:00"
+        time_start = "09:31:00"
         time_end = "14:56:30"
         traded_list = []
         for code, market_data in tick_data.items():
@@ -33,23 +34,23 @@ class MyBackTest(BackTest):
                 stock_hold_info = hold_position[code][0]
                 trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                 hold_num = int(stock_hold_info["shares"])
-                if time_start <= tick_time < time_end:
-                    open_price = stock_hold_info["open_price"]
-                    long_stop_price = open_price * 0.98
-                    short_stop_price = open_price * 1.02
-                    if hold_num < 0:
-                        if trade_price > short_stop_price:
-                            self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
-                            traded_list.append(code)
-                    if hold_num > 0:
-                        if trade_price < long_stop_price:
-                            self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
-                            traded_list.append(code)
+                # if time_start <= tick_time < time_end:
+                #     open_price = stock_hold_info["open_price"]
+                #     long_stop_price = open_price * 0.98
+                #     short_stop_price = open_price * 1.02
+                #     if hold_num < 0:
+                #         if trade_price > short_stop_price:
+                #             self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
+                #             traded_list.append(code)
+                #     if hold_num > 0:
+                #         if trade_price < long_stop_price:
+                #             self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
+                #             traded_list.append(code)
 
                 if tick_time >= time_end:
-                    if hold_num < 0:
-                        self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
-                        traded_list.append(code)
+                    # if hold_num < 0:
+                    #     self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
+                    #     traded_list.append(code)
                     if hold_num > 0:
                         self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
                         traded_list.append(code)
@@ -58,15 +59,15 @@ class MyBackTest(BackTest):
                 if time_start <= tick_time < time_end:
                     if trade_volume > self.stg_data[code]:
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
-                        trade_amount = int(round(int(100000 / market_data.AskPrice1) / 100) * 100)
+                        trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
                         cond1 = self.am[code].last_price[-1] > self.am[code].last_price[-2] > vwap[-1]
                         cond2 = vwap[-1] >= vwap[-2]
                         cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2] < vwap[-1]
                         cond4 = vwap[-1] <= vwap[-2]
                         if cond1 and cond2:
                             self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
-                        elif cond3 and cond4:
-                            self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
+                        # elif cond3 and cond4:
+                        #     self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
 
     def on_deal(self, order):
         pass
@@ -76,7 +77,7 @@ class MyBackTest(BackTest):
     def finish(self):
         pass
 
-    def stockFliter(self):
+    def stockFliter(self, stocklist):
         """
         股票筛选模块
         实现每日股票筛选
@@ -91,7 +92,7 @@ class MyBackTest(BackTest):
         for stock in tushare_stock_list:
             tushare_str += str(stock+",")
         df = pro.query('daily', ts_code=tushare_str, trade_date=trade_date)
-        df_fliter = df[df["pre_close"] > 10]
+        df_fliter = df[df["pre_close"] > 12]
         fliterred_list = list(df_fliter["ts_code"])
         stock_trade_list = [x.split(".", 1)[0] for x in fliterred_list]
         return stock_trade_list
