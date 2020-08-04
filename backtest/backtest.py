@@ -14,7 +14,7 @@ from .broker import Base as BrokerBase
 from .broker import BackTestBroker
 from .utils import logger
 from .hooks import Stat
-from utils.utils import load_hist_mongo
+from utils.utils import load_hist_mongo, load_local_hist_mongo
 
 
 class Context(UserDict):
@@ -157,6 +157,7 @@ class BackTest(ABC):
 
     def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
         self.trade_date = trade_date
+        self.trade_date_str = self.trade_date.strftime("%Y%m%d")
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
@@ -232,7 +233,8 @@ class BackTest(ABC):
         feed = {}
         stock_trade_list = self.stocklist
         self.info("{}需要交易的股票数量为 {}".format(self.trade_date, len(stock_trade_list)))
-        for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
+        for code, hist in load_local_hist_mongo(stock_trade_list, trade_date=self.trade_date):
+        # for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
         self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
         # 添加交易数据

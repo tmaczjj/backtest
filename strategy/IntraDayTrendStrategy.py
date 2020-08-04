@@ -3,9 +3,11 @@ from backtest.backtest import BackTest
 from datetime import datetime
 from backtest.backtest import ArrayManager
 from utils.utils import load_daily_price, load_share_mongo
+from warnings import simplefilter
+simplefilter(action='ignore', category=FutureWarning)
 
 
-class MyBackTest(BackTest):
+class IntraDayTrendStrategy(BackTest):
     def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
         super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat)
         self.am = {}
@@ -20,20 +22,31 @@ class MyBackTest(BackTest):
     def on_tick(self, tick):
         tick_data = self.ctx["tick_data"]
         hold_position = self.ctx["broker"].position
+        # 交易时间设定
         tick_time = str(tick.strftime("%H:%M:%S"))
-        time_start = "09:31:00"
-        time_end = "14:56:30"
+        market_time_start = "09:30:03"
+        trade_time_start = "09:35:00"
+        trade_time_end = "14:56:30"
         traded_list = []
+
         for code, market_data in tick_data.items():
             self.am[code].update(market_data)
             trade_volume = self.am[code].volume[-1]
             vwap = self.am[code].vwap
             cond_trade_amount = trade_volume >= self.stg_data[code]
+            # if cond_trade_amount:
+            #     print(0)
+            # ----------------------------------- 交易数据统计 ----------------------------------------- #
+            # if market_time_start < tick_time < trade_time_start:
+            #     if cond_trade_amount:
+            #         print(0)
+
+            # -----------------------------------  卖出  -----------------------------------------#
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
                 trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                 hold_num = int(stock_hold_info["shares"])
-                if time_start <= tick_time < time_end:
+                if trade_time_start <= tick_time < trade_time_end:
                     #long_stop_price = open_price * 0.98
                     #short_stop_price = open_price * 1.02
                     cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2]
@@ -48,7 +61,7 @@ class MyBackTest(BackTest):
                             self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
                             traded_list.append(code)
 
-                if tick_time >= time_end:
+                if tick_time >= trade_time_end:
                     # if hold_num < 0:
                     #     self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
                     #     traded_list.append(code)
@@ -56,8 +69,9 @@ class MyBackTest(BackTest):
                         self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
                         traded_list.append(code)
 
+            # -----------------------------------  买入  -----------------------------------------#
             if code not in hold_position and code not in traded_list:
-                if time_start <= tick_time < time_end:
+                if trade_time_start <= tick_time < trade_time_end:
                     if cond_trade_amount:
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                         trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
@@ -101,10 +115,15 @@ class MyBackTest(BackTest):
         return stock_trade_list_final
 
     def break_volume_cal(self, stock):
-        df_yd = load_share_mongo(stock, self.trade_date)
-        if len(df_yd) > 0:
-            stock_volume = df_yd["TradeVolume"]
-            volume_value = int(stock_volume.quantile(0.995))
-        else:
-            volume_value = 0
+        import tushare as ts
+        df_yd = ts.get_tick_data(stock, date=self.trade_date_str, src='tt')
+        stock_volume = df_yd["volume"]
+        volume_value = stock_volume.quantile(0.995)
+        # 本地获取数据
+        # df_yd = load_share_mongo(stock, self.trade_date)
+        # if len(df_yd) > 0:
+        #     stock_volume = df_yd["TradeVolume"]
+        #     volume_value = int(stock_volume.quantile(0.995))
+        # else:
+        #     volume_value = 0
         return volume_value

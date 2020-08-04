@@ -2,7 +2,7 @@
 import datetime
 import json
 from reporter import Plotter
-from strategy.MyBackTest import MyBackTest
+from strategy.IntraDayTrendStrategy import IntraDayTrendStrategy
 from backtest import broker
 import time
 import tushare as ts
@@ -30,7 +30,7 @@ def run(trade_date: datetime = None):
         ACCOUNT_STAT_ROUTE = "reporter/account/period_days/" + ACCOUNT_STAT_NAME
 
     T0_broker = broker.T0BackTestBroker(cash=10000000, deal_price="AskPrice1")
-    mytest = MyBackTest(codelist, trade_date, broker=T0_broker)
+    mytest = IntraDayTrendStrategy(codelist, trade_date, broker=T0_broker)
     mytest.start()
     order_lst = mytest.ctx.broker.order_hist_lst
     with open(ORDER_FILE_ROUTE, "w") as wf:

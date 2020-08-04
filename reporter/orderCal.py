@@ -9,6 +9,7 @@ import matplotlib.dates as mdate
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
+
 def output_periods_order_his():
     """
     连续回测的交割单统计
@@ -44,7 +45,7 @@ def output_periods_order_his():
 
 def output_intraday_order_his(stock_trade_date):
     """
-    日内交易的交割单统计
+    单日交易的交割单统计
     :param stock_trade_date:
     :return:
     """
@@ -70,34 +71,49 @@ def output_intraday_order_his(stock_trade_date):
     return df_deliver_orders
 
 
-def plot_period_net_profit_line():
+def plot_period_net_profit_trade_line():
+    """
+    连续交易主笔交易净值走势
+    :return:
+    """
     profit_lst = []
     cash = 1000000
     deal_lst_list = output_periods_order_his()
-    # 每日盈亏统计
-    profit_daily_static = deal_lst_list.groupby(['trade_date']).apply(lambda x: x.profit.sum())
     amount = deal_lst_list["trade_amount"].sum()
-    # for deal in list(deal_lst_list["deal_lst"]):
-    #     profit = deal[0]["profit"]
-    #     cash = cash + profit
-    #     profit_lst.append(cash)
+    for deal in list(deal_lst_list["deal_lst"]):
+        profit = deal[0]["profit"]
+        cash = cash + profit
+        profit_lst.append(cash)
+    plt.plot(profit_lst)
+    plt.show()
+
+
+def plot_period_net_profit_daily_line():
+    """
+    连续交易每日净值走势
+    :return:
+    """
+    profit_lst = []
+    cash = 1000000
+    deal_lst_list = output_periods_order_his()
+    profit_daily_static = deal_lst_list.groupby(['trade_date']).apply(lambda x: x.profit.sum())
     for deal in list(profit_daily_static):
         cash = cash + deal
         profit_lst.append(cash)
-    # plt.plot(profit_lst)
-    # plt.xticks(x_ticks, rotation=45)
-    # plt.show()
     fig = plt.figure(figsize=(12, 9))
     ax = plt.subplot(111)
-    # ax.xaxis.set_major_formatter(mdate.DateFormatter('%Y%m%d'))
+    ax.xaxis.set_major_formatter(mdate.DateFormatter('%Y%m%d'))
     x_ticks = [datetime.datetime.strptime(x, "%Y%m%d") for x in profit_daily_static.keys()]
-    x_ticks = [datetime.datetime.strftime(x, "%Y%m%d") for x in x_ticks]
     plt.xticks(x_ticks, rotation=45)
     ax.plot(x_ticks, profit_lst, color='r')
     plt.show()
 
 
 def plot_intraday_net_profit_line(stock_trade_date):
+    """
+    单日交易主笔交易净值走势
+    :return:
+    """
     profit_lst = []
     cash = 1000000
     deal_lst_list = output_intraday_order_his(stock_trade_date)
@@ -111,6 +127,10 @@ def plot_intraday_net_profit_line(stock_trade_date):
 
 
 def stock_profit_static():
+    """
+    个股盈亏统计
+    :return:
+    """
     deal_lst_df = output_periods_order_his()
     # 按照股票日期排序
     temp = deal_lst_df.sort_values(by=['code', "date"]).drop(["msg", "id", "done", "shares", "ttl"], axis=1)
@@ -129,6 +149,6 @@ def stock_profit_static():
 # trade_date = datetime.datetime(2020, 6, 5)
 # plot_intraday_net_profit_line(trade_date)
 ##############################################
-# stock_profit_static()
-plot_period_net_profit_line()
+stock_profit_static()
+plot_period_net_profit_trade_line()
 
