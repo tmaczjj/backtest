@@ -6,7 +6,7 @@ from strategy.MyBackTest import MyBackTest
 from backtest import broker
 import time
 import tushare as ts
-from utils.utils import load_tradedate_mongo
+from utils.utils import load_tradedate_mongo, load_stock_daily_weight
 from joblib import Parallel, delayed
 import warnings
 import traceback
@@ -79,14 +79,14 @@ def backtest_period_days(code_list=None, trade_start_date: datetime=None, trade_
 if __name__ == '__main__':
     start_date = datetime.datetime(2020, 6, 1)
     end_date = datetime.datetime(2020, 6, 30)
-    trade_date = datetime.datetime(2020, 6, 4)
-    df = pro.index_weight(index_code='399673.SZ', start_date="20200228")
-    codelist = [x.split(".")[0] for x in list(df["con_code"])]
-
+    trade_date = datetime.datetime(2020, 6, 5)
+    codelist = load_stock_daily_weight(trade_date)
     print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
     print("股票持仓列表{stock_list}".format(stock_list=codelist))
     ############################################################################################
     # backtest_intra_day(codelist, trade_date)
+    ############################################################################################
     backtest_period_days(codelist, start_date, end_date)
+
 
 

@@ -2,8 +2,7 @@
 from backtest.backtest import BackTest
 from datetime import datetime
 from backtest.backtest import ArrayManager
-import tushare as ts
-pro = ts.pro_api('5fc1ae2a4708570262b751312b521760932f3170201a9842b28212cc')
+from utils.utils import load_daily_price, load_share_mongo
 
 
 class MyBackTest(BackTest):
@@ -16,7 +15,6 @@ class MyBackTest(BackTest):
     def initialize(self):
         for stock in self.stocklist:
             self.am[stock] = ArrayManager()
-            self.stg_data[stock] = self.break_volume_cal(stock)
         self.info("Strategy--{}--策略初始化完成".format(self.__class__.__name__))
 
     def on_tick(self, tick):
@@ -30,22 +28,25 @@ class MyBackTest(BackTest):
             self.am[code].update(market_data)
             trade_volume = self.am[code].volume[-1]
             vwap = self.am[code].vwap
+            cond_trade_amount = trade_volume >= self.stg_data[code]
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
                 trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                 hold_num = int(stock_hold_info["shares"])
-                # if time_start <= tick_time < time_end:
-                #     open_price = stock_hold_info["open_price"]
-                #     long_stop_price = open_price * 0.98
-                #     short_stop_price = open_price * 1.02
-                #     if hold_num < 0:
-                #         if trade_price > short_stop_price:
-                #             self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
-                #             traded_list.append(code)
-                #     if hold_num > 0:
-                #         if trade_price < long_stop_price:
-                #             self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
-                #             traded_list.append(code)
+                if time_start <= tick_time < time_end:
+                    #long_stop_price = open_price * 0.98
+                    #short_stop_price = open_price * 1.02
+                    cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2]
+                    # cond4 = vwap[-1] <= vwap[-2]
+                    open_price = stock_hold_info["open_price"]
+                    # if hold_num < 0:
+                    #     if trade_price > short_stop_price:
+                    #         self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
+                    #         traded_list.append(code)
+                    if hold_num > 0:
+                        if cond3 and trade_price > vwap[-1] >= vwap[-2] and cond_trade_amount:
+                            self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
+                            traded_list.append(code)
 
                 if tick_time >= time_end:
                     # if hold_num < 0:
@@ -57,7 +58,7 @@ class MyBackTest(BackTest):
 
             if code not in hold_position and code not in traded_list:
                 if time_start <= tick_time < time_end:
-                    if trade_volume > self.stg_data[code]:
+                    if cond_trade_amount:
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                         trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
                         cond1 = self.am[code].last_price[-1] > self.am[code].last_price[-2] > vwap[-1]
@@ -85,24 +86,25 @@ class MyBackTest(BackTest):
 
         :return:     list:需要交易的股票
         """
-        trade_date = self.trade_date.strftime("%Y%m%d")
         stock_list = self.stocklist
-        tushare_stock_list = [x + ".SZ" for x in stock_list]
-        tushare_str = ""
-        for stock in tushare_stock_list:
-            tushare_str += str(stock+",")
-        df = pro.query('daily', ts_code=tushare_str, trade_date=trade_date)
-        df_fliter = df[df["pre_close"] > 12]
-        fliterred_list = list(df_fliter["ts_code"])
+        local_stock_list = [x + ".SH" if x.startswith("6") else x + ".SZ" for x in stock_list]
+        daily_price_df = load_daily_price(local_stock_list, self.trade_date)
+        df_fliter = daily_price_df[daily_price_df["close"] > 12]
+        fliterred_list = list(df_fliter["code"])
         stock_trade_list = [x.split(".", 1)[0] for x in fliterred_list]
-        return stock_trade_list
+        stock_trade_list_final = []
+        for stock in stock_trade_list:
+            break_point = self.break_volume_cal(stock)
+            if break_point >= 300:
+                self.stg_data[stock] = self.break_volume_cal(stock)
+                stock_trade_list_final.append(stock)
+        return stock_trade_list_final
 
     def break_volume_cal(self, stock):
-        import warnings
-        warnings.filterwarnings("ignore")
-        code = stock
-        trade_date = self.trade_date.strftime("%Y-%m-%d")
-        df_yd = ts.get_tick_data(code, date=trade_date, src='tt')
-        stock_volume = df_yd["volume"]
-        volume_value = int(stock_volume.quantile(0.995))
+        df_yd = load_share_mongo(stock, self.trade_date)
+        if len(df_yd) > 0:
+            stock_volume = df_yd["TradeVolume"]
+            volume_value = int(stock_volume.quantile(0.995))
+        else:
+            volume_value = 0
         return volume_value

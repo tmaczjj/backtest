@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# @Author: youerning
-# @Email: 673125641@qq.com
-
 # import numpy as np
 # import pandas as pd
 import sys
@@ -18,7 +15,6 @@ from .broker import BackTestBroker
 from .utils import logger
 from .hooks import Stat
 from utils.utils import load_hist_mongo
-from utils.utils import load_tradedate_mongo
 
 
 class Context(UserDict):
@@ -164,7 +160,6 @@ class BackTest(ABC):
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
-
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
         broker = broker
 
@@ -320,6 +315,10 @@ class ArrayManager(object):
         self.vwap_array[:-1] = self.vwap_array[1:]
 
         # self.open_interest_array[:-1] = self.open_interest_array[1:]
+        try:
+            trade_amount = tick.TradeAmount
+        except:
+            pass
         self.trade_amount_all_array[-1] = self.trade_amount_all_array[-2] + tick.TradeAmount
         self.trade_volume_all_array[-1] = self.trade_volume_all_array[-2] + tick.TradeVolume
         self.vwap_array[-1] = round(self.trade_amount_all_array[-1] / (self.trade_volume_all_array[-1]*100), 2)

@@ -95,9 +95,10 @@ def load_from_path(fp_lst, code=None, start_date=None, end_date=None, func=None,
 
 
 def load_hist_mongo(ts_code=None, trade_date=None, func=None, random=True, typ="tdx"):
+    # myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
     md = myclient['Stock_Tick_Db']['Stock_Tick_Db']
-    start_time = trade_date.replace(hour=9, minute=30)
-    end_time = trade_date.replace(hour=14, minute=57)
+    start_time = trade_date.replace(hour=9, minute=30, second=3)
+    end_time = trade_date.replace(hour=14, minute=56, second=55)
     for code in ts_code:
         json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
@@ -108,6 +109,18 @@ def load_hist_mongo(ts_code=None, trade_date=None, func=None, random=True, typ="
     myclient.close()
 
 
+def load_share_mongo(ts_code=None, trade_date=None, func=None, random=True, typ="tdx"):
+    # myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
+    md = myclient['Stock_Tick_Db']['Stock_Tick_Db']
+    start_time = trade_date.replace(hour=9, minute=30)
+    end_time = trade_date.replace(hour=14, minute=57)
+    json = {'$and': [{"Symbol": ts_code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
+    a = md.find(json, {"_id": 0}).sort('TradeTime')
+    hists = pd.DataFrame(list(a))
+
+    return hists
+
+
 def load_tradedate_mongo(start_date=None, end_date=None):
     md = myclient['NxData']['IndexDaily']
     json = {'$and': [{"code": "000905.SH"}, {"tradeDate": {"$gte": start_date}}, {"tradeDate": {"$lte": end_date}}]}
@@ -115,6 +128,22 @@ def load_tradedate_mongo(start_date=None, end_date=None):
     hists = pd.DataFrame(list(a))
     tradeDateList = list(hists["tradeDate"])
     return tradeDateList
+
+
+def load_daily_price(stocklist: list = None, trade_date: datetime = None):
+    md = myclient['NxData']['stockDaily']
+    json = {'$and': [{"code": {"$in": stocklist}}, {"tradeDate":  trade_date}]}
+    a = md.find(json, {"_id": 0}).sort('tradeDate')
+    hists = pd.DataFrame(list(a))
+    return hists
+
+
+def load_stock_daily_weight(trade_date: datetime = None):
+    md = myclient['NxDataCne6']['cne6GTA191dailyweights']
+    a = md.find({"index": trade_date}, {"_id": 0})
+    hists = pd.DataFrame(list(a)).iloc[0]
+    code_list = [code[:6] for code, weight in hists[:-1].items() if weight > 0.002]
+    return code_list
 
 
 def load_hist(ts_code=None, start_date=None, end_date=None, func=None, random=True, typ="tdx"):
@@ -198,11 +227,10 @@ def get_order_json_list():
 
 def get_order_single_json(trade_date):
     """
-    To output the single order_history json
+    To out
     :param trade_date:
     :return:
     """
-
     ORDER_FILE_ROUTE = os.getcwd() + "\\order\\intra_day\\"
     FILE_NAME = "order_hist_" + trade_date.strftime("%Y%m%d") + ".json"
     order_json = ORDER_FILE_ROUTE + FILE_NAME
