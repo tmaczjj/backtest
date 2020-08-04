@@ -233,7 +233,7 @@ class BackTest(ABC):
         feed = {}
         stock_trade_list = self.stocklist
         self.info("{}需要交易的股票数量为 {}".format(self.trade_date, len(stock_trade_list)))
-        for code, hist in load_local_hist_mongo(stock_trade_list, trade_date=self.trade_date):
+        for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
         # for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
         self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
@@ -260,6 +260,7 @@ class ArrayManager(object):
 
         self.last_price_array: np.ndarray = np.zeros(size)
         self.last_volume_array: np.ndarray = np.zeros(size)
+        self.last_amount_array: np.ndarray = np.zeros(size)
         self.open_interest_array: np.ndarray = np.zeros(size)
         # 盘口数据初始化
         self.ask_price1_array: np.ndarray = np.zeros(size)
@@ -315,12 +316,14 @@ class ArrayManager(object):
         self.trade_amount_all_array[:-1] = self.trade_amount_all_array[1:]
         self.trade_volume_all_array[:-1] = self.trade_volume_all_array[1:]
         self.vwap_array[:-1] = self.vwap_array[1:]
+        self.last_amount_array[:-1] = self.last_amount_array[1:]
 
         # self.open_interest_array[:-1] = self.open_interest_array[1:]
         try:
             trade_amount = tick.TradeAmount
         except:
             pass
+        self.last_amount_array[-1] = tick.TradeAmount
         self.trade_amount_all_array[-1] = self.trade_amount_all_array[-2] + tick.TradeAmount
         self.trade_volume_all_array[-1] = self.trade_volume_all_array[-2] + tick.TradeVolume
         self.vwap_array[-1] = round(self.trade_amount_all_array[-1] / (self.trade_volume_all_array[-1]*100), 2)
@@ -354,6 +357,13 @@ class ArrayManager(object):
         Get  twap_array time series.
         """
         return self.vwap_array
+
+    @property
+    def amount(self) -> np.ndarray:
+        """
+        Get  amount time series.
+        """
+        return self.last_amount_array
 
     @property
     def trade_amount_all(self) -> np.ndarray:

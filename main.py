@@ -79,7 +79,7 @@ def backtest_period_days(code_list=None, trade_start_date: datetime=None, trade_
 if __name__ == '__main__':
     start_date = datetime.datetime(2020, 6, 1)
     end_date = datetime.datetime(2020, 6, 30)
-    trade_date = datetime.datetime(2020, 6, 5)
+    trade_date = datetime.datetime(2020, 6, 1)
     codelist = load_stock_daily_weight(trade_date)
     print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
     print("股票持仓列表{stock_list}".format(stock_list=codelist))

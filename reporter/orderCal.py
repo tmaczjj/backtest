@@ -93,20 +93,12 @@ def plot_period_net_profit_daily_line():
     连续交易每日净值走势
     :return:
     """
-    profit_lst = []
-    cash = 1000000
     deal_lst_list = output_periods_order_his()
     profit_daily_static = deal_lst_list.groupby(['trade_date']).apply(lambda x: x.profit.sum())
-    for deal in list(profit_daily_static):
-        cash = cash + deal
-        profit_lst.append(cash)
-    fig = plt.figure(figsize=(12, 9))
-    ax = plt.subplot(111)
-    ax.xaxis.set_major_formatter(mdate.DateFormatter('%Y%m%d'))
-    x_ticks = [datetime.datetime.strptime(x, "%Y%m%d") for x in profit_daily_static.keys()]
-    plt.xticks(x_ticks, rotation=45)
-    ax.plot(x_ticks, profit_lst, color='r')
-    plt.show()
+    profit_dict = {"date": profit_daily_static.index, "profit": profit_daily_static.values}
+    df_profit = pd.DataFrame(profit_dict, index=profit_daily_static.index)
+    profit_df = df_profit['profit'].cumsum()
+    profit_df.plot()
 
 
 def plot_intraday_net_profit_line(stock_trade_date):
@@ -146,9 +138,9 @@ def stock_profit_static():
 
 
 ##############################################
-# trade_date = datetime.datetime(2020, 6, 5)
-# plot_intraday_net_profit_line(trade_date)
+trade_date = datetime.datetime(2020, 6, 1)
+plot_intraday_net_profit_line(trade_date)
 ##############################################
 stock_profit_static()
-plot_period_net_profit_trade_line()
+# plot_period_net_profit_daily_line()
 

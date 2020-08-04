@@ -12,11 +12,15 @@ class IntraDayTrendStrategy(BackTest):
         super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat)
         self.am = {}
         self.stg_data = {}
+        self.stock_buy_power = {}
+        self.stock_sell_power = {}
         self.stocklist = self.stockFliter(stocklist)
 
     def initialize(self):
         for stock in self.stocklist:
             self.am[stock] = ArrayManager()
+            self.stock_buy_power[stock] = 0
+            self.stock_sell_power[stock] = 0
         self.info("Strategy--{}--策略初始化完成".format(self.__class__.__name__))
 
     def on_tick(self, tick):
@@ -24,63 +28,74 @@ class IntraDayTrendStrategy(BackTest):
         hold_position = self.ctx["broker"].position
         # 交易时间设定
         tick_time = str(tick.strftime("%H:%M:%S"))
-        market_time_start = "09:30:03"
+        market_time_start = "09:30:20"
         trade_time_start = "09:35:00"
         trade_time_end = "14:56:30"
         traded_list = []
 
         for code, market_data in tick_data.items():
             self.am[code].update(market_data)
-            trade_volume = self.am[code].volume[-1]
+            # print("{}:{}".format(tick, code))
+            trade_volume = self.am[code].volume
+            trade_amount = self.am[code].amount
             vwap = self.am[code].vwap
-            cond_trade_amount = trade_volume >= self.stg_data[code]
-            # if cond_trade_amount:
-            #     print(0)
+            trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
+            trade_last_avg_price = round(trade_amount[-2] / (trade_volume[-2] * 100), 2)
+            cond_trade_amount = trade_volume[-1] > self.stg_data[code]
+
             # ----------------------------------- 交易数据统计 ----------------------------------------- #
-            # if market_time_start < tick_time < trade_time_start:
-            #     if cond_trade_amount:
-            #         print(0)
+            if market_time_start < tick_time < trade_time_start:
+                if trade_current_avg_price > trade_last_avg_price:
+                    stock_amount = self.stock_buy_power[code]
+                    self.stock_buy_power[code] = trade_amount[-1] + stock_amount
+                elif trade_current_avg_price < trade_last_avg_price:
+                    stock_amount = self.stock_sell_power[code]
+                    self.stock_sell_power[code] = trade_amount[-1] + stock_amount
 
             # -----------------------------------  卖出  -----------------------------------------#
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
                 trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
-                hold_num = int(stock_hold_info["shares"])
-                if trade_time_start <= tick_time < trade_time_end:
-                    #long_stop_price = open_price * 0.98
-                    #short_stop_price = open_price * 1.02
+
+                if trade_time_start < tick_time < trade_time_end:
                     cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2]
                     # cond4 = vwap[-1] <= vwap[-2]
-                    open_price = stock_hold_info["open_price"]
+                    hold_num = int(stock_hold_info["shares"])
+                    if hold_num > 0:
+                        if cond3 and trade_price > vwap[-1] >= vwap[-2] and cond_trade_amount:
+                            self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
+
+                    # long_stop_price = open_price * 0.98
+                    # short_stop_price = open_price * 1.02
+                    # open_price = stock_hold_info["open_price"]
                     # if hold_num < 0:
                     #     if trade_price > short_stop_price:
                     #         self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
                     #         traded_list.append(code)
-                    if hold_num > 0:
-                        if cond3 and trade_price > vwap[-1] >= vwap[-2] and cond_trade_amount:
-                            self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
-                            traded_list.append(code)
 
                 if tick_time >= trade_time_end:
+                    hold_num = int(stock_hold_info["shares"])
                     # if hold_num < 0:
                     #     self.ctx.broker.buytocover(code, abs(hold_num), round(trade_price+1, 2), msg="做空平仓")
                     #     traded_list.append(code)
                     if hold_num > 0:
                         self.ctx.broker.sell(code, hold_num, round(trade_price-1, 2), msg="做多平仓")
-                        traded_list.append(code)
 
             # -----------------------------------  买入  -----------------------------------------#
-            if code not in hold_position and code not in traded_list:
-                if trade_time_start <= tick_time < trade_time_end:
-                    if cond_trade_amount:
+            if trade_time_start < tick_time < trade_time_end:
+                if cond_trade_amount:
+                    if code not in hold_position and code not in traded_list:
+                        buy_power = self.stock_buy_power[code]
+                        sell_power = self.stock_buy_power[code]
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                         trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
-                        cond1 = self.am[code].last_price[-1] > self.am[code].last_price[-2] > vwap[-1]
+                        cond1 = self.am[code].last_price[-1] > self.am[code].last_price[-2]
                         cond2 = vwap[-1] >= vwap[-2]
-                        cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2] < vwap[-1]
-                        cond4 = vwap[-1] <= vwap[-2]
                         if cond1 and cond2:
                             self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
+                            traded_list.append(code)
+                        # cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2] < vwap[-1]
+                        # cond4 = vwap[-1] <= vwap[-2]
                         # elif cond3 and cond4:
                         #     self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
 
