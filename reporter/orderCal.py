@@ -29,7 +29,8 @@ def output_periods_order_his():
     trade_amount_list = []
     for i in range(0, len(df_deliver_orders)):
         order_deal = df_deliver_orders["deal_lst"][i][0]
-        profit = order_deal["profit"]
+        commission = order_deal["commission"]
+        profit = order_deal["profit"] - commission
         shares = order_deal["shares"]
         open_price = order_deal["open_price"]
         order_amount = round(shares*open_price, 2)
@@ -109,6 +110,7 @@ def plot_intraday_net_profit_line(stock_trade_date):
     profit_lst = []
     cash = 1000000
     deal_lst_list = output_intraday_order_his(stock_trade_date)
+    temp = deal_lst_list.sort_values(by="code")
     amount = deal_lst_list["trade_amount"].sum()
     for deal in list(deal_lst_list["deal_lst"]):
         profit = deal[0]["profit"]
@@ -138,9 +140,10 @@ def stock_profit_static():
 
 
 ##############################################
-trade_date = datetime.datetime(2020, 6, 1)
-plot_intraday_net_profit_line(trade_date)
+# trade_date = datetime.datetime(2020, 6, 1)
+# plot_intraday_net_profit_line(trade_date)
 ##############################################
 stock_profit_static()
-# plot_period_net_profit_daily_line()
+plot_period_net_profit_trade_line()
+plot_period_net_profit_daily_line()
 

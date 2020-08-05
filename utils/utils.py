@@ -110,7 +110,7 @@ def load_hist_mongo(ts_code=None, trade_date=None):
 
 
 def load_local_hist_mongo(ts_code=None, trade_date=None):
-    myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
+    myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     table_name = trade_date.strftime("%Y%m%d")
     md = myclient['Stock_Tick_Db'][table_name]
     start_time = trade_date.replace(hour=9, minute=30, second=3)

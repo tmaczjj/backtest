@@ -15,6 +15,7 @@ class IntraDayTrendStrategy(BackTest):
         self.stock_buy_power = {}
         self.stock_sell_power = {}
         self.stocklist = self.stockFliter(stocklist)
+        self.traded_list = []
 
     def initialize(self):
         for stock in self.stocklist:
@@ -31,7 +32,6 @@ class IntraDayTrendStrategy(BackTest):
         market_time_start = "09:30:20"
         trade_time_start = "09:35:00"
         trade_time_end = "14:56:30"
-        traded_list = []
 
         for code, market_data in tick_data.items():
             self.am[code].update(market_data)
@@ -39,12 +39,12 @@ class IntraDayTrendStrategy(BackTest):
             trade_volume = self.am[code].volume
             trade_amount = self.am[code].amount
             vwap = self.am[code].vwap
-            trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
-            trade_last_avg_price = round(trade_amount[-2] / (trade_volume[-2] * 100), 2)
             cond_trade_amount = trade_volume[-1] > self.stg_data[code]
 
             # ----------------------------------- 交易数据统计 ----------------------------------------- #
             if market_time_start < tick_time < trade_time_start:
+                trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
+                trade_last_avg_price = round(trade_amount[-2] / (trade_volume[-2] * 100), 2)
                 if trade_current_avg_price > trade_last_avg_price:
                     stock_amount = self.stock_buy_power[code]
                     self.stock_buy_power[code] = trade_amount[-1] + stock_amount
@@ -84,16 +84,16 @@ class IntraDayTrendStrategy(BackTest):
             # -----------------------------------  买入  -----------------------------------------#
             if trade_time_start < tick_time < trade_time_end:
                 if cond_trade_amount:
-                    if code not in hold_position and code not in traded_list:
+                    if code not in hold_position and code not in self.traded_list:
                         buy_power = self.stock_buy_power[code]
-                        sell_power = self.stock_buy_power[code]
+                        sell_power = self.stock_sell_power[code]
                         trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
                         trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
                         cond1 = self.am[code].last_price[-1] > self.am[code].last_price[-2]
                         cond2 = vwap[-1] >= vwap[-2]
-                        if cond1 and cond2:
+                        if cond1 and cond2 and buy_power>sell_power:
                             self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
-                            traded_list.append(code)
+                            self.traded_list.append(code)
                         # cond3 = self.am[code].last_price[-1] < self.am[code].last_price[-2] < vwap[-1]
                         # cond4 = vwap[-1] <= vwap[-2]
                         # elif cond3 and cond4:
