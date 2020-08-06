@@ -189,7 +189,6 @@ class BackTest(ABC):
     def on_market_close(self):
         trade_date = self.ctx["now"].strftime("%Y-%m-%d")
         self.info("{}交易日结束".format(trade_date))
-        self.info("- * - * - * - * - * - * - * - * - * - * - * - * - * - * - *\n")
 
     def before_on_tick(self, tick):
         pass
@@ -232,9 +231,9 @@ class BackTest(ABC):
     def start(self):
         feed = {}
         stock_trade_list = self.stocklist
-        self.info("{}需要交易的股票数量为 {}".format(self.trade_date, len(stock_trade_list)))
-        # for code, hist in load_local_hist_mongo(stock_trade_list, trade_date=self.trade_date):
-        for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
+        self.info("{}需要交易的股票数量为 {}".format(self.trade_date.strftime("%Y%m%d"), len(stock_trade_list)))
+        for code, hist in load_local_hist_mongo(stock_trade_list, trade_date=self.trade_date):
+        # for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
         self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
         # 添加交易数据

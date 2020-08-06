@@ -39,7 +39,7 @@ class Plotter(object):
         hold_time_lst = []
         commission = 0
 
-        order_count = defaultdict(lambda :defaultdict(int))
+        order_count = defaultdict(lambda: defaultdict(int))
         for order in self.order_lst:
             # 统计交易次数时间
             open_date = order["date"]

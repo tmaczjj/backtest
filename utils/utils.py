@@ -113,8 +113,8 @@ def load_local_hist_mongo(ts_code=None, trade_date=None):
     myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     table_name = trade_date.strftime("%Y%m%d")
     md = myclient['Stock_Tick_Db'][table_name]
-    start_time = trade_date.replace(hour=9, minute=30, second=3)
-    end_time = trade_date.replace(hour=14, minute=56, second=55)
+    start_time = trade_date.replace(hour=9, minute=30, second=0)
+    end_time = trade_date.replace(hour=9, minute=35, second=0)
     for code in ts_code:
         json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
@@ -140,7 +140,7 @@ def load_share_mongo(ts_code=None, trade_date=None, func=None, random=True, typ=
 def load_tradedate_mongo(start_date=None, end_date=None):
     md = myclient['NxData']['IndexDaily']
     json = {'$and': [{"code": "000905.SH"}, {"tradeDate": {"$gte": start_date}}, {"tradeDate": {"$lte": end_date}}]}
-    a = md.find(json, {"_id": 0}).sort('TradeDate')
+    a = md.find(json, {"_id": 0}).sort('tradeDate')
     hists = pd.DataFrame(list(a))
     tradeDateList = list(hists["tradeDate"])
     return tradeDateList
@@ -157,8 +157,10 @@ def load_daily_price(stocklist: list = None, trade_date: datetime = None):
 def load_stock_daily_weight(trade_date: datetime = None):
     md = myclient['NxDataCne6']['cne6GTA191dailyweights']
     a = md.find({"index": trade_date}, {"_id": 0})
+
     hists = pd.DataFrame(list(a)).iloc[0]
     code_list = [code[:6] for code, weight in hists[:-1].items() if weight > 0.002]
+
     return code_list
 
 

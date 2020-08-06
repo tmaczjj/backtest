@@ -10,7 +10,7 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 
-def output_periods_order_his():
+def output_periods_order_his(cash=1000000):
     """
     连续回测的交割单统计
     :return:
@@ -27,6 +27,7 @@ def output_periods_order_his():
     df_deliver_orders.drop(columns=["index"], inplace=True)
     profit_list = []
     trade_amount_list = []
+    cash_list = []
     for i in range(0, len(df_deliver_orders)):
         order_deal = df_deliver_orders["deal_lst"][i][0]
         commission = order_deal["commission"]
@@ -36,7 +37,10 @@ def output_periods_order_his():
         order_amount = round(shares*open_price, 2)
         trade_amount_list.append(order_amount)
         profit_list.append(round(profit, 2))
+        cash = cash + round(profit, 2)
+        cash_list.append(cash)
     df_deliver_orders["profit"] = profit_list
+    df_deliver_orders["cash"] = cash_list
     df_deliver_orders["trade_amount"] = trade_amount_list
     data_list = list(df_deliver_orders["date"])
     trade_date = [x.strftime("%Y%m%d") for x in data_list]
@@ -77,15 +81,14 @@ def plot_period_net_profit_trade_line():
     连续交易主笔交易净值走势
     :return:
     """
-    profit_lst = []
-    cash = 1000000
     deal_lst_list = output_periods_order_his()
-    amount = deal_lst_list["trade_amount"].sum()
-    for deal in list(deal_lst_list["deal_lst"]):
-        profit = deal[0]["profit"]
-        cash = cash + profit
-        profit_lst.append(cash)
-    plt.plot(profit_lst)
+    profit_lst = deal_lst_list["profit"].cumsum()
+
+    plt.plot(profit_lst, mec='g', mfc='w', label=u'test')
+    plt.grid(True, linestyle='-.')
+    plt.xlabel(u"tradeNumbers")  # X轴标签
+    plt.ylabel(u"profit")  # Y轴标签
+    plt.title(u"IntraDayTrendStrategy Profit Table")  # 标题
     plt.show()
 
 
@@ -99,6 +102,13 @@ def plot_period_net_profit_daily_line():
     profit_dict = {"date": profit_daily_static.index, "profit": profit_daily_static.values}
     df_profit = pd.DataFrame(profit_dict, index=profit_daily_static.index)
     profit_df = df_profit['profit'].cumsum()
+
+    # return_std = deal_lst_list['cash'].pct_change().std()*16
+    # # 防止return_sd == 0, 所以加上一个很小的数1e-5 == 0.00001
+    # annual_return = annual_return_cal()
+    # rf = 0.04
+    # ratio = (annual_return - rf) / (return_std + 1e-5)
+
     profit_df.plot()
 
 
@@ -135,7 +145,7 @@ def stock_profit_static():
     x_data = [str(x) for x in list(profit_code_static.keys())]
     y_data = list(profit_code_static)
     plt.bar(x=x_data, height=y_data, label='个股盈亏统计', color='steelblue', alpha=1)
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     plt.show()
 
 

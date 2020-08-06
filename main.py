@@ -3,6 +3,7 @@ import datetime
 import json
 from reporter import Plotter
 from strategy.IntraDayTrendStrategy import IntraDayTrendStrategy
+from strategy.breakStrategy import BreakStrategy
 from backtest import broker
 import time
 import tushare as ts
@@ -15,6 +16,8 @@ pro = ts.pro_api('5fc1ae2a4708570262b751312b521760932f3170201a9842b28212cc')
 
 
 def run(trade_date: datetime = None):
+    code_list = load_stock_daily_weight(trade_date)
+    print("{trade_date} 股票持仓列表{stock_list}".format(trade_date=trade_date.strftime("%Y%m%d"), stock_list=code_list))
     s = traceback.extract_stack()
     fun_name = s[-2][2]
     if fun_name == "backtest_intra_day":
@@ -29,8 +32,9 @@ def run(trade_date: datetime = None):
         ACCOUNT_STAT_NAME = "stat_" + trade_date.strftime("%Y%m%d") + ".csv"
         ACCOUNT_STAT_ROUTE = "reporter/account/period_days/" + ACCOUNT_STAT_NAME
 
-    T0_broker = broker.T0BackTestBroker(cash=10000000, deal_price="AskPrice1")
-    mytest = IntraDayTrendStrategy(codelist, trade_date, broker=T0_broker)
+    T0_broker = broker.T0BackTestBroker(cash=5000000, deal_price="AskPrice1")
+    # mytest = IntraDayTrendStrategy(code_list, trade_date, broker=T0_broker)
+    mytest = BreakStrategy(code_list, trade_date, broker=T0_broker)
     mytest.start()
     order_lst = mytest.ctx.broker.order_hist_lst
     with open(ORDER_FILE_ROUTE, "w") as wf:
@@ -46,14 +50,13 @@ def run(trade_date: datetime = None):
     # plotter.report("reporter/report.png")
 
 
-def backtest_intra_day(code_list=None, trade_date: datetime = None):
+def backtest_intra_day(trade_date: datetime = None):
     """
     针对单日的交易进行回测模式
     :param code_list: 股票代码
     :param trade_date: 交易日
     """
     time_start = time.time()
-    _trade_code_list = code_list
     _trade_date = trade_date
     trade_date_list = load_tradedate_mongo(start_date=trade_date, end_date=trade_date)
     if not trade_date_list:
@@ -64,12 +67,12 @@ def backtest_intra_day(code_list=None, trade_date: datetime = None):
     print("\n回测耗时--: {time}".format(time=time_spent))
 
 
-def backtest_period_days(code_list=None, trade_start_date: datetime=None, trade_end_date: datetime=None):
+def backtest_period_days(trade_start_date: datetime=None, trade_end_date: datetime=None):
     time_start = time.time()
-    _trade_code_list = code_list
     _trade_start_date = trade_start_date
     _trade_end_date = trade_end_date - datetime.timedelta(days=1)
     trade_date_list = load_tradedate_mongo(start_date=_trade_start_date, end_date=_trade_end_date)
+    trade_date_list.remove(datetime.datetime(2020, 6, 15))
     Parallel(n_jobs=12)(delayed(run)(dt) for dt in trade_date_list)
     time_end = time.time()
     time_spent = time_end - time_start
@@ -78,15 +81,13 @@ def backtest_period_days(code_list=None, trade_start_date: datetime=None, trade_
 
 if __name__ == '__main__':
     start_date = datetime.datetime(2020, 6, 1)
-    end_date = datetime.datetime(2020, 6, 30)
+    end_date = datetime.datetime(2020, 7, 31)
     trade_date = datetime.datetime(2020, 6, 1)
-    codelist = load_stock_daily_weight(trade_date)
     print("- * - * - * - * - * - * - * 回测系统启动 - * - * - * - * - * - * - *")
-    print("股票持仓列表{stock_list}".format(stock_list=codelist))
     ############################################################################################
-    backtest_intra_day(codelist, trade_date)
+    # backtest_intra_day(trade_date)
     ############################################################################################
-    # backtest_period_days(codelist, start_date, end_date)
+    backtest_period_days(start_date, end_date)
 
 
 
