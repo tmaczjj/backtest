@@ -12,13 +12,12 @@ class BreakStrategy(BackTest):
     """
     set params before tda
     """
-    break_volume_base = 300
+    break_volume_base = 400
     stock_price_base = 10
-    stop_loss_rate = 0.5
-    stop_win_rate = 1
+    stop_win_rate = 0.5
     market_time_start = "09:30:10"
-    trade_time_start = "09:30:15"
-    trade_time_end = "09:34:50"
+    trade_time_start = "09:30:11"
+    trade_time_end = "09:34:55"
 
     stock_buy_power = {}
     stock_sell_power = {}
@@ -46,14 +45,10 @@ class BreakStrategy(BackTest):
         hold_position = self.ctx["broker"].position
         tick_time = str(tick.strftime("%H:%M:%S"))
         for code, market_data in tick_data.items():
-            if code not in self.open_price.keys():
-                self.open_price[code] = round(market_data.TradeAmount / (market_data.TradeVolume * 100), 2)
             self.am[code].update(market_data)
             trade_volume = self.am[code].volume
             trade_amount = self.am[code].amount
             trade_price = max(market_data.LastPrice, market_data.BidPrice1, market_data.AskPrice1)
-            cond_trade_amount = trade_volume[-1] > self.stg_data[code]
-            trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
             bid_book = {market_data.BidPrice1: market_data.BidVolume1, market_data.BidPrice2: market_data.BidVolume2,
                         market_data.BidPrice3: market_data.BidVolume3, market_data.BidPrice4: market_data.BidVolume4,
                         market_data.BidPrice5: market_data.BidVolume5}
@@ -63,6 +58,12 @@ class BreakStrategy(BackTest):
                         market_data.AskPrice5: market_data.AskVolume5}
             best_bid_price = max(zip(bid_book.values(), bid_book.keys()))[1]
             best_ask_price = max(zip(ask_book.values(), ask_book.keys()))[1]
+            if tick_time >= self.market_time_start:
+                if code not in self.open_price.keys():
+                    self.open_price[code] = round(market_data.TradeAmount / (market_data.TradeVolume * 100), 2)
+            trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
+            cond_trade_amount = (trade_volume[-1] + trade_volume[-2] + trade_volume[-3]) > self.stg_data[code]
+
             # -----------------------------------  卖出  -----------------------------------------#
             if code in hold_position:
                 stock_hold_info = hold_position[code][0]
@@ -72,10 +73,24 @@ class BreakStrategy(BackTest):
                 stop_win_short_price = open_price * (100 + self.stop_win_rate) / 100
 
                 # 跟踪止盈设定
-                if hold_num > 0 and trade_current_avg_price > stop_win_long_price and code not in self.win_dict.keys():
-                    self.win_dict[code] = best_bid_price
-                if hold_num < 0 and trade_current_avg_price < stop_win_short_price and code not in self.win_dict.keys():
-                    self.win_dict[code] = best_ask_price
+                # -------------------------  reach to the stop-win-price -----------------------------#
+                if code not in self.win_dict.keys():
+                    # 做多初始止盈价格设置
+                    if hold_num > 0 and trade_current_avg_price > stop_win_long_price:
+                        self.win_dict[code] = best_bid_price
+                    # 做空初始止盈价格设置
+                    if hold_num < 0 and trade_current_avg_price < stop_win_short_price:
+                        self.win_dict[code] = best_ask_price
+
+                # -------------------------  update the stop-win-price -----------------------------#
+                elif code in self.win_dict.keys():
+                    # 做多止盈价格更新
+                    if hold_num > 0 and best_bid_price > self.win_dict[code]:
+                        self.win_dict[code] = best_bid_price
+                    # 做空止盈价格更新
+                    if hold_num < 0 and best_ask_price < self.win_dict[code]:
+                        self.win_dict[code] = best_ask_price
+
                 if self.trade_time_start < tick_time < self.trade_time_end:
                     # -----------------------------  盘中止盈 ----------------------------------#
                     cond5 = self.am[code].last_price[-1] < self.am[code].last_price[-2]
@@ -110,30 +125,30 @@ class BreakStrategy(BackTest):
 
             # -----------------------------------  开仓  -----------------------------------------#
             if self.trade_time_start < tick_time < self.trade_time_end:
-                # if cond_trade_amount:
-                if code not in hold_position and code not in self.traded_list:
-                    trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
-                    trade_last_avg_price = round(trade_amount[-2] / (trade_volume[-2] * 100), 2)
-                    trade_last_before_last_avg_price = round(trade_amount[-3] / (trade_volume[-3] * 100), 2)
-                    trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
-                    current_sum_ask_volume = market_data.AskVolume1 + market_data.AskVolume2 + \
-                        market_data.AskVolume3 + market_data.AskVolume4 + market_data.AskVolume5
-                    current_sum_bid_volume = market_data.BidVolume1 + market_data.BidVolume2 + \
-                        market_data.BidVolume3 + market_data.BidVolume4 + market_data.BidVolume5
+                if cond_trade_amount:
+                    if code not in hold_position and code not in self.traded_list:
+                        trade_current_avg_price = round(trade_amount[-1] / (trade_volume[-1] * 100), 2)
+                        trade_last_avg_price = round(trade_amount[-2] / (trade_volume[-2] * 100), 2)
+                        trade_last_before_last_avg_price = round(trade_amount[-3] / (trade_volume[-3] * 100), 2)
+                        trade_amount = int(round(int(20000 / trade_price) / 100) * 100)
+                        current_sum_ask_volume = market_data.AskVolume1 + market_data.AskVolume2 + \
+                            market_data.AskVolume3 + market_data.AskVolume4 + market_data.AskVolume5
+                        current_sum_bid_volume = market_data.BidVolume1 + market_data.BidVolume2 + \
+                            market_data.BidVolume3 + market_data.BidVolume4 + market_data.BidVolume5
 
-                    cond1 = trade_current_avg_price > trade_last_avg_price > trade_last_before_last_avg_price
-                    cond_ask_bid_buy = current_sum_bid_volume > current_sum_ask_volume * 2
-                    cond_bigger_than_open = trade_current_avg_price > self.open_price[code]
-                    if cond1 and cond_ask_bid_buy and cond_bigger_than_open:
-                        self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
-                        self.traded_list.append(code)
+                        cond1 = trade_current_avg_price > trade_last_avg_price > trade_last_before_last_avg_price
+                        cond_ask_bid_buy = current_sum_bid_volume > current_sum_ask_volume * 2
+                        cond_bigger_than_open = trade_current_avg_price > self.open_price[code]
+                        if cond1 and cond_ask_bid_buy and cond_bigger_than_open:
+                            self.ctx.broker.buy(code, trade_amount, round(trade_price+1, 2), msg="买入开仓")
+                            self.traded_list.append(code)
 
-                    cond2 = trade_current_avg_price < trade_last_avg_price < trade_last_before_last_avg_price
-                    cond_ask_bid_sell = current_sum_bid_volume * 2 < current_sum_ask_volume
-                    cond_lower_than_open = trade_current_avg_price < self.open_price[code]
-                    if cond2 and cond_ask_bid_sell and cond_lower_than_open:
-                        self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
-                        self.traded_list.append(code)
+                        cond2 = trade_current_avg_price < trade_last_avg_price < trade_last_before_last_avg_price
+                        cond_ask_bid_sell = current_sum_bid_volume * 2 < current_sum_ask_volume
+                        cond_lower_than_open = trade_current_avg_price < self.open_price[code]
+                        if cond2 and cond_ask_bid_sell and cond_lower_than_open:
+                            self.ctx.broker.sellshort(code, trade_amount, round(trade_price-1, 2), msg="卖出开仓")
+                            self.traded_list.append(code)
 
     def on_deal(self, order):
         pass

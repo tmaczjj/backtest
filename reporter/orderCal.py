@@ -88,7 +88,7 @@ def plot_period_net_profit_trade_line():
     plt.grid(True, linestyle='-.')
     plt.xlabel(u"tradeNumbers")  # X轴标签
     plt.ylabel(u"profit")  # Y轴标签
-    plt.title(u"IntraDayTrendStrategy Profit Table")  # 标题
+    plt.title(u"Strategy Profit Table")  # 标题
     plt.show()
 
 
