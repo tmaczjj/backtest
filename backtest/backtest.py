@@ -3,6 +3,7 @@
 # import pandas as pd
 import sys
 import numpy as np
+from pandas import Series
 from abc import ABC, abstractmethod
 import pandas as pd
 from collections import UserDict
@@ -156,8 +157,14 @@ class BackTest(ABC):
     """
 
     def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
+        from utils.utils import load_tradedate_mongo
         self.trade_date = trade_date
+        self.pre_trade_date_start = self.trade_date - datetime.timedelta(days=20)
+        self.trade_date_list = load_tradedate_mongo(start_date=self.pre_trade_date_start, end_date=self.trade_date)
+        trade_date_index = self.trade_date_list.index(self.trade_date)
+        self.pre_trade_date = self.trade_date_list[trade_date_index-1]
         self.trade_date_str = self.trade_date.strftime("%Y%m%d")
+        self.pre_trade_date_str = self.pre_trade_date.strftime("%Y%m%d")
         self._sch = Scheduler()
         self._logger = logger
         self.stocklist = stocklist
@@ -285,6 +292,7 @@ class ArrayManager(object):
         self.vwap_array: np.ndarray = np.zeros(size)
         self.trade_amount_all_array: np.ndarray = np.zeros(size)
         self.trade_volume_all_array: np.ndarray = np.zeros(size)
+        self.last_avg_trade_price: np.ndarray = np.zeros(size)
 
     def update(self, tick) -> None:
         self.count += 1
@@ -316,12 +324,23 @@ class ArrayManager(object):
         self.trade_volume_all_array[:-1] = self.trade_volume_all_array[1:]
         self.vwap_array[:-1] = self.vwap_array[1:]
         self.last_amount_array[:-1] = self.last_amount_array[1:]
+        self.last_avg_trade_price[:-1] = self.last_avg_trade_price[1:]
 
-        # self.open_interest_array[:-1] = self.open_interest_array[1:]
-        try:
-            trade_amount = tick.TradeAmount
-        except:
-            pass
+        # 数据会出现同一个时间返回两个tick的情况
+        if isinstance(tick, Series) is False:
+            tick = tick.iloc[:, 1]
+
+        if tick.TradeVolume > 0:
+            self.last_avg_trade_price[-1] = tick.TradeAmount / (tick.TradeVolume * 100)
+        else:
+            if tick.AskPrice1 > 0 and tick.BidPrice1 > 0:
+                self.last_avg_trade_price[-1] = round((tick.AskPrice1 + tick.BidPrice1) / 2, 2)
+            else:
+                self.last_avg_trade_price[-1] = tick.LastPrice
+        if self.last_avg_trade_price[-1] < tick.LastPrice * 0.995 or \
+                self.last_avg_trade_price[-1] > tick.LastPrice * 1.005:
+            self.last_avg_trade_price[-1] = tick.LastPrice
+
         self.last_amount_array[-1] = tick.TradeAmount
         self.trade_amount_all_array[-1] = self.trade_amount_all_array[-2] + tick.TradeAmount
         self.trade_volume_all_array[-1] = self.trade_volume_all_array[-2] + tick.TradeVolume
@@ -349,6 +368,13 @@ class ArrayManager(object):
         self.bid_volume4_array[-1] = tick.BidVolume4
         self.bid_volume5_array[-1] = tick.BidVolume5
         # self.open_interest_array[-1] = tick.open_interest
+
+    @property
+    def tick_vwap(self) -> np.ndarray:
+        """
+        Get  tick_vwap time series.
+        """
+        return self.last_avg_trade_price
 
     @property
     def vwap(self) -> np.ndarray:

@@ -113,8 +113,8 @@ def load_local_hist_mongo(ts_code=None, trade_date=None):
     myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     table_name = trade_date.strftime("%Y%m%d")
     md = myclient['Stock_Tick_Db'][table_name]
-    start_time = trade_date.replace(hour=9, minute=30, second=0)
-    end_time = trade_date.replace(hour=9, minute=35, second=0)
+    start_time = trade_date.replace(hour=9, minute=30, second=3)
+    end_time = trade_date.replace(hour=14, minute=56, second=55)
     for code in ts_code:
         json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
@@ -162,6 +162,18 @@ def load_stock_daily_weight(trade_date: datetime = None):
     code_list = [code[:6] for code, weight in hists[:-1].items() if weight > 0.002]
 
     return code_list
+
+
+def load_stock_daily_canuse(trade_date: datetime = None):
+    myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
+    md = myclient['NxDataCne6']['avaliable_shares']
+    a = md.find({"tradeDate": trade_date}, {"_id": 0, "tradeDate": 0})
+
+    hists = pd.DataFrame(list(a))
+    hists["code"] = hists["code"].apply(lambda x: x[:6])
+    hists = hists.set_index(["code"])["available_num"].to_dict()
+
+    return hists
 
 
 def load_hist(ts_code=None, start_date=None, end_date=None, func=None, random=True, typ="tdx"):
