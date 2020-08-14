@@ -1,7 +1,7 @@
 import json
 import datetime
 import pandas as pd
-from utils.utils import get_order_json_list, get_order_json_list_2
+from utils.utils import get_order_json_list_2
 from utils.utils import get_order_single_json
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,7 +18,7 @@ def output_periods_order_his(cash=1000000):
     连续回测的交割单统计
     :return:
     """
-    order_list = get_order_json_list()
+    order_list = get_order_json_list_2()
     data_list = []
     for order_json in order_list:
         with open(order_json, "r") as rf:
@@ -144,6 +144,7 @@ def plot_period_net_profit_daily_line():
     df_profit = pd.DataFrame(profit_dict, index=profit_daily_static.index)
     df_profit["short"] = profit_daily_static_short
     df_profit["long"] = profit_daily_static_long
+    df_profit.fillna(0,inplace=True)
     profit_df = df_profit['profit'].cumsum() + cash
     profit_df_long = df_profit['long'].cumsum() + cash
     profit_df_short = df_profit['short'].cumsum() + cash

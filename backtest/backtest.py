@@ -5,6 +5,7 @@ import sys
 import numpy as np
 from pandas import Series
 from abc import ABC, abstractmethod
+import pymongo
 import pandas as pd
 from collections import UserDict
 from itertools import chain
@@ -13,7 +14,7 @@ from pandas.tseries.frequencies import to_offset
 from pandas.tseries.offsets import Hour, Day
 from .broker import Base as BrokerBase
 from .broker import BackTestBroker
-from .utils import logger
+from .utils import loggerFunc
 from .hooks import Stat
 from utils.utils import load_hist_mongo, load_local_hist_mongo
 
@@ -93,10 +94,11 @@ class Scheduler(object):
         """增加交易日历"""
         import pandas as pd
         x = pd.Series()
-        for hist in self.ctx["feed"]:
-            hists = self.ctx["feed"][hist].T
-            aa = hists["TradeTime"]
-            x = x.append(aa)
+        for code in self.ctx["feed"]:
+            if len(self.ctx["feed"][code]) > 0:
+                hists = self.ctx["feed"][code].T
+                aa = hists["TradeTime"]
+                x = x.append(aa)
         mask = x.duplicated()
         trade_cal = x[~mask].sort_index()
         self.ctx["trade_cal"] = trade_cal
@@ -156,7 +158,7 @@ class BackTest(ABC):
                 开启统计功能, 默认开启
     """
 
-    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
+    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True, logfile=None):
         from utils.utils import load_tradedate_mongo
         self.trade_date = trade_date
         self.pre_trade_date_start = self.trade_date - datetime.timedelta(days=20)
@@ -166,7 +168,7 @@ class BackTest(ABC):
         self.trade_date_str = self.trade_date.strftime("%Y%m%d")
         self.pre_trade_date_str = self.pre_trade_date.strftime("%Y%m%d")
         self._sch = Scheduler()
-        self._logger = logger
+        self._logger = loggerFunc(logfile)
         self.stocklist = stocklist
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
         broker = broker
@@ -239,10 +241,12 @@ class BackTest(ABC):
         feed = {}
         stock_trade_list = self.stocklist
         self.info("{}需要交易的股票数量为 {}".format(self.trade_date.strftime("%Y%m%d"), len(stock_trade_list)))
+        tick_len = 0
         for code, hist in load_local_hist_mongo(stock_trade_list, trade_date=self.trade_date):
         # for code, hist in load_hist_mongo(stock_trade_list, trade_date=self.trade_date):
             feed[code] = hist.T
-        self.info("{}交易日股票数据导入完成".format(self.trade_date.strftime("%Y-%m-%d")))
+            tick_len += feed[code].shape[1]
+        self.info("{}交易日股票数据导入完成,回放总数{}".format(self.trade_date.strftime("%Y-%m-%d"), tick_len))
         # 添加交易数据
         self._sch.add_feed(feed)
         # 设置交易日历

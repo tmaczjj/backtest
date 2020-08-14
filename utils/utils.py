@@ -113,21 +113,25 @@ def load_local_hist_mongo(ts_code=None, trade_date=None):
     myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     table_name = trade_date.strftime("%Y%m%d")
     md = myclient['Stock_Tick_Db'][table_name]
-    start_time = trade_date.replace(hour=9, minute=30, second=3)
-    end_time = trade_date.replace(hour=14, minute=56, second=55)
+    start_time = trade_date.replace(hour=9, minute=30, second=0)
+    end_time = trade_date.replace(hour=9, minute=35, second=0)
     for code in ts_code:
         json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
         hists = pd.DataFrame(list(a))
-        hists = hists.set_index(hists["TradeTime"])
+        try:
+            hists = hists.set_index(hists["TradeTime"])
+        except:
+            print("\n{code}-{trade_date}无交易日数据".format(code=code, trade_date=trade_date))
         # hists = hists[hists["AskPrice1"] != 0]
         yield code, hists
     myclient.close()
 
 
-def load_share_mongo(ts_code=None, trade_date=None, func=None, random=True, typ="tdx"):
-    # myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
-    md = myclient['Stock_Tick_Db']['Stock_Tick_Db']
+def load_share_mongo(ts_code=None, trade_date=None):
+    myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
+    trade_date_str = trade_date.strftime("%Y%m%d")
+    md = myclient['Stock_Tick_Db'][trade_date_str]
     start_time = trade_date.replace(hour=9, minute=30)
     end_time = trade_date.replace(hour=14, minute=57)
     json = {'$and': [{"Symbol": ts_code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
@@ -250,6 +254,13 @@ def load_n_hist(n):
 
 def get_order_json_list():
     ORDER_FILE_ROUTE = os.getcwd() + "\\order\\period_days\\"
+    file_list = os.listdir(ORDER_FILE_ROUTE)
+    order_json_list = [ORDER_FILE_ROUTE+file for file in file_list]
+    return order_json_list
+
+
+def get_order_json_list_2():
+    ORDER_FILE_ROUTE = os.getcwd() + "\\order\\period_days_2\\"
     file_list = os.listdir(ORDER_FILE_ROUTE)
     order_json_list = [ORDER_FILE_ROUTE+file for file in file_list]
     return order_json_list

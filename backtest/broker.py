@@ -2,7 +2,7 @@
 # from collections import defaultdict
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from .utils import logger
+from .utils import loggerFunc
 
 
 class Base(ABC):
@@ -86,7 +86,6 @@ class BackTestBroker(Base):
         self.deal_price = deal_price
         # 持仓
         self.position = defaultdict(list)
-        self.logger = logger
         # 用于跟踪交易订单情况
         self._id = 0
 
@@ -531,7 +530,7 @@ class T0BackTestBroker(Base):
             ""
         }
     """
-    def __init__(self, cash, cm_rate=0.0007, deal_price="close"):
+    def __init__(self, cash, cm_rate=0.0007, deal_price="close", logfile=None):
         """
         postion: {
                 "code": [{
@@ -549,7 +548,7 @@ class T0BackTestBroker(Base):
         self.deal_price = deal_price
         # 持仓
         self.position = defaultdict(list)
-        self.logger = logger
+        self.logger = loggerFunc(logfile)
         # 用于跟踪交易订单情况
         self._id = 0
 
@@ -690,9 +689,6 @@ class T0BackTestBroker(Base):
                 self.position.pop(order_code)
 
             order["shares"] = tmp
-            if commission < 5:
-                commission = 5
-
             deal_shares = sum([deal["shares"] for deal in deal_lst])
             for deal in deal_lst:
                 deal["commission"] = round(commission * (deal["shares"] / deal_shares), 2)
@@ -708,8 +704,6 @@ class T0BackTestBroker(Base):
             trade_price = stock_price
             cost = -1 * trade_price * order["shares"]
             commission = round(cost * self.cm_rate)
-            if commission < 5:
-                commission = 5
 
             # if cost + commission > self.cash:
             #     # TODO:
@@ -801,8 +795,6 @@ class T0BackTestBroker(Base):
                 self.position.pop(order_code)
 
             order["shares"] = tmp
-            if commission < 5:
-                commission = 5
 
             deal_shares = sum([deal["shares"] for deal in deal_lst])
             for deal in deal_lst:
@@ -865,7 +857,7 @@ class T0BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{trade_time} 柜台接受[{stock_code}]买入委托".format(trade_time=self.ctx["now"], stock_code=code))
+        # self.logger.info("{trade_time} 柜台接受[{stock_code}]买入委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
         return order
 
@@ -895,7 +887,7 @@ class T0BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{trade_time} 柜台接受[{stock_code}]卖出委托".format(trade_time=self.ctx["now"], stock_code=code))
+        # self.logger.info("{trade_time} 柜台接受[{stock_code}]卖出委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
         return order
 
@@ -921,7 +913,7 @@ class T0BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{trade_time} 柜台接受[{stock_code}]卖空委托".format(trade_time=self.ctx["now"], stock_code=code))
+        # self.logger.info("{trade_time} 柜台接受[{stock_code}]卖空委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
         return order
 
@@ -950,7 +942,7 @@ class T0BackTestBroker(Base):
             "done": False,
             "deal_lst": []
         }
-        self.logger.info("{trade_time} 柜台接受[{stock_code}]平空委托".format(trade_time=self.ctx["now"], stock_code=code))
+        # self.logger.info("{trade_time} 柜台接受[{stock_code}]平空委托".format(trade_time=self.ctx["now"], stock_code=code))
         self.execute(order)
 
         return order

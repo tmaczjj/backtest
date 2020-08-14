@@ -13,7 +13,7 @@ class IntraDayTrendStrategy(BackTest):
     """
     set params before tda
     """
-    break_volume_base = 400
+    break_volume_base = 300
     stock_price_base = 10
     stock_buy_power = {}
     stock_sell_power = {}
@@ -172,7 +172,7 @@ class IntraDayTrendStrategy(BackTest):
         for stock in stock_trade_list:
             break_point = self.break_volume_cal(stock)
             if break_point >= self.break_volume_base:
-                self.stg_data[stock] = int(self.break_volume_cal(stock))
+                self.stg_data[stock] = int(break_point)
                 stock_trade_list_final.append(stock)
         ORDER_FILE_ROUTE = "reporter/stg_data/period_days/" + self.trade_date.strftime("%Y%m%d") + ".json"
         with open(ORDER_FILE_ROUTE, 'w') as f:
@@ -181,14 +181,14 @@ class IntraDayTrendStrategy(BackTest):
 
     def break_volume_cal(self, stock):
         import tushare as ts
-        df_yd = ts.get_tick_data(stock, date=self.pre_trade_date_str, src='tt')
-        stock_volume = df_yd["volume"]
-        volume_value = stock_volume.quantile(0.995)
-        # 本地获取数据
-        # df_yd = load_share_mongo(stock, self.trade_date)
-        # if len(df_yd) > 0:
-        #     stock_volume = df_yd["TradeVolume"]
-        #     volume_value = int(stock_volume.quantile(0.995))
-        # else:
-        #     volume_value = 0
+        # df_yd = ts.get_tick_data(stock, date=self.pre_trade_date_str, src='tt')
+        # stock_volume = df_yd["volume"]
+        # volume_value = stock_volume.quantile(0.99)
+        #本地获取数据
+        df_yd = load_share_mongo(stock, self.pre_trade_date)
+        if len(df_yd) > 0:
+            stock_volume = df_yd["TradeVolume"]
+            volume_value = int(stock_volume.quantile(0.99))
+        else:
+            volume_value = 0
         return volume_value
