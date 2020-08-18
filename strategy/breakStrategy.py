@@ -8,7 +8,7 @@ from warnings import simplefilter
 simplefilter(action='ignore', category=FutureWarning)
 
 
-class BreakStrategy(BackTest):
+class breakStrategy(BackTest):
     """
     set params before tda
     """
@@ -27,8 +27,8 @@ class BreakStrategy(BackTest):
     ordered_code = []
     win_dict = {}
 
-    def __init__(self, stocklist=None, trade_date=None, cash=1000000, broker=None, enable_stat=True, codeDict=None, logfile=None):
-        super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat, logfile=None)
+    def __init__(self, stocklist=None, trade_date=None, cash=1000000, broker=None, enable_stat=True, codeDict=None):
+        super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat)
         self.am = {}
         self.stg_data = {}
         self.codeDict = codeDict

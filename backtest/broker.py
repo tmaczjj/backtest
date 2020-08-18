@@ -2,7 +2,7 @@
 # from collections import defaultdict
 from abc import ABC, abstractmethod
 from collections import defaultdict
-from .utils import loggerFunc
+from .utils import logger
 
 
 class Base(ABC):
@@ -530,7 +530,7 @@ class T0BackTestBroker(Base):
             ""
         }
     """
-    def __init__(self, cash, cm_rate=0.0007, deal_price="close", logfile=None):
+    def __init__(self, cash, cm_rate=0.0007, deal_price="close"):
         """
         postion: {
                 "code": [{
@@ -548,7 +548,7 @@ class T0BackTestBroker(Base):
         self.deal_price = deal_price
         # 持仓
         self.position = defaultdict(list)
-        self.logger = loggerFunc(logfile)
+        self.logger = logger
         # 用于跟踪交易订单情况
         self._id = 0
 

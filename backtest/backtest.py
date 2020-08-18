@@ -14,7 +14,7 @@ from pandas.tseries.frequencies import to_offset
 from pandas.tseries.offsets import Hour, Day
 from .broker import Base as BrokerBase
 from .broker import BackTestBroker
-from .utils import loggerFunc
+from .utils import logger
 from .hooks import Stat
 from utils.utils import load_hist_mongo, load_local_hist_mongo
 
@@ -158,7 +158,7 @@ class BackTest(ABC):
                 开启统计功能, 默认开启
     """
 
-    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True, logfile=None):
+    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
         from utils.utils import load_tradedate_mongo
         self.trade_date = trade_date
         self.pre_trade_date_start = self.trade_date - datetime.timedelta(days=20)
@@ -168,7 +168,7 @@ class BackTest(ABC):
         self.trade_date_str = self.trade_date.strftime("%Y%m%d")
         self.pre_trade_date_str = self.pre_trade_date.strftime("%Y%m%d")
         self._sch = Scheduler()
-        self._logger = loggerFunc(logfile)
+        self._logger = logger
         self.stocklist = stocklist
         # broker = BackTestBroker(cash, deal_price="AskPrice1")
         broker = broker

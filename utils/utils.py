@@ -13,8 +13,9 @@ import datetime
 # from ..settings import config
 # data_path = config["STOCK_DATA_PATH"]
 
-myclient = pymongo.MongoClient("mongodb://192.168.17.19:27017/")
-myclient.admin.authenticate('NXADMIN3', 'QDuijw0K1ng2GOZk')
+local_client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
+remote_client = pymongo.MongoClient("mongodb://192.168.17.19:27017/")
+remote_client.admin.authenticate('NXADMIN3', 'QDuijw0K1ng2GOZk')
 
 
 def init_log(name, level=30, log_to_file=False):
@@ -56,47 +57,9 @@ def read_csv(fp):
     return hist
 
 
-def load_from_path(fp_lst, code=None, start_date=None, end_date=None, func=None,):
-    """加载文件列表的股票数据
-
-    Parameters:
-        code: str or list
-                单个或者多个股票代码的列表
-        fp_lst: list
-                数据文件列表
-        start_date: str
-                起始时间字符串, 比如2018-01-01
-        end_date: str
-                截至时间字符串, 比如2019-01-01
-        func: function
-                用于过滤历史数据的函数, 接受一个Datarame对象, 并返回过滤的DataFrame对象
-    """
-    for fp in fp_lst:
-        fp_code = path.basename(fp)[:-4]
-        if code:
-            if fp_code == code:
-                hist = pd.read_csv(fp)
-            else:
-                continue
-        else:
-            hist = pd.read_csv(fp)
-
-        if func:
-            hist = func(hist)
-
-        # if start_date:
-        #     start_date = pd.to_datetime(start_date)
-        #     hist = hist[hist.index >= start_date]
-
-        # if end_date:
-        #     end_date = pd.to_datetime(end_date)
-        #     hist = hist[hist.index <= end_date]
-        yield fp_code, hist
-
-
 def load_hist_mongo(ts_code=None, trade_date=None):
     # myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
-    md = myclient['Stock_Tick_Db']['Stock_Tick_Db']
+    md = remote_client['Stock_Tick_Db']['Stock_Tick_Db']
     start_time = trade_date.replace(hour=9, minute=30, second=3)
     end_time = trade_date.replace(hour=14, minute=56, second=55)
     for code in ts_code:
@@ -106,15 +69,16 @@ def load_hist_mongo(ts_code=None, trade_date=None):
         hists = hists.set_index(hists["TradeTime"])
         # hists = hists[hists["AskPrice1"] != 0]
         yield code, hists
-    myclient.close()
+    remote_client.close()
 
 
 def load_local_hist_mongo(ts_code=None, trade_date=None):
-    myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
     table_name = trade_date.strftime("%Y%m%d")
-    md = myclient['Stock_Tick_Db'][table_name]
+    md = local_client['Stock_Tick_Db'][table_name]
     start_time = trade_date.replace(hour=9, minute=30, second=0)
     end_time = trade_date.replace(hour=9, minute=35, second=0)
+    # start_time = trade_date.replace(hour=9, minute=30, second=0)
+    # end_time = trade_date.replace(hour=14, minute=57, second=0)
     for code in ts_code:
         json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
         a = md.find(json, {"_id": 0}).sort('TradeTime')
@@ -125,7 +89,7 @@ def load_local_hist_mongo(ts_code=None, trade_date=None):
             print("\n{code}-{trade_date}无交易日数据".format(code=code, trade_date=trade_date))
         # hists = hists[hists["AskPrice1"] != 0]
         yield code, hists
-    myclient.close()
+    local_client.close()
 
 
 def load_share_mongo(ts_code=None, trade_date=None):
@@ -142,7 +106,7 @@ def load_share_mongo(ts_code=None, trade_date=None):
 
 
 def load_tradedate_mongo(start_date=None, end_date=None):
-    md = myclient['NxData']['IndexDaily']
+    md = remote_client['NxData']['IndexDaily']
     json = {'$and': [{"code": "000905.SH"}, {"tradeDate": {"$gte": start_date}}, {"tradeDate": {"$lte": end_date}}]}
     a = md.find(json, {"_id": 0}).sort('tradeDate')
     hists = pd.DataFrame(list(a))
@@ -151,7 +115,7 @@ def load_tradedate_mongo(start_date=None, end_date=None):
 
 
 def load_daily_price(stocklist: list = None, trade_date: datetime = None):
-    md = myclient['NxData']['stockDaily']
+    md = remote_client['NxData']['stockDaily']
     json = {'$and': [{"code": {"$in": stocklist}}, {"tradeDate":  trade_date}]}
     a = md.find(json, {"_id": 0}).sort('tradeDate')
     hists = pd.DataFrame(list(a))
@@ -159,7 +123,7 @@ def load_daily_price(stocklist: list = None, trade_date: datetime = None):
 
 
 def load_stock_daily_weight(trade_date: datetime = None):
-    md = myclient['NxDataCne6']['cne6GTA191dailyweights']
+    md = remote_client['NxDataCne6']['cne6GTA191dailyweights']
     a = md.find({"index": trade_date}, {"_id": 0})
 
     hists = pd.DataFrame(list(a)).iloc[0]
@@ -169,8 +133,7 @@ def load_stock_daily_weight(trade_date: datetime = None):
 
 
 def load_stock_daily_canuse(trade_date: datetime = None):
-    myclient = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
-    md = myclient['NxDataCne6']['avaliable_shares']
+    md = local_client['NxDataCne6']['avaliable_shares']
     a = md.find({"tradeDate": trade_date}, {"_id": 0, "tradeDate": 0})
 
     hists = pd.DataFrame(list(a))
@@ -178,78 +141,6 @@ def load_stock_daily_canuse(trade_date: datetime = None):
     hists = hists.set_index(["code"])["available_num"].to_dict()
 
     return hists
-
-
-def load_hist(ts_code=None, start_date=None, end_date=None, func=None, random=True, typ="tdx"):
-    """加载本地历史数据
-
-    Parameters:
-        ts_code: str or list
-                单个或者多个股票代码的列表
-        start_date: str
-                起始时间字符串, 比如2018-01-01
-        end_date: str
-                截至时间字符串, 比如2019-01-01
-        func: function
-                用于过滤历史数据的函数, 接受一个Datarame对象, 并返回过滤的DataFrame对象
-        random: bool
-                是否打乱加载的股票顺序, 默认为True
-    """
-
-    db_glob_lst = glob(path.join("test_data/stock", "*.csv"))
-    if len(db_glob_lst) == 0:
-        print("当前数据目录没有任何历史数据文件")
-        return
-
-    if random:
-        np.random.shuffle(db_glob_lst)
-
-    for fp in db_glob_lst:
-        fp_ts_code = path.basename(fp)[:-4]
-        if ts_code:
-            if fp_ts_code in ts_code:
-                hist = pd.read_csv(fp, parse_dates=["trade_date"], index_col="trade_date")
-                code = hist.ts_code[0]
-            else:
-                continue
-        else:
-            hist = pd.read_csv(fp, parse_dates=["trade_date"], index_col="trade_date")
-            code = hist.ts_code[0]
-
-        if func:
-            hist = func(hist)
-
-        if start_date:
-            start_date = pd.to_datetime(start_date)
-            hist = hist[hist.index >= start_date]
-
-        if end_date:
-            end_date = pd.to_datetime(end_date)
-            hist = hist[hist.index <= end_date]
-
-        yield code, hist
-
-
-def load_hs300_hist():
-    pass
-
-
-def load_all_hist():
-    """加载所有历史数据, load_hist的快捷方法"""
-    data = {code: hist for code, hist in load_hist()}
-    return data
-
-
-def load_n_hist(n):
-    """获取指定数量的历史数据"""
-    data = {}
-    c = 0
-    for code, hist in load_hist():
-        c += 1
-        data[code] = hist
-        if c >= n:
-            break
-    return data
 
 
 def get_order_json_list():
@@ -276,6 +167,31 @@ def get_order_single_json(trade_date):
     FILE_NAME = "order_hist_" + trade_date.strftime("%Y%m%d") + ".json"
     order_json = ORDER_FILE_ROUTE + FILE_NAME
     return order_json
+
+
+def get_backtest_records_coll(strategy_name: str = None, backtestDate: str = None, bt_type=None):
+    return strategy_name + "_" + bt_type + "_" + backtestDate
+
+
+def get_backtest_times(strategy_name: str = None, backtestDate: str = None, bt_type=None):
+    temp_name = strategy_name + "_" + bt_type + "_" + backtestDate
+    myclient = local_client
+    md = myclient['backTestOrder']
+    try:
+        coll = md[temp_name]
+        result = coll.find()
+        resultTable = pd.DataFrame(list(result))
+        times = len(set(resultTable["backTestTime"])) + 1
+    except:
+        times = 1
+
+    return times
+
+
+def save_backtest_records(coll_name: str = None, orderHis: list = None):
+    myclient = local_client['backTestOrder']
+    coll = myclient[coll_name]
+    coll.insert_many(orderHis)
 
 # def get_ts_client():
 #     ts.set_token(config["TS_TOKEN"])
