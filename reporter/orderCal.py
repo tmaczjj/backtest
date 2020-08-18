@@ -144,6 +144,7 @@ def plot_period_net_profit_daily_line():
     df_profit = pd.DataFrame(profit_dict, index=profit_daily_static.index)
     df_profit["short"] = profit_daily_static_short
     df_profit["long"] = profit_daily_static_long
+    df_profit.fillna(0, inplace=True)
     profit_df = df_profit['profit'].cumsum() + cash
     profit_df_long = df_profit['long'].cumsum() + cash
     profit_df_short = df_profit['short'].cumsum() + cash
@@ -275,5 +276,5 @@ def stock_profit_static():
 ##############################################
 # stock_profit_static()
 # plot_period_net_profit_trade_line()
-# plot_period_net_profit_daily_line()
+plot_period_net_profit_daily_line()
 

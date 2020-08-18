@@ -276,5 +276,5 @@ def stock_profit_static():
 ##############################################
 # stock_profit_static()
 # plot_period_net_profit_trade_line()
-# plot_period_net_profit_daily_line()
+plot_period_net_profit_daily_line()
 
