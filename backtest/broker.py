@@ -530,7 +530,7 @@ class T0BackTestBroker(Base):
             ""
         }
     """
-    def __init__(self, cash, cm_rate=0.0007, deal_price="close"):
+    def __init__(self, cash=1000000, cm_rate=0.0007, deal_price="close"):
         """
         postion: {
                 "code": [{

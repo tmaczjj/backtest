@@ -193,6 +193,10 @@ def save_backtest_records(coll_name: str = None, orderHis: list = None):
     coll = myclient[coll_name]
     coll.insert_many(orderHis)
 
+
+def get_backtest_records():
+    pass
+
 # def get_ts_client():
 #     ts.set_token(config["TS_TOKEN"])
 #

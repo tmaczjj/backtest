@@ -5,7 +5,7 @@ from utils.utils import get_order_json_list, get_order_json_list_2
 from utils.utils import get_order_single_json
 import matplotlib.pyplot as plt
 import numpy as np
-import matplotlib.dates as mdate
+from pandas import DataFrame
 from pylab import *
 from matplotlib.gridspec import GridSpec
 mpl.rcParams['font.sans-serif'] = ['SimHei']
@@ -13,18 +13,12 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 
-def output_periods_order_his(cash=1000000):
+def output_periods_order_his(order_df: DataFrame = None, cash=1000000):
     """
     连续回测的交割单统计
     :return:
     """
-    order_list = get_order_json_list()
-    data_list = []
-    for order_json in order_list:
-        with open(order_json, "r") as rf:
-            data = pd.read_json(rf)
-            data_list.append(data)
-    df_orders_all = pd.concat(data_list)
+    df_orders_all = order_df
     df_deliver_orders = df_orders_all[((df_orders_all["type"] == "sell") | (df_orders_all["type"] == "buytocover")) &
                                       (df_orders_all["done"] == True)].reset_index()
     df_deliver_orders.drop(columns=["index"], inplace=True)
@@ -37,7 +31,7 @@ def output_periods_order_his(cash=1000000):
     for i in range(0, len(df_deliver_orders)):
         order_deal = df_deliver_orders["deal_lst"][i][0]
         commission = order_deal["commission"]
-        deal_open_time = order_deal["open_date"][-8:]
+        deal_open_time = order_deal["open_date"].strftime("%H:%M:%S")
         profit = order_deal["profit"] - commission
         shares = order_deal["shares"]
         open_price = order_deal["open_price"]
@@ -56,18 +50,17 @@ def output_periods_order_his(cash=1000000):
     data_list = list(df_deliver_orders["date"])
     trade_date = [x.strftime("%Y%m%d") for x in data_list]
     df_deliver_orders["trade_date"] = trade_date
+
     return df_deliver_orders
 
 
-def output_intraday_order_his(stock_trade_date):
+def output_intraday_order_his(order_df: DataFrame = None):
     """
     单日交易的交割单统计
     :param stock_trade_date:
     :return:
     """
-    order_json = get_order_single_json(stock_trade_date)
-    with open(order_json, "r") as rf:
-        df_orders = pd.read_json(rf)
+    df_orders = order_df
     df_deliver_orders = df_orders[((df_orders["type"] == "sell") | (df_orders["type"] == "buytocover")) &
                                       (df_orders["done"] == True)].reset_index()
     df_deliver_orders.drop(columns=["index"], inplace=True)
@@ -79,7 +72,7 @@ def output_intraday_order_his(stock_trade_date):
     for i in range(0, len(df_deliver_orders)):
         order_deal = df_deliver_orders["deal_lst"][i][0]
         commission = order_deal["commission"]
-        deal_open_time = order_deal["open_date"][-8:]
+        deal_open_time = order_deal["open_date"].strftime("%H:%M:%S")
         profit = order_deal["profit"] - commission
         shares = order_deal["shares"]
         open_price = order_deal["open_price"]
@@ -114,14 +107,14 @@ def plot_period_net_profit_trade_line():
     plt.show()
 
 
-def plot_period_net_profit_daily_line():
+def plot_period_net_profit_daily_line(dealed_df: DataFrame = None):
     """
     连续交易每日净值走势
     :return:
     """
     def to_percent(temp, position):
         return '%.2f' % (100 * temp) + '%'
-    deal_lst_list = output_periods_order_his()
+    deal_lst_list = dealed_df
 
     def MaxDrawdown(return_list):
         '''最大回撤率'''
@@ -223,14 +216,14 @@ def plot_period_net_profit_daily_line():
     plt.show()
 
 
-def plot_intraday_net_profit_line(stock_trade_date):
+def plot_intraday_net_profit_line(dealed_df: DataFrame = None):
     """
     单日交易主笔交易净值走势
     :return:
     """
     profit_lst = []
     cash = 1000000
-    deal_lst_list = output_intraday_order_his(stock_trade_date)
+    deal_lst_list = dealed_df
     temp = deal_lst_list.sort_values(by="code")
     amount = deal_lst_list["trade_amount"].sum()
     for deal in list(deal_lst_list["deal_lst"]):
@@ -269,12 +262,4 @@ def stock_profit_static():
     plt.subplots_adjust(top=0.96, bottom=0.06, left=0.05, right=0.95, hspace=0.1, wspace=0)
     plt.show()
 
-
-##############################################
-# trade_date = datetime.datetime(2020, 7, 15)
-# plot_intraday_net_profit_line(trade_date)
-##############################################
-# stock_profit_static()
-# plot_period_net_profit_trade_line()
-plot_period_net_profit_daily_line()
 
