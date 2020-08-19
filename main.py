@@ -161,17 +161,17 @@ def backtest_his_plot(back_test_type: str = "period", back_test_strategy: str = 
 
 if __name__ == '__main__':
     trade_strategy = breakStrategy
+    backtest_type = "period"
     ############################################################################################
-    start_date = datetime.datetime(2020, 4, 2)
-    end_date = datetime.datetime(2020, 7, 30)
-    backtest_period_days(trade_strategy, start_date, end_date)
+    # start_date = datetime.datetime(2020, 4, 2)
+    # end_date = datetime.datetime(2020, 7, 30)
+    # backtest_period_days(trade_strategy, start_date, end_date)
     ############################################################################################
     # trade_date = datetime.datetime(2020, 4, 3)
     # backtest_intra_day(trade_date)
     ############################################################################################
-    backtest_type = "period"
-    backtest_last_plot(back_test_type=backtest_type)
-    # backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=1)
+    # backtest_last_plot(back_test_type=backtest_type)
+    backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=1)
     # backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=2)
 
 

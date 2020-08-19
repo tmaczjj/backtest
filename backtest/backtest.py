@@ -39,7 +39,6 @@ class Context(UserDict):
                 try:
                     self.latest_price[code] = bar[self.broker.deal_price]
                 except:
-                    # print(bar.iloc[:, 1][self.broker.deal_price])
                     self.latest_price[code] = bar.iloc[:, 1][self.broker.deal_price]
                 if self.latest_price[code] == 0:
                     self.latest_price[code] = max(bar["BidPrice1"], bar["AskPrice1"], bar["LastPrice"])

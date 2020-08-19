@@ -157,7 +157,7 @@ def plot_period_net_profit_daily_line(dealed_df: DataFrame = None):
     profit_type_df = pd.DataFrame([profit_type_static, profit_type_win_rate, profit_type_trade_times],
                                   index=["profit", "winRate", "tradeTimes"]).T
 
-    fig = plt.figure(constrained_layout=True)
+    fig = plt.figure(constrained_layout=True, dpi=100, figsize=[19.2, 10.8])
     plt.subplots_adjust(top=0.95, bottom=0.05, left=0.1, right=0.90, hspace=1.5, wspace=0.15)
     gs = GridSpec(5, 3, figure=fig)
 
@@ -213,6 +213,8 @@ def plot_period_net_profit_daily_line(dealed_df: DataFrame = None):
     ax4.text(0.95, 0.9, "Commission: %.2f" % (2 * deal_lst_list["commission"].sum()),
              va="center", ha="right", fontsize=13, fontname=['fantasy'])
     ax4.tick_params(labelbottom=False, labelleft=False)
+
+    plt.savefig("test.png")
     plt.show()
 
 
