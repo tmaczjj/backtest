@@ -3,9 +3,7 @@ import datetime
 from strategy.IntraDayTrendStrategy import IntraDayTrendStrategy
 import multiprocessing
 from strategy.breakStrategy import breakStrategy
-from backtest import broker
 import time
-import tushare as ts
 from utils.utils import load_tradedate_mongo, load_stock_daily_canuse
 from utils.utils import get_backtest_times, get_backtest_records_coll
 from utils.utils import save_backtest_records
@@ -13,33 +11,34 @@ from reporter.orderCal import plot_period_net_profit_daily_line as ppd
 from reporter.orderCal import plot_intraday_net_profit_line as pid
 from reporter.orderCal import output_periods_order_his as opo
 from reporter.orderCal import output_intraday_order_his as oio
+from reporter.orderCal import stock_profit_static
 import pymongo
 import pandas as pd
-import warnings
 import os
 
-warnings.filterwarnings("ignore")
-pro = ts.pro_api('5fc1ae2a4708570262b751312b521760932f3170201a9842b28212cc')
 backtest_date = datetime.datetime.now().strftime("%Y%m%d")
 backtest_time = datetime.datetime.now()
 
 
 def run(tradeDate, strategy):
+    from backtest.broker import T0BackTestBroker
     code_dict = load_stock_daily_canuse(tradeDate)
     code_list = list(code_dict.keys())
-    T0_broker = broker.T0BackTestBroker()
+    T0_broker = T0BackTestBroker()
     mytest = strategy(code_list, tradeDate, broker=T0_broker, codeDict=code_dict)
     mytest.start()
 
     return mytest.ctx.broker.order_hist_lst
 
 
-def backtest_intra_day(trade_date: datetime = None):
+def backtest_intra_day(testStrategy=None, trade_date: datetime = None):
     """
     针对单日的交易进行回测模式
+    :param testStrategy:
     :param code_list: 股票代码
     :param trade_date: 交易日
     """
+    tradeStrategy = testStrategy
     time_start = time.time()
     trade_strategy_name = trade_strategy.__name__
     # 判断策略是否在策略库内
@@ -59,7 +58,7 @@ def backtest_intra_day(trade_date: datetime = None):
     if _trade_date in trade_date_list:
         date_index = trade_date_list.index(_trade_date)
 
-    orderHis = run(trade_date_list[date_index], trade_strategy)
+    orderHis = run(trade_date_list[date_index], tradeStrategy)
     back_id = get_backtest_times(trade_strategy_name, backtest_date, bt_type="intra")
     temp_dict = {'backTestTime': backtest_time, "backId": back_id}
     for x_dict in orderHis:
@@ -120,6 +119,7 @@ def backtest_last_plot(back_test_type: str = None):
 
     if back_test_type == "period":
         df_deliver_orders = opo(last_result_df)
+        stock_profit_static(last_result_df)
         ppd(df_deliver_orders)
 
     if back_test_type == "intra":
@@ -161,18 +161,22 @@ def backtest_his_plot(back_test_type: str = "period", back_test_strategy: str = 
 
 if __name__ == '__main__':
     trade_strategy = breakStrategy
-    backtest_type = "period"
+    # backtest_type = "intra"
     ############################################################################################
-    # start_date = datetime.datetime(2020, 4, 2)
-    # end_date = datetime.datetime(2020, 7, 30)
+    backtest_type = "period"
+    start_date = datetime.datetime(2020, 4, 2)
+    end_date = datetime.datetime(2020, 7, 30)
     # backtest_period_days(trade_strategy, start_date, end_date)
+
     ############################################################################################
     # trade_date = datetime.datetime(2020, 4, 3)
-    # backtest_intra_day(trade_date)
+    # backtest_intra_day(trade_strategy, trade_date)
+
     ############################################################################################
-    # backtest_last_plot(back_test_type=backtest_type)
-    backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=1)
+    backtest_last_plot(back_test_type=backtest_type)
+    # backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=1)
     # backtest_his_plot(backtest_type, trade_strategy.__name__, test_id=2)
+
 
 
 

@@ -1,16 +1,10 @@
-import json
-import datetime
 import pandas as pd
-from utils.utils import get_order_json_list, get_order_json_list_2
-from utils.utils import get_order_single_json
-import matplotlib.pyplot as plt
-import numpy as np
 from pandas import DataFrame
 from pylab import *
 from matplotlib.gridspec import GridSpec
-mpl.rcParams['font.sans-serif'] = ['SimHei']
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
+mpl.rcParams['font.sans-serif'] = ['SimHei']
 
 
 def output_periods_order_his(order_df: DataFrame = None, cash=1000000):
@@ -48,18 +42,13 @@ def output_periods_order_his(order_df: DataFrame = None, cash=1000000):
     df_deliver_orders["cash"] = cash_list
     df_deliver_orders["trade_amount"] = trade_amount_list
     data_list = list(df_deliver_orders["date"])
-    trade_date = [x.strftime("%Y%m%d") for x in data_list]
+    trade_date = [date.strftime("%Y%m%d") for date in data_list]
     df_deliver_orders["trade_date"] = trade_date
-
+    df_deliver_orders.drop(["id", "backId", "backTestTime", "shares", "ttl", "done"], axis=1, inplace=True)
     return df_deliver_orders
 
 
 def output_intraday_order_his(order_df: DataFrame = None):
-    """
-    单日交易的交割单统计
-    :param stock_trade_date:
-    :return:
-    """
     df_orders = order_df
     df_deliver_orders = df_orders[((df_orders["type"] == "sell") | (df_orders["type"] == "buytocover")) &
                                       (df_orders["done"] == True)].reset_index()
@@ -101,9 +90,9 @@ def plot_period_net_profit_trade_line():
 
     plt.plot(profit_lst, mec='g', mfc='w', label=u'test')
     plt.grid(True, linestyle='-.')
-    plt.xlabel(u"tradeNumbers")  # X轴标签
-    plt.ylabel(u"profit")  # Y轴标签
-    plt.title(u"Strategy Profit Table")  # 标题
+    plt.xlabel(u"tradeNumbers")
+    plt.ylabel(u"profit")
+    plt.title(u"Strategy Profit Table")
     plt.show()
 
 
@@ -121,18 +110,20 @@ def plot_period_net_profit_daily_line(dealed_df: DataFrame = None):
         i = np.argmax((np.maximum.accumulate(return_list) - return_list) / np.maximum.accumulate(return_list))  # 结束位置
         if i == 0:
             return 0
-        j = np.argmax(return_list[:i])  # 开始位置
+        j = np.argmax(return_list[:i])
         return (return_list[j] - return_list[i]) / (return_list[j])
+
     cash = 400000
-    profit_daily_static_2 = deal_lst_list.sort_values(by="trade_date")
     profit_daily_long = deal_lst_list[deal_lst_list["type"] == "sell"]
     profit_daily_static_long = profit_daily_long.groupby(['trade_date']).apply(lambda x: x.profit.sum())
     profit_daily_short = deal_lst_list[deal_lst_list["type"] == "buytocover"]
     profit_daily_static_short = profit_daily_short.groupby(['trade_date']).apply(lambda x: x.profit.sum())
     profit_daily_static = deal_lst_list.groupby(['trade_date']).apply(lambda x: x.profit.sum())
     trade_amount_daily_static = deal_lst_list.groupby(['trade_date']).apply(lambda x: x.trade_amount.sum())
+
     profit_daily_static_return = (profit_daily_static.cumsum() + cash).pct_change().fillna(0)
     sharp_ratio = profit_daily_static_return.mean() / profit_daily_static_return.std() * 16
+
     profit_dict = {"profit": profit_daily_static.values}
     df_profit = pd.DataFrame(profit_dict, index=profit_daily_static.index)
     df_profit["short"] = profit_daily_static_short
@@ -173,7 +164,6 @@ def plot_period_net_profit_daily_line(dealed_df: DataFrame = None):
     ax1_2 = ax1.twinx()
     ax1_2.set_ylim(0, (profit_df[-1] - cash) / cash)
     ax1.legend()
-
 
     plt.style.use("fivethirtyeight")
     ax2 = fig.add_subplot(gs[3:, :1])
@@ -224,25 +214,26 @@ def plot_intraday_net_profit_line(dealed_df: DataFrame = None):
     :return:
     """
     profit_lst = []
-    cash = 1000000
+    cash: int = 1000000
     deal_lst_list = dealed_df
     temp = deal_lst_list.sort_values(by="code")
     amount = deal_lst_list["trade_amount"].sum()
     for deal in list(deal_lst_list["deal_lst"]):
-        profit = deal[0]["profit"]
-        cash = cash + profit
+        profit = round(deal[0]["profit"], 2)
+        cash = round(cash + profit, 2)
         profit_lst.append(cash)
-    plt.plot(profit_lst)
-    plt.show()
+    print("交易盈亏: {}".format(round(profit_lst[-1] - 1000000, 2)))
+    # plt.plot(profit_lst)
+    # plt.show()
 
 
-def stock_profit_static():
+def stock_profit_static(dealed_df: DataFrame = None):
     """
     个股盈亏统计
     :return:
     """
-    trade_date = datetime.datetime(2020, 7, 15)
-    deal_lst_df = output_intraday_order_his(trade_date)
+    # trade_date = datetime.datetime(2020, 7, 15)
+    deal_lst_df = dealed_df
     # deal_lst_df = output_periods_order_his()
     temp4 = deal_lst_df[(deal_lst_df["msg"] == "做空止损") | (deal_lst_df["msg"] == "做多止损")]
     # 按照股票日期排序

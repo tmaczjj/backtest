@@ -10,13 +10,9 @@ import pandas as pd
 from collections import UserDict
 from itertools import chain
 import datetime
-from pandas.tseries.frequencies import to_offset
-from pandas.tseries.offsets import Hour, Day
-from .broker import Base as BrokerBase
-from .broker import BackTestBroker
 from .utils import logger
 from .hooks import Stat
-from utils.utils import load_hist_mongo, load_local_hist_mongo
+from utils.utils import load_local_hist_mongo
 
 
 class Context(UserDict):
@@ -157,7 +153,15 @@ class BackTest(ABC):
                 开启统计功能, 默认开启
     """
 
-    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=True):
+    def __init__(self, stocklist=None, trade_date=None, cash=100000, broker=None, enable_stat=False):
+        """
+
+        :param stocklist: 传入策略的股票列表
+        :param trade_date: 需要回测的交易日期
+        :param cash: 账户资金
+        :param broker: 回测使用的柜台
+        :param enable_stat:
+        """
         from utils.utils import load_tradedate_mongo
         self.trade_date = trade_date
         self.pre_trade_date_start = self.trade_date - datetime.timedelta(days=20)

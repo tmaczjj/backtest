@@ -10,7 +10,11 @@ simplefilter(action='ignore', category=FutureWarning)
 
 class breakStrategy(BackTest):
     """
-    set params before tda
+    set params before trade
+
+    do not put any variable here
+
+    put these variables into strategy initialize
     """
     break_volume_base = 400
     stock_price_base = 10
@@ -20,12 +24,6 @@ class breakStrategy(BackTest):
     trade_time_start = "09:30:10"
     trade_time_end = "09:33:00"
     market_time_end = "09:34:56"
-    open_price = {}
-    stock_buy_power = {}
-    stock_sell_power = {}
-    traded_list = []
-    ordered_code = []
-    win_dict = {}
 
     def __init__(self, stocklist=None, trade_date=None, cash=1000000, broker=None, enable_stat=True, codeDict=None):
         super().__init__(stocklist, trade_date, cash=cash, broker=broker, enable_stat=enable_stat)
@@ -33,6 +31,12 @@ class breakStrategy(BackTest):
         self.stg_data = {}
         self.codeDict = codeDict
         self.stocklist = self.stockFliter(stocklist)
+
+        self.traded_list = []
+        self.win_dict = {}
+        self.open_price = {}
+        self.stock_buy_power = {}
+        self.stock_sell_power = {}
 
     def initialize(self):
         for stock in self.stocklist:

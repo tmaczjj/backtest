@@ -57,21 +57,6 @@ def read_csv(fp):
     return hist
 
 
-def load_hist_mongo(ts_code=None, trade_date=None):
-    # myclient = pymongo.MongoClient("mongodb://192.168.17.31:27017/")
-    md = remote_client['Stock_Tick_Db']['Stock_Tick_Db']
-    start_time = trade_date.replace(hour=9, minute=30, second=3)
-    end_time = trade_date.replace(hour=14, minute=56, second=55)
-    for code in ts_code:
-        json = {'$and': [{"Symbol": code}, {"TradeTime": {"$gte": start_time}}, {"TradeTime": {"$lte": end_time}}]}
-        a = md.find(json, {"_id": 0}).sort('TradeTime')
-        hists = pd.DataFrame(list(a))
-        hists = hists.set_index(hists["TradeTime"])
-        # hists = hists[hists["AskPrice1"] != 0]
-        yield code, hists
-    remote_client.close()
-
-
 def load_local_hist_mongo(ts_code=None, trade_date=None):
     table_name = trade_date.strftime("%Y%m%d")
     md = local_client['Stock_Tick_Db'][table_name]
